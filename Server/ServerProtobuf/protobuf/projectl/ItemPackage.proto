@@ -1,0 +1,44 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+
+message ItemsProto{
+    repeated ItemProto items = 1;
+    optional int32 currentEventId = 2;      //当前参与活动Id
+}
+
+message ItemProto{
+    required int32 id = 1;
+    optional int32 num = 2;
+	optional int32 type = 3;
+	optional int32 price = 4;
+}
+
+message ItemUseProto {
+	required int32 itemId = 1;
+	required int32 num = 2;
+	optional int32 itemIndex = 3;
+}
+
+message ItemUseResultProto {
+    required int32 result = 1;
+    optional IntIntProto useInfo = 2;
+	repeated IntIntProto getItems = 3;
+    repeated IntIntProto relicItems = 4;    //圣物类型：instanId
+    repeated IntLongProto getItemsLong = 5;
+}
+
+message ItemSoldResultProto {
+    required int32 result = 1;
+    optional IntIntProto soldInfo = 2;
+}
+
+message ItemBuyCount{
+    optional int32 itemId = 1;  //物品id
+    optional int32 buyNum = 2;  //物品购买次数
+    optional int64 buyTime = 3; //物品购买时间戳
+}

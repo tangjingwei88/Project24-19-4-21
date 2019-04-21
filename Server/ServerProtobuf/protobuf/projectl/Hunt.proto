@@ -1,0 +1,34 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//狩猎开始
+//C2S_HUNT_BEGIN = 6100;		空
+//S2C_HUNT_BEGIN = 6100;		IntValueProto
+
+//狩猎结束
+//C2S_HUNT_END = 6101;		IntValueProto		积分
+//S2C_HUNT_END = 6101;		HuntEndResponseProto
+
+//狩猎领取奖励
+//C2S_HUNT_GET_REWARD = 6102;	IntValueProto	-1表示一键领取，其他表示对应档次
+//S2C_HUNT_GET_REWARD = 6102;	GetRewardResponseProto
+import"ItemPackage.proto";
+message HuntInfoProto{
+    required int32 lv = 1;//当前等级
+    required int32 maxPoints = 2;//历史最高积分
+    repeated bool lvReward = 3;//长度和lv 是一样的每个值为true表示当前等级的奖励已经领取了
+}
+
+message HuntEndResponseProto {
+    required int32 result = 1;
+    optional HuntInfoProto newHuntInfo = 2;
+}
+
+message GetRewardResponseProto {
+    required int32 result = 1;
+    repeated ItemProto rewards = 2;     //获得的奖励
+    repeated bool lvReward = 3;         //长度和lv 是一样的每个值为true表示当前等级的奖励已经领取了
+}

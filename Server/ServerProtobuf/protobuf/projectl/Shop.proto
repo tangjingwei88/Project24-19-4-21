@@ -1,0 +1,45 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "ItemPackage.proto";
+
+//1竞技场商店 2深渊商店 3伤害天梯 4狩猎商店 5神秘商店
+message StoreRefreshRequestProto{
+    required int32 storeId = 1;     //商店类型
+    optional int32 isFirst = 2;     //1为免费刷
+    optional int32 refreshType = 3;     //刷新类型  1.普通刷新  2.黄金刷新  3.至尊刷新
+}
+
+message StoreRefreshResponseProto{
+    required int32 result = 1;
+    required int32 storeId = 2;     //商店类型
+    repeated RefreshItemProto item = 3;        //刷新的物品列表
+    required int32 haveFreeTimes = 4;
+    extensions 5 to 20;
+}
+
+message StoreBuyItemRequestProto{
+    required int32 storeId = 1;     //商店类型
+    required int32 id = 2;      //购买商品id
+}
+
+message StoreBuyItemResponseProto{
+    required int32 result = 1;
+    required int32 storeId = 2;     //商店类型
+    optional int32 id = 3;      //商品id
+    extensions 4 to 20;     //目前用到4
+}
+
+message RefreshItemProto {
+    required int32 id = 1;
+    optional int32 num = 2;
+    optional int32 itemId = 3;
+    optional int32 type = 4;  //物品类型
+    optional int32 costType = 5; //消费类型 1 竞技场代币 2 钻石 3伤害天梯代币
+    optional bool isSold = 6;	 //是否已售出
+    optional int32 cost = 7;	//售价
+    extensions 8 to 30;     //当前用到12
+}

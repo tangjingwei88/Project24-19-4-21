@@ -1,0 +1,105 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//C2S_Login  1  登录  LoginProto
+
+//C2S_CREATECHAR = 2 创角  CreateCharProto
+
+//S2C_LOGIN_INFO = 50  登录后角色信息  LoginResponseProto   //a项目登录后发送的一些信息,暂时用一下
+
+//C2S_Match  201  进行匹配 IntValue
+//S2C_Match  201
+
+//C2S_CancelMatch 202  取消匹配 
+//S2C_CancelMatch 202 
+
+//S2C_MatchSuccess 203 匹配成功  MatchSuccessResponse
+
+//C2S_Ready 204 准备完毕
+
+//C2S_BattleOperation 205 战斗操作 BattleCommond
+//S2C_HeartBeat 205 战斗心跳  HeartBeatResponse
+
+//C2S_BattleEnd 206 战斗结束 IntValue
+
+//C2S_ModifyDeck 301 修改卡组 ModifyDeckProto
+
+message LoginProto {
+    required int32 thirdpartyid = 1;
+    required string userid = 2;
+    required string loginsession = 3;
+    optional int32 serverid = 4;
+    optional string usertype = 5;    //同一渠道的SDK整合多个渠道
+    optional string stringValue1 = 6;
+    optional string systemInfo = 7; //玩家手机系统信息
+    optional string clientVersion = 8;      //客户端版本
+}
+
+message LoginResponseProto {
+    required int32 id = 1;
+	required string username = 2;
+}
+
+message DeckProto {
+	required int32 instanceID = 1;
+	required string name = 2;
+	required int32 mainGodID = 3;
+	repeated int32 cards = 4;
+}
+
+message ModifyDeckProto {
+	required int32 modifyType = 1;  //1修改，2删除
+	required DeckProto deck = 2;
+}
+
+message CreateCharProto {
+	required string name = 1;
+	required bool isMale = 2;
+}
+
+message MatchSuccessResponse {
+	required int32 camp = 1;
+	required int32 randomSeed = 2;
+	required DeckProto mydeck = 3;
+	required DeckProto enemydeck = 4;
+	required string myname = 5;
+	required string enemyname = 6;
+	required int32 battleID = 7;
+}
+
+message HeartBeatResponse {
+	required int32 serialNumber = 1; //start from 0
+	repeated BattleCommond cmdList = 2;
+}
+
+message BattleCommond {
+	required int32 campStartIt = 1;
+	required int32 timePoint = 2;
+	required int32 handIndex = 3;
+	required int32 road = 4;
+	required Float3 worldPosition = 5;
+}
+
+message Float3 {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message IntValue {
+	required int32 value = 1;
+}
+
+message EnterGameRetProto {
+    optional bytes data = 1;
+}
+
+message LoginInfoProto {
+    required int32 cid = 1;         //Id
+    required string name = 2;       //昵称
+    required bool isMale = 3;       //性别
+
+}

@@ -1,0 +1,945 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//import "src/protobuf/core/ExternalProtocol.proto";
+import "PLExternalProtocol.proto";
+import "PLExternalProtocol2.proto";
+import "Base.proto";
+import "RewardBase.proto";
+import "Activity.proto";
+import "Activity2.proto";
+import "ItemPackage.proto";
+import "Chat.proto";
+import "Hero.proto";
+import "Hunt.proto";
+import "FormationInfo.proto";
+import "Resonance.proto";
+import "Common.proto";
+import "Building.proto";
+import "AreaBattle.proto";
+import "Treasure.proto";
+import "GodHood.proto";
+import "TempleWish.proto";
+import "Login.proto";
+import "Stage.proto";
+import "Hangup.proto";
+import "Task.proto";
+import "Fairy.proto";
+import "Contract.proto";
+
+// 存入数据库的消息格式
+message PlayerDetailProto{
+    optional WeaponsProto weapons = 1;          //装备列表
+    optional CardsProto cards = 2;               //卡片列表 旧
+    optional ItemsProto items = 3;               //道具列表 
+    optional StagesProto stages = 4;             //关卡信息 旧
+    optional FormationsProto formations = 5;    //阵型信息 旧  
+    optional DBStoreProto store = 6;             //商城购买信息 旧
+    optional DBContSignProto contSign = 7;      //签到信息
+    optional DBInvitationProto invitation = 8;  //推荐信息 旧 
+	
+    optional int64 lastStaminaUseTime = 9;      //上一次使用体力的时间
+    optional int64 lastEnergyUseTime = 10;      //上一次使用精力的时间 旧
+	
+    optional HandBookProto handbook = 11;           //图鉴
+    optional DBCouponProto coupon = 12;             //礼包码
+    optional IntValuesProto guide = 13;             //新手引导
+    optional IntValuesProto story = 14;             //剧情 旧
+    optional IntValuesProto recharge = 15;          //充值
+    optional DBVitalityProto vitality = 16;         //活跃度
+    optional DBAchievementProto achievement = 17;   //成就 
+	
+    optional int32 fbShareTime = 18;     //fb分享次数
+    optional DBTInfoProto tinfo = 19;   //渠道信息
+	
+    optional double battlePower = 20;		    		 //战斗力
+    optional NormalStageProto normalstages = 21;		 //关卡信息
+	repeated HeroProto retinues = 22;				 //随从信息
+	repeated RetinueFormationProto retinueFormation = 23;//随从阵形信息
+	repeated TalentSkillProto talentSkill = 24;			 //拥有的天赋技能(旧版客户端，追溯)
+	optional DBCardInfoProto cardInfo = 25;				 //卡包信息
+	repeated ChallengeInfoProto challenges = 26;		 //挑战信息
+	repeated StoreInfoProto stores = 27;		 		 //商店及物品信息
+	optional ArenaProto arena = 28;		 		     	 //竞技场信息	
+	optional SecretPlaceInfoProto secretPlace = 29;		 //秘境信息
+	optional double maxbattlePower = 30;		    	 //历史最高战斗力
+	optional MinerProto miner = 31;		 		     	 //挖矿信息
+	optional NormalStageHangupProto stagehangup = 32;	 //挂机信息
+	optional int64 lastLoginTime = 33;					 //上次登陆时间
+	optional LockInfoProto lock = 34;					 //锁定信息
+	optional MonsterKillInfoProto kills = 35;			 //杀怪信息
+	repeated BossInfoProto bossInfo = 36; 	 		 	 //每关BOSS挑战次数和获得星级
+	optional BeginnerProto beginner = 37;				 //新手第一次完成项
+	optional LeaderTalentProto leaderTalent = 38;					 //补魂
+    optional int32 altarHaveDrawed = 39;     		//先祖祭坛是否已领取
+    repeated IntIntProto cubeDrawTimes = 40;      		//赫拉迪姆方块的领取次数
+    optional MysteryCaveProto mysteryCave = 41; 	//迷窟探险	
+	optional bool getVipFirst = 42;						//VIP首充奖励
+	optional VipMonthProto vipMonth  = 43;				//VIP月卡信息
+	optional int32 deadTimes = 44;						//死亡次数
+    optional BlackMarketProto blackMarket = 45;     //黑市商人
+    optional MysteryStoneProto mysteryStone = 46;     //秘石
+    optional GambleStoneInfoProto gambleStone = 47;     //赌石
+	optional GreateSecretPlaceProto greateSecretPlaceProto = 48;    //宏伟秘境
+	optional int64 lastDailyRefreshTime = 49;      //上一次每日更新的时间
+	optional int32 damageHistoryRank = 50;		   //伤害榜历史最高排名	
+	optional DBSevenDaysTargetProto sevendaystarget = 51;  //7天任务
+    optional int32 totalRefreshTimes = 52;      //神秘商店刷新次数
+    optional int32 totalBuyTimes = 53;          //神秘商店购买次数
+	optional double arenaBattlePower = 54;      //竞技场当前的战斗力
+	optional double maxArenaBattlePower = 55;   //竞技场历史最高战斗力
+    optional int32 mysteryStoneOriginal = 56;   //秘石原石
+	optional bool getVipFirstReward = 57;		//VIP首充奖励已领取
+	optional SkillInfoProto skillInfo = 58;		//技能信息
+	optional bool isLadderBattleFirst = 59;		//是否首次伤害天梯战斗
+    optional WantedProto wantedInfo = 60;       //悬赏任务
+    optional DBWantedHistoryBattleProto historyBattle = 61;     //悬赏任务战斗过的boss记录
+	optional WishProto wish = 62;               //许愿系统
+	optional int32 blackmarketTotalNum = 63;	//黑市砸罐总次数
+	optional int32 mysteryCaveTotalNum = 64;	//迷窟探险总次数
+	optional int32 wishTotalNum = 65;			//许愿总次数
+	optional int32 wishRankTotalNum = 66;		//许愿首位总次数
+	optional int32 wantedAttendNum = 67;		//参与悬赏任务总次数
+	optional int32 wantedKillNum = 68;			//击杀悬赏BOSS总次数
+    repeated int32 weeklyGiftGot = 69;          //vip周礼包购买列表
+    repeated int32 dailyGiftGot = 70;           //vip周礼包购买列表
+    repeated int32 onceGiftGot = 71;            //vip周礼包购买列表
+	repeated int32 diamondBought = 72;			//购买过的钻石档位
+	optional UnionInfoProto unionInfo = 73;		//公会的个人信息
+        optional SurvivalProto survival = 74;               //生存试炼
+    optional SkillProto skillChallenge = 75;        //技巧试炼
+	optional DBTimesTargetProto timesTarget = 76;	//时代目标的个人信息
+        repeated DBActivityDialInfoProto dialPlayerInfo = 77;        //团购轮盘保存玩家的相关信息
+	optional RulesProto rules = 78;						//法则
+        optional int32 contractId = 79;     //玩家契约id
+        optional BackyardMineProto backyard = 80;       //后院矿山
+        optional CliffMountainProto cliffMountain = 81;     //崖山矿场
+        optional BeliefProto belief = 82;  //传教
+        optional AlchemyProto alchemy = 83;     //炼金
+	repeated TalentSystemProto talentSkillSystem = 84;			 //拥有的天赋技能
+        optional HardStageProto hardstage = 85;  // 死亡模式关卡
+        optional PeakProto peak = 86;       //巅峰战信息
+    optional PAPlayerInfoProto peakArenaInfo = 87;      //巅峰竞技场
+    optional string maxbattlePowerBig = 88; //历史最高战斗力(大数据)
+    optional string arenaBattlePowerBig = 89;      //竞技场当前的战斗力(大数据)
+    optional string maxArenaBattlePowerBig = 90;   //竞技场历史最高战斗力(大数据)
+        repeated RelicProto relics = 91; //玩家身上所有圣物信息
+        optional int64 relicSpirit = 92; //圣精
+    optional int32 peakGold = 93;       //巅峰币
+    optional RelicPalaceInfoProto relicPalace = 94; //圣殿
+    optional int32 hangupTalentPage = 95; //挂机天赋页
+    optional int32 relicShopFreeRefreshTimes = 96;
+    optional string battlePowerBig = 97;
+    optional bool firstRechargeOneDay = 98;    //是否当天首充，用于连续充值活动
+    optional OwnGoddessProto goddess = 99;     //拥有的女神系统
+    optional StarAtlasProto starAtlas = 100;        //星图系统
+    optional TreasureToolProto treasureTool = 101;  //宝具
+    repeated RetinueFormationProto retinueFormation2 = 102;//英雄战随从阵形信息
+    repeated int32 ttFormations = 103;      //主角上阵的宝具信息
+    repeated FairyProto elves = 104;      //精灵
+    repeated int32 elfFormation = 105;  //精灵上阵
+    optional StageInfoProto stageInfo = 106;        //当前普通战信息
+    repeated BuildingProto buildings = 107;     //建筑
+    optional DrawInfoProto drawCertainDropNum = 108;    //抽卡必掉剩余次数
+    optional ResonanceProto resonance = 109;        //共鸣
+//    optional DrawArmElfInfoProto drawArmElfInfo = 110;        //抽宝具/精灵
+    repeated int32 monsterManual = 110;     //怪物图鉴
+    repeated FormationInfoProto allFormations = 111;        //布阵
+    optional DamageLadderInfoProto damageLadderInfo = 112; //伤害天梯
+    optional HuntInfoProto hunt = 113;
+    optional int32 nextOpen = 114;     //怪物图鉴
+    optional DBManaAndCDProto mana = 115;
+    optional BountyProto bounty = 116;
+    optional DBOracleProto oracleMission = 117;
+    optional DBContractTargetProto contractTarget = 118;
+    repeated ItemBuyCount buyItems = 119;     //物品购买次数
+}
+
+message DBCardInfoProto {
+	optional int32 freeNormalRcruitTimes = 1;    		 //普通招募剩余免费次数
+	optional int64 lastNormalRcruitTime = 2;    	     //上次普通招募时间
+    optional int64 lastLegendRecruitTime = 3;     		 //上次传奇招募时间
+	optional int32 accumulatedNormalDrawTimes = 4;    	 //累计普通招募次数
+    optional int32 accumulatedLegendDrawTimes = 5;       //累计传奇招募次数
+	optional int32 accumulatedMythEquipDrawTimes = 6;    //累计神话装备招募次数
+	optional int32 accumulatedMythRetinueDrawTimes = 7;  //累计神话随从招募次数
+	optional int64 drawCardInitialTime = 8; 			 //抽卡初始化日期
+	optional int32 accumulatedLegendEquipDrawTimes = 9;  //累计传奇装备招募次数
+	optional int32 accumulatedLegendRetinueDrawTimes = 10; //累计传奇随从招募次数
+}
+
+message DBTInfoProto {
+    required string tid = 1;
+    repeated IntStringProto friends = 2;
+}
+
+message DBStoreProto {
+    repeated DBBuyRecordProto storeItemRecords = 1;
+    repeated DBBuyRecordProto cardBagRecords = 2;
+    optional bool firstGoldDrawed = 3;
+    optional DBMysteryStoreProto mysteryStore = 4;
+}
+
+message DBMysteryStoreProto {
+    repeated DBMysteryStoreItemProto items = 1;
+}
+
+message DBMysteryStoreItemProto {
+    required int32 id = 1;
+    required bool bought = 2;
+}
+
+message DBBuyRecordProto {
+    required int32 id = 1;              //商品Id
+    required int32 buyNum = 2;          //当前购买次数(会刷新)
+    required bool bought = 3;           //是否购买过
+}
+
+message DBInvitationProto {
+    required int32 referee = 1;
+    repeated int32 invitedPlayers = 2;
+    repeated DBInvitationCompleteProto completeStatuses = 3;
+    repeated DBInvitationCompletePlayerNumProto completePlayerNum = 4;
+    optional string refereeName = 5;
+}
+
+message DBInvitationCompleteProto {
+    required int32 series = 1;
+    required int32 completeLevel = 2;
+}
+
+message DBInvitationCompletePlayerNumProto {
+    required int32 itemId = 1;
+    required int32 completePlayerNum = 2;
+}
+
+message DBContSignProto{
+    required int32 signMonth = 1;
+    required int32 signNum = 2;
+    required int32 lastSignDay = 3;
+	repeated IntIntProto signValue = 4; //签到次数, 未领取为0,普通领取为1, VIP领取为2
+	optional bool flag = 5;				//补偿标记     
+    optional int32 loginDays = 6;       //登陆天数
+}
+
+message DBCouponProto {
+    repeated IntIntProto couponInfo = 1;
+    repeated IntStringProto groupMaxNum = 2;
+}
+
+message DBVitalityProto {
+    repeated int32 gottenAchievements = 1;
+    repeated int32 gottenVitalityRewards = 2;
+    repeated IntIntProto itemStatus = 3;
+    repeated bool activeRewardGotten = 4;
+    optional int32 curActiveNum = 5;
+}
+
+message DBSevenDaysTargetProto {
+    repeated int32 gottenAchievements = 1;
+    repeated int32 gottenRewards = 2;
+    repeated IntDoubleProto itemStatus = 3;
+}
+
+message DBContractTargetProto {
+    repeated int32 gottenAchievements = 1;
+    repeated int32 gottenRewards = 2;
+    repeated DBContractValueProto itemStatus = 3;
+}
+
+message DBContractValueProto {
+    required int32 id = 1;      //任务id
+    repeated double val = 2;     //当前达到的数值
+}
+
+message DBAchievementProto {
+    repeated int32 gottenAchievements = 1;
+    repeated int32 gottenRewards = 2;
+    repeated IntDoubleProto itemStatus = 3;
+}
+
+message DBTimesTargetProto {
+	repeated DBTimesPersonalTargetProto personalDetail = 1; //个人目标完成情况
+	repeated IntValueProto checkedTimes = 2;				//时代处理
+	repeated IntIntProto   suitNum = 3;						//套装已收集件数
+}
+
+message DBTimesTotalProto {
+	repeated DBTimesPeakTargetProto peakDetail = 1; 		//个人目标完成情况
+	repeated DBTimesServerTargetProto serverDetail = 2;		//全服目标领取情况
+}
+
+message DBTimesPersonalTargetProto {
+	required int32 timesId = 1;
+    repeated int32 gottenAchievements = 2;
+    repeated int32 gottenRewards = 3;
+    repeated IntDoubleProto itemStatus = 4;
+	repeated IntDoubleProto peakItemStatus = 5;
+}
+
+message DBTimesPeakTargetProto {
+	required int32 timesId = 1;
+    repeated DBTimesPeakTargetDetailProto detail = 2;		
+}
+
+message DBTimesPeakTargetDetailProto {
+	required int32 timesId = 1;
+	required int32 id = 2;					//小id
+	optional bool gottenAchievements = 3; 	//是否已被达到
+	optional bool gottenRewards = 4;		//是否已被领取
+	optional int32 humanId = 5;				//率先达到的id
+	optional string humanName = 6;			//率先达到的名字
+}
+
+message DBTimesServerTargetProto {
+	required int32 timesId = 1;
+	repeated DBTimesServerTargetDetailProto detail = 2;
+}
+
+message DBTimesServerTargetDetailProto {
+	required int32 timesId = 1;
+	required int32 id = 2;					//小id
+    optional bool gottenAchievements = 3;	//是否已被全服达成
+	repeated int32 gottenRewards = 4; 		//已被领取的所有玩家id
+	optional int32 num = 5;					//个人目标已达成的人数
+}
+
+message DBRelationProto {
+    repeated int32 beFriendRequests = 1;
+    repeated int32 friends = 2;
+    repeated int32 beComradeRequests = 3;
+    repeated int32 comrades = 4;
+    repeated int32 lastComrades = 5;
+    optional int32 removeComradeTimeLeft = 6;
+    optional int32 friendNumLimit = 7;            //好友最大数量
+    optional int32 abilityFriendNumLimit = 8;    //装备能力好友上限
+}
+
+message DBMailsProto{
+    required int64 lastGlobalMaxMailId = 1;     //玩家下线时服务器群发最大邮件号
+    required int64 lastSystemMailId = 2;        //最后一个系统邮件的邮件号
+    required int64 lastUserMailId = 3;          //最后一个玩家邮件的邮件号
+    repeated DBMailProto systemMails = 4;         //玩家未领取的系统邮件
+    repeated DBMailProto userMails = 5;           //玩家未阅读的玩家邮件
+}
+
+message DBMailProto {
+    required int64 mailId = 1;         	// 邮件id
+    required int32 type = 2;           	//邮件类型(0系统,1玩家,2活动,3市场)
+    optional int64 FromId = 3;         	//发信者Id
+    required string title = 4;         	//邮件标题
+    required string description = 5;  	//邮件内容
+    optional RewardProto reward = 6; 	//邮件物品
+    required int32 status = 7;         	//邮件状态
+    optional int64 sendTime = 8;       	//发信时间
+}
+
+message DBMailBufferProto {
+    required int32 playerId = 1;         // 玩家ID
+    repeated DBMailProto mails = 2;      // 邮件缓存列表
+}
+
+message DBMailsBufferProto {
+    repeated DBMailBufferProto mailsBuffer = 1;   // 所有玩家的邮件缓存列表
+}
+
+message DBWishRankDetailProto {	
+	required int32 rank = 1;	//名次, 没有许愿数就返回０
+    required int32 itemId = 2;	//物品id
+	optional int32 itemNum = 3;	//当天服务器总许愿数
+	repeated IntIntProto playerNum = 4;	//每个玩家的许愿次数
+	optional int64 lastWishTime = 5;	//上次许愿时间
+    optional string wishMaxName = 6; //new 许愿次数最多的人
+    optional int32 maxCount = 7; //new 许愿次数最多的人的许愿次数
+}
+
+message DBRankProto {
+    required int32 type = 1;							//1 伤害榜 2 PVP榜 3 悬赏榜	4 许愿榜
+    optional bytes rankRewardSentRanks = 2;		  		//已发送的玩家id列表
+    repeated DBRankPlayerProto playerStatus = 3;  		//前3个排行榜使用
+    optional int64 rewardDate = 4;						//发奖结束日期
+    repeated DBWishRankDetailProto wishRankDetail = 5;  //许愿榜专用
+    optional bool isSent = 6;							//活动专用: 结束标记
+    repeated DBWishRankDetailProto yesterdayWishRank = 7;  //昨日许愿榜专用
+}
+
+message DBGuildBossRankProto{
+    repeated DBGuildBossRankDetailProto rankDetail = 1;
+}
+
+message DBGuildBossRankDetailProto{
+    required int32 guildId = 1;
+    optional DBRankProto rank = 2;
+}
+
+message DBScoreRankProto {						
+	repeated DBRankProto scoreRank = 1;					//活动积分榜专用
+} 
+
+message DBRankPlayerProto {
+    required int32 id = 1;				//玩家id
+    required int32 rank = 2;			//排名
+    required double value = 3;			//1 伤害值 2 PVP 战斗力 
+    required int32 level = 4;			//等级
+	optional string name = 5;			//玩家姓名
+	optional int32 icon = 6;			//玩家图标
+	optional int32 reborns = 7;			//转生次数
+	optional double hp = 8;
+	optional double clickDamage = 9;
+	optional double reduceDamage = 10;
+	optional double secondDamage = 11;
+	optional double recoverHp = 12;
+	optional double CriX = 13;
+	optional double CriDamage = 14;
+	optional double blockX = 15;
+	optional double blockDamage = 16;
+	repeated HeroProto retinueInfo = 17; //随从信息
+	optional double battlepower = 18;  	//战斗力
+	optional bool isMale = 19;	   		//玩家性别
+        optional int32 hitNum = 20;     //点击次数
+        optional int64 endTime = 21;     //结束时间
+    optional int32 peakArenaGrade = 22;     //巅峰战段位
+    optional string battlepowerbig = 23;        //大数值
+    optional string valueBig = 24;        //大数值	1 伤害值 2 PVP 战斗力 
+    repeated int32 formationInfo = 25;        //随从阵容
+}
+
+message DBEventProto {
+    required int32 eventId = 1;
+    optional bytes rankRewardSentRanks = 2;
+    optional bytes anotherRewardSentRanks = 3;
+    optional int32 status = 4;
+    optional DBResetInfoProto reset = 5; 
+}
+
+message DBResetInfoProto {
+    repeated int32 relationResetIds = 1;
+    repeated int32 itemResetIds = 2;
+}
+
+message DBEventComradeProto {
+    required int32 eventId = 1;
+    repeated DBPlayerComradeInfoProto comradeInfo = 2;
+}
+
+message DBPlayerComradeInfoProto {
+    required int32 playerId = 1;
+    repeated IntIntProto comradeIdSharedScore = 2;
+}
+
+message DBEventEndlessProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventEndlessPlayerProto playerStatus = 2;
+}
+
+message DBEventEndlessPlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    required int32 difficulty = 4;
+    required int32 level = 5;
+    required int32 maxDifficulty = 6;
+    required int32 maxLevel = 7;
+    required int32 scoreRewardRound = 8;
+    required int32 lastScoreRewardIndex = 9;
+    optional int32 difficultyRank = 10;
+}
+
+message DBEventScuffleProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventScufflePlayerProto playerStatus = 2;
+}
+
+message DBEventScufflePlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    required int32 groupId = 4;
+    required int32 contWinNum = 5;
+    required int32 maxContWinNum = 6;
+    required int32 scoreRewardRound = 7;
+    required int32 lastScoreRewardIndex = 8;
+    optional int32 contWinRank = 9;
+}
+
+message DBEventHegemonyProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventHegemonyPlayerProto playerStatus = 2;
+}
+
+message DBEventHegemonyPlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    required int32 level = 4;
+    required int32 defendFormationId = 5;
+    required int32 land = 6;
+    required int32 tax = 7;
+    required int32 scoreRewardRound = 8;
+    required int32 lastScoreRewardIndex = 9;
+    optional int32 kingdomRank = 10;
+    required int32 lastLevel = 11;
+}
+
+
+message DBEventTreasureProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventTreasurePlayerProto playerStatus = 2;
+}
+
+message DBEventTreasurePlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    repeated int32 treasureLevels = 4;
+    repeated int32 pieceNums = 5;
+    required int32 scoreRewardRound = 6;
+    required int32 lastScoreRewardIndex = 7;
+    optional int32 treasureRank = 8;
+}
+
+message DBEventRaidbossProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventRaidbossPlayerProto playerStatus = 2;
+}
+
+message DBEventRaidbossPlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    repeated IntIntProto bossLevels = 4;
+    required int32 killScore = 5;
+    required int64 comboEndTime = 6;
+    required int32 comboNum = 7;
+    required int32 scoreRewardRound = 8;
+    required int32 lastScoreRewardIndex = 9;
+    optional int32 killRank = 10;
+}
+
+message DBEventRaidpvpProto {
+    required DBEventProto eventInfo = 1;
+    repeated DBEventRaidpvpPlayerProto playerStatus = 2;
+}
+
+message DBEventRaidpvpPlayerProto {
+    required int32 id = 1;
+    required int32 rank = 2;
+    required int64 score = 3;
+    required int32 maxContWinNum = 4;
+    required int32 currentContWinNum = 5;
+    required int32 scoreRewardRound = 6;
+    required int32 lastScoreRewardIndex = 7;
+    optional int32 maxContWinRank = 8;
+    optional int32 groupLevel = 9;
+}
+
+//----------------------------------Union------------------------------------
+message DBUnionProto {
+    repeated UnionProto union = 1;
+}
+
+//---------------------------chat------------------------------
+message DBChatProto{
+    repeated EnterChatProto dbChat = 1;
+}
+
+//----------------------------------Activity------------------------------------
+message DBActivityProto {
+    optional DBActivityExchangeProto exchange = 1;
+    optional DBActivityRechargeProto recharge = 2;
+    optional DBActivitySeckillProto seckill = 3;
+	optional DBActivitySpendProto spend = 4;
+	optional DBActivityUpgradeProto upgrade = 5;
+	optional DBActivityLoginProto login = 6;
+    optional DBActivityCubeProto cube = 7;      //赫拉迪姆方块
+    optional DBActivityAltarProto altar = 8;    //先祖祭坛
+    optional DBActivitySevenDaysSeckillProto sevendaysSeckill = 9; //7天活动秒杀
+    optional DBActivityRetinueProto retinue = 10;   			//限时神将
+    optional DBActivityEquipmentProto equipment = 11; 			//限时抽奖
+    optional DBActivityDialProto dial = 12;         //轮盘
+    optional DBActivityContractProto contract = 13;     //水晶契约
+    optional DBActivityNewCubeProto newCube = 14;       //魔盒改版
+    optional DBActivityOnceRechargeProto onceRecharge = 15;
+    optional DBActivityRankProto rank = 16;         //排行榜活动信息
+    optional DBActivityFoundationProto foundation = 17;    //基金活动
+    optional DBActivityFoundationNumProto foundationNum = 18;       //购买基金人数活动
+    optional DBActivityContinuallyRechargeProto continuallyRecharge = 19;   //连续充值
+    optional DBActivityMissionProto mission = 20;       //任务型活动
+}
+
+message DBActivityRetinueProto {
+	repeated DBActivityRetinueItemProto items = 1;
+}
+
+message DBActivityEquipmentProto {
+	repeated DBActivityEquipmentItemProto items = 1;
+}
+
+message DBActivityRankProto {
+    repeated DBActivityRankItemProto items = 1;
+}
+
+message DBActivityRetinueItemProto {
+	required int32 tabId = 1;								 //活动tab id
+    repeated DBActivityRetinueItemDetailProto detail = 2;    //玩家信息
+}
+
+message DBActivityEquipmentItemProto {
+	required int32 tabId = 1;									//活动tab id
+    repeated DBActivityEquipmentItemDetailProto detail = 2; 	//玩家信息
+	repeated ItemProto cunsumeItems = 3;  					 	//已消耗物品
+}
+
+message DBActivityRetinueItemDetailProto {
+	required int32 playerId = 1;			//玩家id
+	optional int32 consumNum = 2;			//已消费额度
+	optional int64 freeDrawTime = 3;		//上次免费抽的时间
+}
+
+message DBActivityEquipmentItemDetailProto {
+	required int32 playerId = 1;			//玩家id
+	optional int32 consumNum = 2;			//已消费额度
+	optional int32 freeDrawTimes = 3;		//当天免费已抽取次数
+	repeated BlockItemProto blockItem = 4;	//格子的物品
+	repeated ItemProto item = 5;			//每轮刷新的物品
+	optional int32 roundDrawTimes = 6;		//该轮已翻牌次数
+}
+
+message DBActivityExchangeProto {
+    repeated DBActivityExchangeItemProto items = 1;
+}
+
+message DBActivityExchangeItemProto {
+    required int32 id = 1;					//活动大id
+    repeated DBActivityExchangeItemDetailProto itemsDetail = 2;    	//大id下各个单项id的具体信息
+}
+
+message DBActivityExchangeItemDetailProto {
+    required int32 singleId = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;    	//玩家 兑换数量
+}
+
+message DBActivityRechargeProto {
+    repeated DBActivityRechargeItemProto items = 1;
+}
+
+message DBActivityOnceRechargeProto {
+    repeated DBActivityOnceRechargeItemProto items = 1;
+}
+
+message DBActivityRechargeItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityRechargeItemDetailProto itemsDetial = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityOnceRechargeItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityOnceRechargeItemDetailProto itemsDetial = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityRechargeItemDetailProto {
+    required int32 singleId = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 充值数量
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityRankItemProto {
+    required int32 mainId = 1;					//大id
+    repeated ActivityRankDetailProto rankDetail = 2;		//排行榜详细信息
+}
+
+message DBActivityOnceRechargeItemDetailProto {
+    required int32 singleId = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 充值数量
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityContractProto {
+    repeated DBActivityContractItemProto items = 1;
+}
+
+message DBActivityContractItemProto {
+    required int32 id = 1;          //活动大id
+    repeated DBActivityContractItemDetailProto itemsDetial = 2;
+}
+
+message DBActivityContractItemDetailProto {
+    required int32 singleId = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 充值数量
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+    repeated DBAllContractProto allContractInfo = 4;
+}
+
+message DBAllContractProto {
+    required int32 playerId = 1;
+    optional ContractInfoProto contractInfo = 2;
+}
+
+message DBActivityDialProto {
+    repeated DBActivityDialItemProto items = 1;
+}
+
+message DBActivityDialItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityDialItemDetailProto itemsDetial = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityDialItemDetailProto {
+    required int32 singleId = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 充值数量
+    repeated DBActivityDialRewardsProto rewardGottenIds = 3;		//已领奖玩家
+    optional ActivityDialTotalInfoProto totalInfo = 4; //全服充值信息
+}
+
+message DBActivityDialRewardsProto {
+    required int32 times = 1;       //次数
+    repeated int32 gotRewardHumanId = 2;    //已领取玩家id
+}
+
+message DBActivityDialInfoProto{
+    required int32 mainId = 1;
+    optional DBActivityDialPlayerInfoProto playerInfo = 2;
+}
+
+message DBActivityDialPlayerInfoProto {
+    required int32 remainTimes = 1;     //玩家剩余抽奖次数
+    repeated ActivityItemProto rewardList = 2;  //保存轮盘上显示的6样东西
+    optional int32 rewardId = 3;        //抽到奖励在6样东西中的id
+    optional int32 lastDrawRechargeNum = 4;     //上一次抽奖时玩家的充值总数
+}
+
+message DBActivitySeckillProto {
+    repeated DBActivitySeckillItemProto items = 1;
+}
+
+message DBActivitySeckillItemProto {
+    required int32 id = 1;				 //活动具体项id	
+    repeated DBActivitySeckillItemDetailProto itemsDetail = 2;	 //大id下各个单项id的具体信息
+}
+
+message DBActivitySeckillItemDetailProto {
+    required int32 sinleId = 1;				 //活动具体项id	
+    repeated IntIntProto idNumMap = 2;	 //玩家 已秒杀数量
+    required int32 totalNumLimit = 3;	 //总数
+}
+
+message DBActivitySevenDaysSeckillProto {
+    repeated DBActivitySevenDaysSeckillItemProto items = 1;
+}
+
+//message DBActivitySevenDaysSeckillItemProto {
+//    required int32 id = 1;				 //活动具体项id	
+//    repeated DBActivitySevenDaysSeckillItemDetailProto itemsDetail = 2;	 //大id下各个单项id的具体信息
+//}
+
+message DBActivitySevenDaysSeckillItemProto {
+    required int32 id = 1;				 //活动具体项id	
+    repeated IntIntProto idNumMap = 2;	 //玩家 已秒杀数量
+    required int32 totalNumLimit = 3;	 //总数
+}
+
+message DBActivitySpendProto {
+    repeated DBActivitySpendItemProto items = 1;
+}
+
+message DBActivitySpendItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivitySpendItemDetailProto itemsDetail = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivitySpendItemDetailProto {
+    required int32 id = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 花费数量
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityUpgradeProto {
+    repeated DBActivityUpgradeItemProto items = 1;
+}
+
+message DBActivityMissionProto {
+    repeated DBActivityMissionItemProto items = 1;
+}
+
+message DBActivityFoundationProto {
+    repeated DBActivityUpgradeItemProto items = 1;
+}
+
+message DBActivityFoundationNumProto {
+    repeated DBActivityUpgradeItemProto items = 1;
+}
+
+message DBActivityUpgradeItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityUpgradeItemDetailProto itemsDetail = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityMissionItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityMissionItemDetailProto itemsDetail = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityUpgradeItemDetailProto {
+    required int32 id = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 转生次数
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityMissionItemDetailProto {
+    required int32 id = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 转生次数
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityLoginProto {
+    repeated DBActivityLoginItemProto items = 1;
+}
+
+message DBActivityLoginItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityLoginItemDetailProto itemsDetail = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityLoginItemDetailProto {
+    required int32 id = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 累计登陆次数
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityContinuallyRechargeProto {
+    repeated DBActivityContinuallyRechargeItemProto items = 1;
+}
+
+message DBActivityContinuallyRechargeItemProto {
+    required int32 id = 1;					//活动具体项id
+    repeated DBActivityContinuallyRechargeItemDetailProto itemsDetail = 2;		//大id下各个单项id的具体信息
+}
+
+message DBActivityContinuallyRechargeItemDetailProto {
+    required int32 id = 1;					//活动具体项id
+    repeated IntIntProto idNumMap = 2;		//玩家 连续充值次数
+    repeated int32 rewardGottenIds = 3;		//已领奖玩家
+}
+
+message DBActivityCubeProto{
+    repeated DBActivityCubeItemProto items = 1; //应该不用数组，只需保存一个
+}
+
+//message DBActivityCubeItemProto{
+//    required DBActivityCubeItemDetailProto itemsDetail = 1;
+//}
+
+message DBActivityCubeItemProto{
+    required int32 id = 1;      //大id
+    repeated IntIntProto idNumMap = 2;      //IntIntProto前面一个Int是human的id，第二个Int是使用的次数
+}
+
+message DBActivityNewCubeProto{
+    repeated DBActivityNewCubeItemProto items = 1; //应该不用数组，只需保存一个
+}
+
+message DBActivityNewCubeItemProto{
+    required int32 id = 1;      //大id
+    repeated IntIntProto idNumMap = 2;      //IntIntProto前面一个Int是human的id，第二个当前积分
+    repeated IntIntProto rewardGottenIds = 3;		//IntIntProto前面一个Int是human的id，第二个已转动次数
+}
+
+message DBActivityAltarProto{
+    optional DBActivityAltarItemProto item = 1;
+}
+
+message DBActivityAltarItemProto{
+    required int32 id = 1;      //先祖祭坛类型
+    repeated IntIntProto idNumMap = 2;      //IntIntProto前面一个Int是human的id，第二个Int是使用的次数
+}
+
+message DBWantedBossInfoProto{
+    repeated WantedBossInfoProto bossInfo = 1;              //全部boss情况
+}
+
+message DBWantedHistoryBattleProto{
+    repeated WantedBossInfoProto historyBattleBoss = 1; //挑战过的boss情况列表
+}
+
+message DBGuildBossInfoProto{
+    repeated GuildBossListProto bossInfo = 1;              //全部boss情况
+}
+
+message DBGuildBossRewardProto{
+    repeated DBGuildBossRewardInfoProto rewardInfo = 1;
+}
+
+message DBGuildBossRewardInfoProto{
+    required int32 guildId = 1;
+    repeated DBGuildBossHitBoxProto rewardInfo = 2;
+}
+
+message DBGuildBossHitBoxProto{
+    required ActivityItemProto item = 1;     //
+    optional int32 gotPlayerId = 2;       //玩家id
+}
+
+message DBGuildShopProto{
+    repeated DBGuildShopItemProto dbGuildShopNum = 1;        //公会商店限时的物品总数
+}
+
+message DBGuildShopItemProto{
+    required int32 guildId = 1;
+    repeated int32 buyNum = 2;
+}
+// ================== 以下为数据库故障时存储到临时文件的消息（用于恢复数据）========================== //
+message CharInfoDBDownCacheDataProto{
+    required int32 id = 1;  // 玩家id
+    required int32 lv = 2;  // 等级
+    required int32 exp = 3; // 经验
+    required int32 rankLv = 4;  // 军衔等级
+    required int32 rankExp = 5; // 军衔经验（功勋）
+    required int32 gold1 = 6; // 充值黄魂数
+    required int32 gold2 = 7; // 礼券数
+    required int64 silver = 8;    // 蓝魂数
+    required double energy = 9;  // 体力
+    required int32 token = 10;  // 军令
+    required int32 leaderCardId = 11;    // 队长卡片类型号
+    required int32 leaderCardLevel = 12; // 队长卡片等级
+    required int32 vipLevel = 13;   // vip等级
+    required int32 vipExperience = 14;  // vip经验
+    required int32 maxPower = 15;   // 历史最大战斗力
+    required PlayerDetailProto detail = 16;  // 详细信息
+    required DBMailsProto mailInfo = 17;    // 邮件信息
+    required int64 leaveTime = 18;  // 离开时间
+    required int64 totalOnlineTime = 19; // 在线累计时间（防沉迷）
+}
+
+message RelationDBDownCacheDataProto{
+    required int32 id = 1;  // 玩家id
+    required DBRelationProto relation = 2;  // 好友关系
+}
+
+message BillDBDownCacheDataProto{
+    required int32 playerId = 1;
+    required string passport = 2;
+    required string orderno = 3;
+    required int32 currencyId = 4;
+    required int32 amount = 5;
+    required string memo = 6;
+    required int32 status = 7;
+    required int32 step = 8;
+}
+
+message CouponDBDownCacheDataProto{
+    required int32 playerId = 1;
+    required string passport = 2;
+    required string code = 3;
+}
+
+message MailDBDownCacheDataProto{
+    required int64 mailId = 1;
+    required int32 targetId = 2;
+    required string title = 3;
+    required string description = 4;
+    optional RewardProto reward = 5;
+}
+// ================== 以上为数据库故障时存储到临时文件的消息（用于恢复数据）========================== //

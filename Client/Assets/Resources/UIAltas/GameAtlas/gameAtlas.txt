@@ -1,0 +1,188 @@
+{"frames": {
+
+"2.png":
+{
+	"frame": {"x":287,"y":1275,"w":125,"h":123},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":123},
+	"sourceSize": {"w":125,"h":123}
+},
+"BelifPt.png":
+{
+	"frame": {"x":387,"y":1688,"w":89,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":89,"h":90},
+	"sourceSize": {"w":89,"h":90}
+},
+"Bg.png":
+{
+	"frame": {"x":2,"y":2,"w":758,"h":987},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":758,"h":987},
+	"sourceSize": {"w":758,"h":987}
+},
+"BlackBackground.png":
+{
+	"frame": {"x":2,"y":1743,"w":231,"h":156},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":231,"h":156},
+	"sourceSize": {"w":231,"h":156}
+},
+"BlackShelter.png":
+{
+	"frame": {"x":130,"y":1901,"w":126,"h":126},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":126,"h":126},
+	"sourceSize": {"w":126,"h":126}
+},
+"FlagIcon.png":
+{
+	"frame": {"x":287,"y":1400,"w":97,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":120},
+	"sourceSize": {"w":97,"h":120}
+},
+"GoldIcon.png":
+{
+	"frame": {"x":192,"y":1692,"w":32,"h":33},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":33},
+	"sourceSize": {"w":32,"h":33}
+},
+"HighLight.png":
+{
+	"frame": {"x":2,"y":1901,"w":126,"h":126},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":126,"h":126},
+	"sourceSize": {"w":126,"h":126}
+},
+"HoveringFrame.png":
+{
+	"frame": {"x":2,"y":1275,"w":283,"h":264},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":283,"h":264},
+	"sourceSize": {"w":283,"h":264}
+},
+"LightFrame.png":
+{
+	"frame": {"x":2,"y":1541,"w":140,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":200},
+	"sourceSize": {"w":140,"h":200}
+},
+"ProgressBar.png":
+{
+	"frame": {"x":258,"y":1843,"w":150,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":149},
+	"sourceSize": {"w":150,"h":149}
+},
+"RedMark.png":
+{
+	"frame": {"x":144,"y":1692,"w":46,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":46},
+	"sourceSize": {"w":46,"h":46}
+},
+"ReturnBtn.png":
+{
+	"frame": {"x":430,"y":1600,"w":197,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":197,"h":72},
+	"sourceSize": {"w":197,"h":72}
+},
+"StopWatchBack.png":
+{
+	"frame": {"x":235,"y":1692,"w":150,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":149},
+	"sourceSize": {"w":150,"h":149}
+},
+"StopWatchFront.png":
+{
+	"frame": {"x":144,"y":1541,"w":150,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":149},
+	"sourceSize": {"w":150,"h":149}
+},
+"bg2.png":
+{
+	"frame": {"x":2,"y":991,"w":388,"h":282},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":388,"h":282},
+	"sourceSize": {"w":388,"h":282}
+},
+"closeBtn.png":
+{
+	"frame": {"x":410,"y":1780,"w":100,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":72},
+	"sourceSize": {"w":100,"h":72}
+},
+"greenPlus.png":
+{
+	"frame": {"x":296,"y":1622,"w":66,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":65},
+	"sourceSize": {"w":66,"h":65}
+},
+"green_Light.png":
+{
+	"frame": {"x":395,"y":1500,"w":97,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":98},
+	"sourceSize": {"w":97,"h":98}
+},
+"red_Light.png":
+{
+	"frame": {"x":386,"y":1400,"w":97,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":98},
+	"sourceSize": {"w":97,"h":98}
+},
+"stageIcon.png":
+{
+	"frame": {"x":364,"y":1622,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"yellow_Light.png":
+{
+	"frame": {"x":296,"y":1522,"w":97,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":98},
+	"sourceSize": {"w":97,"h":98}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "gameAtlasMask.png",
+	"format": "ALPHA",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:20e3ac285e4caada7226e20006b57859$"
+}
+}

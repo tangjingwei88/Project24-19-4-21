@@ -1,0 +1,29 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+message BuyTimesRequestProto {
+    required int32 type = 1;    //类型（1购买挑战次数 2购买刷新对手次数）
+}
+
+message BuyTimesResponseProto {
+    required int32 result = 1;  
+    optional int32 type = 2;    				//类型
+    optional int32 battleTimes = 3;     		//最新的可挑战次数
+	optional int32 buyTimes = 4;                //最新的已购买的次数
+}
+
+message BuyBossTimesRequestProto {
+    required int32 stageId = 1; 				//小关卡id
+	required int32 rankId = 2; 					//rank id
+}
+
+message BuyBossTimesResponseProto {
+    required int32 result = 1;  
+    optional int32 stageId = 2; 				//小关卡id
+	optional int32 rankId = 3; 					//rank id
+	optional int32 buyTimes = 4;                //最新的已购买的次数
+	optional int32 battleTimes = 5;				//该关卡已挑战次数
+}

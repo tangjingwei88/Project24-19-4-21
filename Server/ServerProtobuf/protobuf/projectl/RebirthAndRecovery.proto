@@ -1,0 +1,41 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "ItemPackage.proto";
+//-----------------------------------重生------------------------
+message RebirthRequestProto{
+    repeated RebirthItemProto items = 1;
+}
+
+message RebirthResponseProto{
+    required int32 result = 1;			//结果码
+    repeated RebirthItemProto items = 2;
+    repeated ItemProto newItems = 3;
+    optional double gold = 4;    		//获得的金币
+    optional double energy = 5;    		//获得的宝石能量
+    optional double rulemana = 6;    	//获得的符文能量
+}
+
+message RebirthItemProto {
+    required int32 type = 1;		//1表示武器，2表示随从
+    required int32 id = 2;			//物品Id
+}
+//-----------------------------------熔炼------------------------
+message MeltRequestProto {
+    required int32 type = 1; //new  2是碎片回收 3 是宝具回收 4 是精灵回收
+    repeated ItemProto items = 2;
+    repeated int32 instIds = 3; //当类型是3，4 是的id
+}
+
+message MeltResponseProto {
+    required int32 result = 1;						//结果码
+    repeated ItemProto items = 2;					//获得的item id和数量
+    optional double energy = 3;    					//获得的宝石能量
+    optional double rulemana = 4;    				//获得的符文能量
+    optional int32 type = 5; //new  2是碎片回收 3 是宝具回收 4 是精灵回收
+    repeated int32 instIds = 6; //new 当类型是3，4 是的id
+}
+

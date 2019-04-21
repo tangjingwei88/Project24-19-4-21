@@ -1,0 +1,29 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import"ItemPackage.proto";
+message BeginSecretPlaceFightRequestProto{
+    required int32 currentFloor = 1;				//当前层
+    required bool clearCD = 2;        // 是否立即清除冷却
+}
+
+message BeginSecretPlaceFightResponseProto{
+    required int32 result = 1;
+    optional int32 currentFloor = 2;				//当前层
+}
+
+message EndSecretPlaceFightRequestProto{
+    required int32 currentFloor = 1;		//当前层
+    required int32 battleResult = 2;        //战斗结果 1为成功，0为是吧
+    //optional BattleDetailInfoProto battleInfo = 2;	//战斗信息
+}
+
+message EndSecretPlaceFightResponseProto{
+    required int32 result = 1;
+    optional int32 nextFloor = 2;					//下一层数
+    optional double lastChallengeEndTime = 3;                        //挑战时间
+    repeated ItemProto items = 4;					//获得的宝石id和数量
+}

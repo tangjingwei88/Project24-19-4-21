@@ -1,0 +1,106 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+message DamagePackageProto {
+	required double damageNum = 1; //基础伤害值
+	required double skillDamageMultiper = 2; //基础伤害倍率
+	required double skillDamageAdd = 3; //额外伤害值
+	required int32 attackType = 4; //攻击类型 None = 0 Melee = 1 Ranged = 2 RangedBullet = 3
+	required int32 damageType = 5; //伤害类型 Physics = 0 Maigc = 1 Real = 100
+	repeated double damageAttMultiper = 6; //属性伤害克制
+	required double dexterity = 7; //灵巧
+	required double criticalRate = 8; //额外暴击率
+	required double maxCriticalRate = 9; //总暴击率上限
+	required double criticalMultiper = 10; //暴击倍率
+	required double directHitRate = 11; //直击率
+	required double damagePlusPCT = 12; //总伤害加成
+	required int32 source = 13; //伤害源单位id
+}
+
+message DefensePackageProto {
+	required double DEF = 1; //防御值
+	required int32 property = 2; //属性 地水火风光暗1-6
+	required double dexterity = 3; //灵巧
+	required double resistCritical = 4; //抗暴率
+	required double damageMinusPCT = 5; //总伤害减少	
+	repeated bool dtImmunes = 6; //伤害类型免疫
+	required bool wudi = 7; //无敌
+	required int32 source = 8; //防御源单位id
+}
+
+message RecoverPackageProto {
+	required double ATk = 1; //治疗值
+	required double cureMultiple = 2; //治疗倍率
+	required int32 source = 3; //治疗源单位id
+}
+
+message RecordDamageProto {
+	required int32 source = 1; //源
+	required int32 target = 2; //目标
+	required bool hpRemove = 3; //如果是hpremove，那么就没有下面的两个package
+	optional DamagePackageProto damagePackage = 4; //伤害包
+	optional DefensePackageProto defensePackage = 5; //防御包
+	required double resultValue = 6; //结果值
+	required bool causingDeath = 7; //致死
+}
+
+message RecordRecoverProto {
+	required int32 source = 1; //源
+	required int32 target = 2; //目标
+	required RecoverPackageProto recoverPackage = 3; //治疗包
+	required double resultValue = 4; //结果值
+}
+
+message BattleUnitRecordProto {
+	repeated RecordDamageProto causingDamageList = 1; //造成伤害列表
+	repeated RecordDamageProto getDamageList = 2; //受到伤害列表
+
+	repeated RecordRecoverProto causingRecoverList = 3; //造成治疗列表
+	repeated RecordRecoverProto getRecoverList = 4; //受到治疗列表
+
+	repeated int32 killUnitList = 5; //击杀列表
+	repeated int32 beKilledList = 6; //被杀列表
+}
+
+message BattleUnitDataProto {
+	required double HP = 1; //血量
+	required double Shield = 2; //护盾
+	required double Recovery = 3; //恢复
+	required double ATK = 4; //攻击
+	required double MagicPower = 5; //魔力
+	required double Dexterity = 6; //灵巧
+	required double DEF = 7; //防御
+	required double ResistCritical = 8; //抗暴
+	required double CriticalRate = 9; //额外暴击率
+	required double MaxCriticalRate = 10; //暴击率上限
+	required double CriticalMultiper = 11; //暴击倍率
+	required double DirectHitRate = 12; //直击率
+	required double MaxDHRate = 13; //最大直击率
+	required double DamagePlusPCT = 14; //伤害加成
+	required double DamageMinusPCT = 15; //伤害减少
+	required double CureMultiper = 16; //治疗加成
+	required double RecoverMultiper = 17; //被治疗加成
+	required double AttackFrontSwing = 18; //攻击前摇
+	required double AttackTime = 19; //攻击间隔
+	required double MoveSpeed = 20; //移动速度
+	required double CDReduce = 21; //冷却缩减
+	repeated double DamageAttsMultiper = 22; //属性伤害加成
+	repeated bool dtImmune = 23; //伤害类型免疫
+	required bool wudi = 24; //无敌
+	required double bodyRadius = 25; //单位半径
+	required double AttackRange = 26; //攻击距离
+	required int32 AttackType = 27; //攻击类型
+}
+
+message BattleUnitProto {
+	required int32 id = 1; //单位id
+
+	required BattleUnitDataProto baseData = 2; //基础数值
+	required BattleUnitDataProto finalData = 3; //最终数值
+
+	required BattleUnitRecordProto record = 4;
+}

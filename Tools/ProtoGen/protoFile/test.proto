@@ -1,0 +1,14 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+message RulesIdProto {
+	required int32 rule = 1;		  	//法则id
+	required int32 level = 2;			//目前level
+	repeated int32 talentIds = 3; 		//下一级需要的天赋列表
+	optional int32 status = 4;	  		//目前的升级状态
+	//0 满足正常升级条件 1 满足强制升级条件 2 天赋不足 3 天赋总领悟程度不足
+	repeated int32 ownedTalentIds = 5;	//已满足的天赋列表
+}

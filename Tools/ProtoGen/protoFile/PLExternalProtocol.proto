@@ -1,0 +1,5110 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "ExternalProtocol.proto";
+
+message EnterGameCharProto {
+    required int32 cid = 1;         //Id
+    required string name = 2;       //昵称
+    required bool isMale = 3;       //性别
+    required double gold = 4;       //金币
+    required int32 crystal = 5;     //水晶
+    required int32 diamond = 6;     //龙晶(rmb购买)
+    required int32 stamina = 7;     //体力
+    required double energy = 8;      //宝石能量
+	required double rulemana = 9;    //符文能量
+    required int32 lv = 10;         //等级
+    required double exp = 11;       //经验值
+    required int32 icon = 12;       //头像Id
+    repeated int32 honours = 13;    //活动荣誉
+    optional int32 reborns = 14;	//转生次数
+	optional int32 viplevel = 15;	//VIP等级
+	optional int64 talent = 16;		//天赋点数
+	optional int32 arenaToken = 17; //竞技场代币
+	optional int32 damageToken = 18; //伤害代币
+    optional WeaponsProto weapons = 19;                 //装备
+    optional CardsProto cards = 20;                     //卡片
+    optional ItemsProto items = 21;                     //道具
+    optional StagesProto stages = 22;                   //关卡信息
+    optional StageStateBriefProto stageState = 23;     //关卡简要状态（当玩家在关卡中时才有值）
+    optional FormationsProto formations = 24;          //阵型
+    optional ContSignProto contSign = 25;               //签到
+	
+    optional IntValuesProto guide = 26;         //新手引导步骤
+    optional IntValuesProto recharge = 27;      //充值
+    optional HandBookProto handbook = 28;       //图鉴
+    optional int32 totalRecharge = 29;           //充值龙晶总额
+	
+    optional int64 lastStaminaUseTime = 30;    //最后恢复体力的时间
+    optional int64 lastEnergyUseTime = 31;     //最后使用精力的时间
+    optional int64 currentTime = 32;           //当前系统时间
+	
+    optional double battlePower = 33;		    		//战斗力
+    optional NormalStageProto normalstage = 34;			//当前关卡
+	repeated RetinueProto retinues = 35;				 //随从信息
+	repeated RetinueFormationProto retinueFormation = 36;//随从阵形信息
+	repeated TalentSkillProto talentSkill = 37;			 //拥有的天赋技能(旧版客户端，追溯)
+	repeated ChallengeInfoProto challenges = 38;		 //挑战次数信息	分挑战类型 1 boss战 2 竞技场 3 无尽之塔 4 输出天梯赛 5 哥布林 6 挖矿		
+	repeated StoreInfoProto stores = 39;		 		 //商店及物品信息
+	optional ArenaProto arena = 40;		 		     	 //竞技场信息
+	optional SecretPlaceInfoProto secretPlace = 41;		 //秘境信息
+	optional double maxbattlePower = 42;		    	 //历史最高战斗力
+	optional MinerProto miner = 43;		 		     	 //挖矿信息
+	optional NormalStageHangupProto stagehangup = 44;	 //挂机信息
+	optional int64 lastLoginTime = 45;					 //上次登陆时间
+	optional MonsterKillInfoProto kills = 46;			 //杀怪信息
+	optional BossInfoProto bossInfo = 47; 	 		 	 //BOSS挑战的奖励和挑战信息
+	optional FixSoulProto fixsoul = 48;					 //补魂
+	optional int32 soul = 49;							 //补魂碎片
+    optional MysteryCaveProto mysteryCave = 52;     	//迷窟探险
+	optional double vipexp = 53;						//VIP经验
+	optional bool getVipFirst = 54;						//VIP首充奖励已获得
+	optional VipMonthProto vipMonth  = 55;				//VIP月卡信息
+	optional LockInfoProto lockinfo = 56;				//锁定信息
+        optional BlackMarketProto blackMarket = 57;         //黑市商人
+        optional MysteryStoneProto MysteryStone = 58;     //秘石
+        optional GambleStoneInfoProto gambleStone = 59;     //赌石
+        optional int32 mysteryStoneOriginal= 60;     //秘石原石
+        optional GreateSecretPlaceProto greateSecretPlaceProto = 61;    //宏伟秘境	
+	optional double arenabattlePower = 62;		    		//竞技场战斗力
+	optional bool getVipFirstReward = 63;					//VIP首充奖励已领取
+	optional SkillInfoProto skillInfo = 64;					//技能信息
+    optional WantedProto wantedInfo = 65;                   //悬赏任务
+	optional WishProto wish = 66;                           //许愿系统
+	optional UnionInfoProto unionInfo = 67;					//公会的个人信息
+	repeated int32 diamondBought = 68;						//购买过的钻石档位
+        optional WeaponEnchantChangeProto enchantChange = 69;           //武器附魔信息发送改变
+        optional SurvivalProto survival = 70;           //生存试炼
+        optional SkillProto skillChallenge = 71;        //技巧试炼
+        repeated EnterChatProto chatInfo = 72;          //发送最近30条聊天记录
+	optional int32 TDServerID = 73;						//
+	optional int32 TDPlayerID = 74;						//
+	optional RulesProto rules = 75;						//法则
+        optional BeliefProto belief = 76;           //传教
+	repeated TalentSystemProto talentSkillSystem = 77;			 //拥有的天赋技能
+        optional HardStageProto hardstage = 78;  // 死亡模式关卡
+        optional ExtraProto extraProto = 79;        //新的协议，定义实现在PLExternalProtocol2.proto里面
+        extensions 80 to 200;       //当前已用到88
+}
+
+message ExtraProto {
+    optional PeakProto peak = 1;
+    optional int32 peakArenaGrade = 2;      //巅峰竞技场段位
+}
+
+message PeakProto {
+    repeated IntIntProto formation = 1;  //阵型index,随从Id
+}
+
+extend EnterGameCharProto {
+        optional string maxbattlePowerBig = 80; //历史最高战斗力(大数据)
+       
+}
+
+//------------------------------------------法则-------------------------------
+message RulesProto {
+	optional int32 realmLevel = 1;			//当前境界
+	repeated RulesIdProto detail = 2;		//法则明细信息
+}
+
+message RulesIdProto {
+	required int32 rule = 1;		  	//法则id
+	required int32 level = 2;			//目前level
+	repeated int32 talentIds = 3; 		//下一级需要的天赋列表
+	optional int32 status = 4;	  		//目前的升级状态
+	//0 满足正常升级条件 1 满足强制升级条件 2 天赋不足 3 天赋总领悟程度不足
+	repeated int32 ownedTalentIds = 5;	//已满足的天赋列表
+}
+
+message RuleUpLevelRequestProto {
+	required int32 rule = 1;		  	//法则id
+	required int32 manner = 2;			//0 普通升级; 1 强制升级
+}
+
+message RuleUpLevelResponseProto {
+	required int32 result = 1;
+	required int32 rule = 2;		  	//法则id
+	required int32 manner = 3;			//0 普通升级; 1 强制升级
+	optional int32 level = 4;			//最新法则等级
+	repeated int32 talentIds = 5; 		//下一级需要的天赋列表
+	optional int32 status = 6;	  		//下一级的升级状态
+	repeated int32 ownedTalentIds = 7;	//已满足的天赋列表
+}
+
+message RealmUpLevelResponseProto {
+	required int32 result = 1;
+	optional int32 level = 2;			//最新境界等级
+}
+
+message UnionInfoProto {
+	optional int32 unionGold = 1;		//公会代币数
+	optional int32 unionId = 2;			//所在公会id
+	optional int64 lastQuitTime = 3;	//上次退出公会时间
+	repeated int32 unionApplyId = 4;	//公会的申请中id	
+    optional int32 bossChallengeTime = 5;    //当日boss已挑战次数
+    optional bool bossBoxHited = 6;     	 //boss宝藏是否已领取
+    optional bool bossUnionGold = 7;         //boss会贡是否已领取
+    repeated ShopBuyNumProto shopBuyNum = 8; //公会商店购买情况
+    optional bool hasDonated = 9;       //今日是否捐献过
+    optional int32 joinTimes = 10;        //今日加入公会次数
+}
+
+message ShopBuyNumProto{
+    required int32 type = 1;    //商店类型
+    repeated IntIntProto intInt = 2;
+}
+
+message LockInfoProto {
+	repeated IntBoolProto functions = 1;
+}
+
+message VipMonthProto {
+	repeated VipMonthDetailProto detail = 1;
+}
+
+message VipMonthDetailProto {
+	required int32 id = 1;			//VIP月卡id
+	optional int64 vipLastDate = 2;	//VIP到期日期
+	optional int64 lastRewardDate = 3; //上次奖励日期
+	optional bool  getFirst = 4;	//立刻奖励是否已获取
+}
+
+message BossInfoProto {
+	repeated BossInfoDetailProto detail = 1;
+}
+
+message BossInfoDetailProto {
+	required int32 rankId = 1;			//关卡rank号
+	required int32 bigStageId = 2;		//大关卡号
+	repeated int32 sentLevels = 3;		//已发送的星级奖励
+	repeated BossSmallStageDetailProto detail = 4;//小关卡信息
+}
+	
+message BossSmallStageDetailProto {
+	required int32 stageId = 1;			//小关卡号
+	optional int32 times = 2;			//当日已挑战次数
+	optional int32 star = 3;			//关卡获得星级
+	optional int32 buyTimes = 4;		//当日已购买次数
+	repeated BossSmallStageSpecitalDropProto specialDrop = 5; //特殊掉落
+}
+
+message BossSmallStageSpecitalDropProto {
+	required int32 itemId = 1;
+	required int32 mustDrop = 2;
+	optional int32 type = 3;
+}
+	
+message BossAchievementGetRewardRequestProto {
+    required int32 rankId = 1;
+	required int32 bigStageId = 2;
+	required int32 level = 3;
+}
+
+message BossAchievementGetRewardResponseProto {
+	required int32 result = 1;
+    optional int32 rankId = 2;
+	optional int32 bigStageId = 3;
+	optional int32 level = 4;		
+}
+
+message BeginnerProto {
+	repeated int32 id = 1;				 		 		//新手第一次完成项
+}
+
+message NormalStageHangupProto {
+	required int64 hangupBeginTime = 1;				//挂机开始时间
+	optional int64 hangupEndTime = 2;				//挂机结束时间
+	optional int64 lastCalcucationTime = 3;			//上次结算时间 --周期性结算
+	optional bool isHangup = 4;   					//是否在挂机
+	optional int32 killNum = 5;						//本次累计击杀怪物数量
+	repeated ItemProto items = 6;					//未领取的所有物品
+	optional double gold = 7;						//金钱掉落
+	optional double exp = 8;						//经验掉落
+	optional int64 accumulatedHangupTime = 9;		//总累计挂机时间
+	optional int64 currentHangupTime = 10;			//本次累计的挂机时间
+}
+
+message MinerProto {
+    required int32 level = 1;        //矿石等级 
+    required int32 mineTimes = 2;    //本级已挖次数 
+	optional int32 totalTimes = 3;   //当天挖矿总次数
+}
+
+message SecretPlaceInfoProto {
+    optional int32 currentFloor = 1;        			//秘境当前层数
+    optional int32 preFloor = 2;            			//上一层数
+	optional int32 highestFloor = 3;        			//秘境最高层数
+	optional int64 autoUpTime = 4;        				//自动爬塔结束时间
+	optional int32 resetTimes = 5;						//总重置次数
+}
+
+message ArenaProto {
+	optional int32 rank = 1;            	//竞技场排名
+	optional int32 refreshTimes = 2;    	//刷新的次数
+	optional int32 buyTimes = 3;        	//已购买的刷新次数
+	repeated OpponentProto opponents = 4;	//对手列表
+	optional int32 winBattles = 5;        	//总获胜场次
+	repeated RetinueFormationProto retinueFormation = 6; //竞技场阵型信息
+	optional int32 historyRank = 7;			//历史最高排名
+	optional bool isBattleFirst = 8;		//是否首次竞技场战斗
+}
+
+message OpponentProto {
+	required int32 id = 1;              			//对手id
+	repeated RetinueInfoProto retinueInfo = 2;		//推送时刻对手的随从信息
+	optional int32 rank = 4;        				//推送时刻的排名
+	optional double battlePower = 5;				//推送时刻的战斗力
+	optional double hp = 6;
+	optional double clickDamage = 7;
+	optional double reduceDamage = 8;
+	optional double secondDamage = 9;
+	optional double recoverHp = 10;
+	optional double CriX = 11;
+	optional double CriDamage = 12;
+	optional double blockX = 13;
+	optional double blockDamage = 14;
+	optional string name = 15;
+	optional int32 reborns = 16;
+	optional bool isReal = 17;
+	optional int32 lv = 18;
+	optional bool isMale = 19;
+        optional string battlePowerBig = 20;				//推送时刻的战斗力(大数据)
+    optional int32 peakArenaGrade = 21;         //巅峰竞技场段位
+}
+
+message RetinueSkillProto {
+	required int32 skill = 1;
+	optional int32 retinueId = 2;
+	optional int32 retinueRank = 3;
+}
+
+message StoreInfoProto {
+    required int32 id = 1;              //商店类型 1 竞技场 2 神秘 3伤害天梯
+	optional int32 refreshTimes = 2;    //每日已刷新商店次数
+    optional int32 buyTimes = 3;        //每日已购买商店次数
+	repeated RefreshItemProto items = 4;//商店刷新的物品
+}
+
+message ChallengeInfoProto {
+    required int32 id = 1;              //战斗类型 1 boss战　2 竞技场　3 无尽之塔  4 输出天梯赛 5 哥布林 6 挖矿
+	optional int32 battleTimes = 2;     //每日已挑战次数 左边
+    optional int32 buyTimes = 3;        //每日已购买挑战次数
+	optional int32 totalTimes = 4;      //每日总可挑战次数 右边
+}
+
+message TalentSystemProto {
+    required int32 tabId = 1;       //天赋页签id
+    optional bool isEnabled = 2;       //是否启用
+    optional int64 remainTalent = 3;        //当前页签剩余天赋点数
+    repeated TalentSkillProto talentSkills = 4;     //当前页签的天赋信息
+    optional int64 totalTalent = 5;     //总天赋数
+}
+
+message TalentSkillProto {
+    required int32 id = 1;             	//天赋Id
+    optional int32 level = 2;          	//天赋等级
+	optional bool locked = 3;			//锁定标记
+}
+
+message EnterGameCharExtraProto {
+    optional bool fbShared = 1;             //Facebook是否分享过
+    optional string updateUrl = 2;          //游戏更新地址
+    optional string shareUrl = 3;
+	optional bool isAudit = 4;              //是否在ios审核,如果是审核,客户端不显示兑换码和fb分享图标
+}
+
+//----------Handbook Proto---------
+message HandBookProto {
+    optional bytes bitSet1 = 1;	//装备
+    optional bytes bitSet2 = 2;	//随从
+}
+
+//----------Weapon Proto-----------
+message WeaponProto {
+    required int32 id = 1;
+    required int32 lv = 2;
+    required bool equipped = 3;     //是否装备于通用装备栏
+	optional int32 rank = 4;    //星级	
+	optional int32 raise = 5;   //进阶
+	optional int32 inlay1 = 11; //是否带宝石
+	optional int32 inlay2 = 12; //是否带宝石
+	optional int32 inlay3 = 13; //是否带宝石
+	optional int32 inlay4 = 14; //是否带宝石
+	optional int32 inlay5 = 15; //是否带宝石
+	optional int32 inlay6 = 16; //是否带宝石
+	optional int64 hp = 17;				//武器吸收的宝石属性
+    optional int64 clickDamage = 18;	//武器吸收的宝石属性
+    optional int64 reduceDamage = 19;	//武器吸收的宝石属性
+	optional int64 secondDamage = 20;	//武器吸收的宝石属性
+	optional int64 recoverHp = 21;		//武器吸收的宝石属性
+    optional int64 CriX = 22;			//武器吸收的宝石属性
+    optional int64 CriDamage = 23;		//武器吸收的宝石属性
+    optional int64 blockX = 24;			//武器吸收的宝石属性
+    optional int64 blockDamage = 25;	//武器吸收的宝石属性 
+	repeated WeaponEnchantProto enchant = 26;//武器生成的附魔属性
+        optional AlchemyAttributeProto alchemyAttribute = 27;       //炼金增加的属性
+        optional int32 awakeLevel = 28; //武器觉醒等级
+    optional string hpBig = 29;				//武器吸收的宝石属性(大数据)
+    optional string clickDamageBig = 30;	//武器吸收的宝石属性(大数据)
+    optional string reduceDamageBig = 31;	//武器吸收的宝石属性(大数据)
+    optional string secondDamageBig = 32;	//武器吸收的宝石属性(大数据)
+    optional string recoverHpBig = 33;		//武器吸收的宝石属性(大数据)
+    optional string CriXBig = 34;			//武器吸收的宝石属性(大数据)
+    optional string CriDamageBig = 35;		//武器吸收的宝石属性(大数据)
+    optional string blockXBig = 36;			//武器吸收的宝石属性(大数据)
+    optional string blockDamageBig = 37;	//武器吸收的宝石属性(大数据)
+}
+
+message WeaponEnchantProto {
+    required int32 id = 1;           		 		//第几项
+    required int32 type = 2;   						//数值类型
+    required float value = 3;						//生成的具体数值
+}
+
+message WeaponEnchantRefreshRequestProto{
+    required int32 weaponId = 1;
+    required int32 id = 2;          //刷新的附魔位置id
+    optional int32 type = 3;        //改变类型： 1.刷新 2.替换 3.保留
+}
+
+message WeaponEnchantAllRefreshProto{
+    required int32 result = 1;
+    optional int32 weaponId = 2;
+    repeated WeaponEnchantProto enchant = 3;
+}
+
+message WeaponEnchantRefreshProto{
+    required int32 result = 1;
+    optional WeaponEnchantProto curEnchant = 2;
+    optional int32 weaponId = 3;
+}
+
+message WeaponEnchantChangeProto{
+    required int32 weaponId = 1;    
+    optional WeaponEnchantProto enchantInfo = 2;
+}
+
+message WeaponsProto {
+    repeated WeaponProto weapons = 1;           		 //装备列表
+    required IntValuesProto equippedIds = 2;   			 //已装备于普通装备栏的装备Id
+    repeated IntIntProto retinueEquippedIds = 3;		 //随从装备的武器
+    optional WeaponAbilityProto attributeAbility = 4;    //装备的能力
+    optional IntValuesProto equippedIdsHangup = 5;      //已装备于挂机装备栏的装备Id
+    optional IntValuesProto equippedIdsPeak = 6;       //已装备于巅峰装备栏的装备Id
+}
+
+message WeaponAbilityProto {
+    optional int32 hp = 1;
+    optional int32 damage = 2;
+    optional int32 reduceDamage = 3;
+    optional int32 CriX = 4;
+    optional int32 CriDamage = 5;
+    optional int32 blockX = 6;
+    optional int32 blockDamage = 7;
+}
+
+message WeaponAbilityChangeProto {
+    repeated IntIntProto changes = 1;
+}
+
+
+//----------Card Proto-----------
+message CardProto {
+    required int32 id = 1;           //卡片静态信息id
+    optional int32 instId = 2;      //卡片在该用户下的id
+    optional int64 globalId = 3;    //卡片服务器唯一id
+    optional int32 level = 4;        //卡片等级
+    optional double experience = 5;  //卡片经验
+    optional int32 awakeTime = 6;   //卡片觉醒次数
+    optional int32 HPTrain = 7;     //生命加成
+    optional int32 ATKTrain = 8;    //攻击加成
+    optional int32 DEFTrain = 9;    //防御加成
+    optional int32 MIGTrain = 10;   //魔力加成
+    optional int32 AGITrain = 11;   //敏捷加成
+    optional int64 lockEndTime = 12;   //交易加锁结束时间
+}
+
+message CardsProto {
+    repeated CardProto cards = 1;               //拥有的卡片列表
+    repeated CardProto cardsInMarket = 2;      //拥有的正在交易的卡片列表
+    optional int32 nextCardInstId = 3;          //下一卡片实例id（注意：该id只在玩家内唯一，在玩家间不唯一）
+    optional int32 cardNumLimit = 4;            //拥有卡片最大数量
+    optional int32 bestCardId = 5;              //持有的最强卡片Id
+}
+
+//----------Formation----------
+message FormationsProto{
+    optional int32 formationNumLimit = 1;       //阵型最大数量
+    repeated FormationProto formations = 2;
+    optional int32 lastUsedFormationId = 3;
+}
+
+message FormationProto{
+    required int32 formationId = 1;
+    required VariableValuesProto slotCards = 2;
+}
+
+//----------Item Proto-----------
+message ItemProto{
+    required int32 id = 1;
+    optional int32 num = 2;
+	optional int32 type = 3;
+	optional int32 price = 4;
+}
+
+message ItemsProto{
+    repeated ItemProto items = 1;
+    optional int32 currentEventId = 2;      //当前参与活动Id
+}
+
+message ItemUseResultProto {
+    required int32 result = 1;
+    optional IntIntProto useInfo = 2;
+	repeated IntIntProto getItems = 3;
+    repeated IntIntProto relicItems = 4;    //圣物类型：instanId
+    repeated IntLongProto getItemsLong = 5;
+}
+
+message ItemSoldResultProto {
+    required int32 result = 1;
+    optional IntIntProto soldInfo = 2;
+}
+
+//----------Stage Proto-----------
+message StagesProto{
+    optional int32 currentStageId = 1;
+    optional IntValuesProto openedStageList = 2;
+    repeated IntIntProto stageIdExploreNum = 3;
+    optional IntValuesProto rewardGottenList = 4;
+    optional int32 pvpContNum = 5;
+    optional int32 pvpDailyContNum = 6;
+    optional IntValuesProto pvpDailyRewardGotten = 7;
+    repeated IntIntProto bossIdLevel = 8;
+    optional DailyStageInfoProto dailyStage = 9;
+}
+
+//日常关卡信息
+message DailyStageInfoProto {
+    repeated DailyStageProto activity = 1;
+}
+
+message DailyStageProto {
+    required int32 activityId = 1;
+    required int32 leftNum = 2;
+    required int32 maxNum = 3;
+    required int64 nextAttackTime = 4;
+    required int32 openedDifficulty = 5;
+}
+
+//进入关卡
+message EnterStageProto {
+    required int32 stageId = 1;  //小关卡Id
+    required int32 formationId = 2; //所用阵型Id
+    required bool isBigStage = 3;
+}
+
+//放弃关卡
+message StageLeaveProto {
+    required int32 stageId = 1;	    // 关卡号
+    required int32 stageType = 2;   // 关卡类型（0普通 1活动百战）
+    optional NormalStageOpenedProto openedStageDetail = 3;  //当前关卡的完成情况
+	optional int32 result = 4;			//结果码
+}
+
+message FighterProto {
+    required int32 id = 1;      // 位置id
+    required int32 cardId = 2; // 卡片id
+    optional int64 maxHp = 3;  // 最大血量
+    optional int64 hp = 4;     // 当前血量
+    optional bool isBoss = 5;   // 是否boss
+    optional bool isHero = 6;   // 是否boss
+}
+
+//------------------ Battle -----------------
+// 战斗中操作
+message BattleActionProto {
+    required int32 type = 1;          //操作类型(1集火攻击 2爆气 3放技能)
+    required int32 actionId = 2;     //操作的顺序Id
+    optional int32 target = 3;       //操作的目标(集火时为敌方目标SlotId)
+}
+
+// 战斗结果记录
+message BattleRequestProto {
+    optional int32 winner = 1;                         //取胜方（0:我方 1:敌方）
+    repeated BattleActionProto action = 2;             //战斗操作集合
+    optional bool isAuto = 3;
+    optional BattleCheckProto checkInfo = 4;          //战斗校验信息
+}
+
+message PveBattleRequestProto {
+    required int32 stageId = 1;                          //场景Id
+    required int32 blockIndex = 2;                       //场景块序号
+    required BattleRequestProto battleRequest = 3;    //战斗结果
+    required VariableValuesProto cardCurHps = 4;      //英灵当前血量
+    required VariableValuesProto enemyCurHps = 5;     //敌人当前血量
+    optional double energy = 6;                           //主角当前能量
+}
+
+message PveBattleResultProto {
+    required int32 winner = 1;                          //取胜方（0:我方 1:敌方）
+    repeated double expGain = 2;                         //经验取得
+    optional CardsLevelUpProto levelupCards = 3;     //升级的英灵
+    required int32 dropCardId = 4;                      //掉落卡片Id, -1为没有掉落
+    optional int32 surpriseBossId = 5;                 //下一格乱入Boss的Id
+    optional VariableValuesProto cardCurHps = 6;     //英灵当前血量
+    optional double energy = 7;                          //主角当前能量
+    optional HeroLevelUpProto levelupHero = 8;       //主角升级加经验
+    optional int32 catchRate = 9;                       //普通招募成功率
+}
+
+//战斗简单校验
+message BattleCheckProto {
+    required int32 level = 1;
+    repeated BattleCheckWeaponInfoProto myWeapons = 2;
+    repeated BattleCheckCardInfoProto myCards = 3;
+    repeated int32 propertyValues = 4;
+}
+
+message BattleCheckCardInfoProto {
+    required int32 instId = 1;      //卡片Id
+    required int32 level = 2;       //卡片等级
+    optional int32 awakeTime = 3;   //卡片觉醒次数
+    optional int32 HPTrain = 4;     //生命加成
+    optional int32 ATKTrain = 5;    //攻击加成
+    optional int32 DEFTrain = 6;    //防御加成
+    optional int32 MIGTrain = 7;   //魔力加成
+    optional int32 AGITrain = 8;   //敏捷加成
+}
+
+message BattleCheckWeaponInfoProto {
+    required int32 id = 1;            //装备Id
+    required int32 level = 2;        //装备等级
+}
+
+//日常关卡
+message DailyStageAttackRequestProto {
+    required int32 activityId = 1;
+    optional int32 difficulty = 2;
+    optional int32 formationId = 3;
+    optional int32 attackType = 4;  //1普通 2消除冷却 3消费龙晶
+    optional int32 useItemId = 5;
+}
+
+message DailyStageAttackResultProto {
+    required int32 result = 1;
+    optional StageBattleBlockEnemyProto enemy = 2;  //演算出的敌人
+    optional int32 formationId = 3;
+    optional int64 seed = 4;
+    optional LevelStatusProto levelStatus = 5;
+    required int32 activityId = 11;
+    required int32 difficulty = 12;
+}
+
+message DailyStageAttackCompleteRequestProto {
+    required int32 activityId = 1;
+    optional int32 difficulty = 2;
+    required BattleRequestProto battleRequest = 3;    //战斗结果
+    required VariableValuesProto cardCurHps = 4;      //英灵当前血量
+    required VariableValuesProto enemyCurHps = 5;     //敌人当前血量
+    optional int32 energy = 6;                           //主角当前能量
+    optional int32 formationId = 7;
+}
+
+message DailyStageAttackCompleteResultProto {
+    required int32 result = 1;
+    required int32 winner = 2;
+    repeated double expGain = 3;
+    optional CardsLevelUpProto levelupCards = 4;      //升级的英灵
+    optional HeroLevelUpProto levelupHero = 5;        //主角升级信息
+    optional RewardProto reward = 6;
+    optional int32 dropCardId = 7;                      //掉落卡片Id, -1为没有掉落
+    optional VariableValuesProto cardCurHps = 8;     //英灵当前血量
+    optional double energy = 9;                          //主角当前能量
+    optional int32 catchRate = 10;                      //普通招募成功率
+    required int32 activityId = 11;
+    required int32 difficulty = 12;
+}
+
+//做英灵升级表现
+message CardLevelUpProto {
+    required int32 cardInstId = 1;
+    required int32 oldLevel = 2;
+    required int32 newLevel = 3;
+    required double oldExp = 4;
+    required double newExp = 5;
+}
+
+message CardsLevelUpProto {
+    repeated CardLevelUpProto cards = 1;
+}
+
+//做主角升级表现
+message HeroLevelUpProto {
+    required int32 oldLevel = 1;
+    required int32 newLevel = 2;
+    required double oldExp = 3;
+    required double newExp = 4;
+    optional double increaseExp = 5;
+}
+
+message RewardItemProto {
+    required int32 type = 1;    //类型（0:卡片 1:物品 2:金币 3:水晶 4:经验 5:竞技币 6:伤害代币）
+    optional int32 id = 2;      //id (类型为1时启用) 
+    optional int32 num = 3;     //数量
+    optional int32 level = 4;   //等级(仅当是卡片奖励时) 暂不启用
+    optional CardProto cardFromMarket = 5;  //从市场交易获得的卡片 暂不启用
+    optional int64 lockEndTime = 6; //暂不启用
+    optional double dNum = 7;   //double格式的数量
+}
+
+message RewardProto {
+    repeated RewardItemProto items = 1;  // 奖品
+}
+
+message StageCompleteProto {
+	required int32 result = 1;                  	//结果码
+	optional int32 stageId = 2; 					//完成的关卡id
+	optional int32 rankId = 3; 						//完成的rank id
+	repeated NormalStageDetailProto detail = 4;     //关卡每个进度的信息
+}
+
+message StageExploreRewardProto {
+    required int32 stageId = 1;
+    optional RewardProto reward = 2;
+}
+
+//关卡格子信息
+message StageBlockProto {
+    optional int32 index = 1;     // 格子序号
+    optional int32 type = 2;        // 格子类型（1空地 2木宝箱 3金宝箱 4怪物 5奇遇 6小Boss 7大Boss 8乱入Boss 9终点）
+    optional int32 contentId = 3;       // 格子内容的Id(5奇遇)
+    optional RewardProto reward = 4;   // 奖励(2木宝箱)
+    optional StageBattleBlockEnemyProto enemy = 5; //演算出的敌人(4怪物,6小Boss,7大Boss,8乱入Boss)
+    optional int64 seed = 6;    // 随机种子
+    optional HeroLevelUpProto levelupHero = 7;   //主角升级信息
+    optional StoryProto story = 8;  //剧情信息
+    optional double emptyBlockExp = 9;   //途径空格获得的经验值
+    optional PvPBriefProto pvpInfo = 10;    //踩出Pvp
+    optional BossProto bossInfo = 11;       //踩出Boss
+    optional StaminaChangeProto staminaInfo = 12;   //体力信息
+    optional StageBlockPlayerProto playerInfo = 13;  //踩出Player
+    optional LevelStatusProto levelStatus = 14;
+    repeated int32 eliteAPct = 15;                        //我方活动精英加成(只在pve活动关卡:百战,财宝)
+}
+
+message StageBlockPlayerProto {
+    required int32 playerId = 1;
+    optional string playerName = 2;
+    optional int32 playerLevel = 3;
+    optional int32 playerIcon = 4;
+    optional int32 helpType = 5;    //1加体力 //2加精力
+    optional int32 helpValue = 6;
+}
+
+//复活战斗信息
+message StageReviveResultProto {
+    optional bool revive = 1;     //复活结果
+    optional int32 index = 2;     //格子序号
+    optional StageBattleBlockEnemyProto enemy = 3; //演算出的敌人(4怪物,6小Boss,7大Boss,8乱入Boss)
+    optional VariableValuesProto enemyHps = 4;  //敌人当前血量
+    optional int64 seed = 5;    //随机种子
+    repeated int32 eliteAPct = 6;  //我方活动精英加成(只在pve活动关卡:百战,财宝)
+}
+
+//对客户端发送的关卡简要配置信息--------
+message StageBlockBriefProto {
+    required int32 index = 1;           //格子序号
+    required int32 type = 2;            //格子类型（1空地 2木宝箱 3金宝箱 4怪物 5奇遇 6小Boss 7大Boss 8乱入Boss 9终点）
+    optional int32 enemyId = 3;         //仅当格子类型是怪物或者Boss的时候，用于显示怪物外形
+    optional int32 awaken = 4;          //怪物外形是否觉醒
+    optional StagePvPBlockBriefProto pvpOpponent = 5;
+}
+
+message StagePvPBlockBriefProto {
+    optional string name = 1;
+    optional bool isMale = 2;
+    optional int32 artifactId = 3;
+    optional int32 armourId = 4;
+}
+
+//用于客户端展示场景
+message StageStateBriefProto {
+    required int32 stageId = 1;                    //关卡号
+    optional int32 stageType = 2;                  //关卡类型（0普通 1活动百战 2竞斗）
+    optional int32 formationId = 3;                //阵型信息
+    optional int32 currentBlockIndex = 4;         //所处当前关卡格子位置
+    repeated StageBlockBriefProto blocks = 5;    //格子简要信息列表
+    optional VariableValuesProto curHps = 6;     //当前血量
+    optional int32 goldBoxNum = 7;                 //取得的金宝箱数量
+    optional double energy = 8;                      //主角能量
+    optional int32 enemyAttributeX = 9;            //怪物属性参数
+    optional int32 result = 10;                     //进入关卡结果(0正常进入 1活动已结束)
+}
+
+//用于客户端展示场景
+message NormalStageProto {
+	required int32 currentStageId = 1;				//当前关卡号	
+	optional NormalStageOpenedProto openedStageDetail = 2;		//已完成的关卡列表(rank, 大关卡，小关卡，进度)
+	optional int32 stageType = 3;					//关卡类型（0普通 1boss战） 取决于客户端进入	
+	optional int32 level = 4;						//怪物等级
+	optional int32 bossId = 5;                  	//BOSS ID
+	optional double progress = 6;					//当前关卡的进度    取决于客户端
+	optional int32 difficulty = 7;                  //当前关卡的难度    取决于客户端
+	optional int32 bossFighted = 8;					//boss战是否完成
+	optional int32 maxProcess = 9;					//该关卡的总进度
+	optional int32 bigstageid = 10;					//大关卡的id
+	optional int32 rankid = 11;						//rank id
+	repeated NormalStageDetailProto detail = 12;    //关卡每个进度的信息
+}
+
+message HardStageProto {        
+        optional BossInfoProto hardBossInfo = 1; // 死亡模式关卡信息
+        optional int64 lastChallengeFailTime = 2; // 上次挑战失败时间
+        optional int32 failTimesToday = 3; // 当日失败次数
+}
+
+message NormalStageOpenedProto {
+    required int32 smallStageId = 1;                //小关卡id
+    required int32 bigStageId = 2;					//大关卡id
+    required int32 rankId = 3;            			//关卡rank id
+    optional double process = 4;            		//已完成进度
+	optional int32 bossFighted = 5;					//boss战是否完成
+	optional int32 maxProcess = 6;					//该关卡的总进度
+	optional int32 difficulty = 7;                  //当前关卡的难度 
+}
+
+message NormalStageDetailProto {
+    required int32 process = 1;                    	//关卡进度id
+    required int32 enemyId = 2;						//怪物id, 祭坛id,宝箱id
+    required int32 enemyIdProfix = 3;            	//怪物词缀，非怪物则为0	
+    repeated int32 itemId = 4;            			//掉落道具列表
+    optional int32 enemyLevel = 5;					//怪物等级
+	optional double gold = 6;						//金钱掉落
+	optional double exp = 7;						//经验掉落
+	optional int32 type = 8;						//0 普通 1 蓝怪 2金怪 3紫怪 4祭坛 5宝箱
+}
+
+message NormalStageBriefProto {
+	required int32 currentStageId = 1;				//当前关卡号	
+	optional int32 stageType = 2;					//关卡类型（0普通 1boss战） 取决于客户端进入	
+	optional int32 level = 3;						//怪物等级
+	optional int32 bossId = 4;                  	//BOSS ID
+	optional double progress = 5;					//当前关卡的进度     
+	optional int32 difficulty = 6;                  //当前关卡的难度    取决于客户端
+	optional int32 rankid = 7;                  	//当前关卡的rank	取决于客户端
+	repeated NormalStageDetailProto detail = 8;     //关卡每个进度的信息
+	optional int32 result = 9;                  	//结果码
+}
+
+message StagePveBeginRequestProto {
+    required int32 stageId = 1;                    	//关卡号
+	required int32 rankId = 2;                    	//难度号
+	required int32 progress = 3;                  	//客户端遍历的列表索引
+}
+
+message StagePveBeginResponseProto {
+	required int32 result = 1;
+	required int32 stageId = 2;                    	//关卡号
+	required int32 rankId = 3;                    	//难度号
+	required int32 progress = 4;                  	//客户端遍历的列表索引
+	optional int64 seed = 5;						//种子
+}
+
+message StageProcessProto {
+    required int32 stageId = 1;                    	//关卡号
+	required int32 rankId = 2;                    	//难度号
+	required int32 progress = 3;                  	//客户端遍历的列表索引
+	optional int32 battleFlag = 4;					//0为战斗胜利, 1表示本波敌人逃跑
+	optional BattleDetailInfoProto battleInfo = 5;	//战斗信息 
+}
+
+//关卡进度完成信息
+message StageStepProto {
+	required int32 currentStageId = 1;				//当前关卡号	
+	optional int32 rankId = 2;						//当前难度号
+	optional double progress = 3;					//当前关卡的进度
+	optional HeroLevelUpProto levelupHero = 4;  	//主角升级信息
+	optional NormalStageDetailProto detail = 5;     //关卡信息
+	optional int32 result = 6;						//结果码
+	optional int32 nextProcessId = 7;				//替换掉落的下一计数器　＞０则替换
+	optional NormalStageDetailProto nextDetail = 8; //下一关卡信息
+}
+
+//boss战开始
+message StageBossBattleBeginProto {
+	required int32 stageId = 1; 				 //关卡id
+	required int32 rankid = 2;				     //rank id
+}
+
+//boss战结束
+message StageBossBattleFinishProto {
+	required int32 stageId = 1; 				 //完成的关卡id
+	required int32 rankid = 2;				     //rank id
+	required int32 type = 3; 					 //0表示玩家放弃 1表示成功完成
+	optional BattleDetailInfoProto battleInfo = 4;	//战斗信息
+}
+
+//boss战初始化信息
+message StageBossBattleInfoProto {
+	required int32 stageId = 1; 				 //stage id
+	optional int32 rankid = 2;				     //rank id
+	optional int32 bossId = 3;            		 //boss id	
+	optional int32 bossLevel = 4;				 //boss 等级
+    repeated ItemProto item = 5;            	 //掉落道具列表
+	optional double gold = 6;					 //金币
+	optional double exp = 7;					 //经验
+	optional int32 result = 8;					 //结果码
+}
+
+//boss战结果
+message StageBossBattleResultProto {
+	required int32 stageId = 1; 				 //stage id
+	optional int32 rankid = 2;				     //rank id
+	optional int32 result = 3;            		 //战斗结果
+	optional int32 nextStageId = 4;            	 //下一关
+	optional int32 nextRankId = 5;            	 //下一难度
+	optional int32 nextBigStageId = 6;           //下一关
+	optional int32 battleTimes = 7;     		 //每日已挑战次数
+	optional int32 stageTimes = 8;     		 	 //该关卡已挑战次数
+	optional int32 star = 9;					 //本次完成星级
+	optional int32 maxStar = 10;				 //最高完成星级
+        optional int64 lastChallengeFailTime = 11;            //上次挑战失败时间
+        optional int32 failTimesToday = 12;                    // 当时挑战失败次数
+}
+
+//boss战扫荡开始
+message StageBossClearBeginProto {
+	required int32 stageId = 1; 				 //关卡id
+	required int32 rankid = 2;				     //rank id
+	optional int32 times = 3;				     //扫荡次数
+}
+
+//boss战扫荡结果
+message StageBossClearResultProto {
+	required int32 stageId = 1; 				//stage id
+	optional int32 rankid = 2;				    //rank id
+	optional int32 result = 3;            		//战斗结果
+	optional int32 battleTimes = 4;     		//每日已挑战次数
+	optional int32 bossId = 5;            		//boss id	
+	optional int32 bossLevel = 6;				//boss 等级
+	repeated ItemProto item = 7;            	//掉落道具列表
+	optional double gold = 8;					//金币
+	optional double exp = 9;					//经验
+	optional int32 stageTimes = 10;     		//该关卡已挑战次数
+}
+
+//------------------------------------
+//怪物信息
+message StageBattleEnemyProto {
+    required int32 slotId = 1;  // 阵型位置号
+    required int32 cardId = 2;  // 卡片号
+    required int32 level = 3;   // 等级
+    optional int32 awake = 4;   // 是否觉醒
+}
+
+//某格子怪物们信息
+message StageBattleBlockEnemyProto {
+    repeated StageBattleEnemyProto enemies = 1;  //敌人列表
+}
+
+//----------------------------------Social--------------------------------------
+message SocialFriendAcceptProto{
+    required int32 result = 1;
+    repeated int32 id = 2;            //接受的id
+}
+
+message SocialFriendRejectProto{
+    required int32 result = 1;
+    repeated int32 id = 2;            //接受的id
+}
+
+message RelationProto{
+    required BriefPlayersProto friends = 1;
+    required BriefPlayersProto beFriendRequests = 2;
+    optional BriefPlayersProto comrades = 3;
+    optional BriefPlayersProto beComradeRequests = 4;
+    optional int32 removeComradeTimeLeft = 5;
+    optional int32 friendNumLimit = 6;            //好友最大数量
+    optional int32 peakArenaGrade = 7;             //巅峰竞技场段位
+}
+
+message BriefPlayersProto{
+    repeated BriefPlayerProto players = 1;
+	optional int32 result = 2;
+}
+
+message BriefPlayerProto{
+    required int32 id = 1;
+    required string name = 2;
+    required bool isMale = 3;
+    required int32 level = 4;
+    required int32 icon = 5;
+    required int64 leaveTime = 6;
+    optional bool inGame = 7;
+    optional bool isFriend = 8;
+	optional int32 recommendType = 9;
+	optional string tid = 10;
+	optional double battlepower = 11;
+        optional string battlepowerBig = 12; //大数据
+        optional int32 peakArenaGrade = 13;             //巅峰竞技场段位
+}
+
+message BaseBattleInfoProto {
+	optional double hp = 1;					//生命
+	optional double clickDamage = 2;		//攻击
+	optional double reduceDamage = 3;		//防御
+	optional double secondDamage = 4;		//秒伤
+	optional double recoverHp = 5;			//恢复
+	optional double CriX = 6;				//暴击率
+	optional double CriDamage = 7;			//暴击增伤
+	optional double blockX = 8;				//格档率
+	optional double blockDamage = 9;		//格档减伤
+	optional double finalTuningMultiplier = 10;	//主角等级加成
+	optional double raiseEF = 11;			//经验获取
+	optional double raiseMF = 12;			//稀有掉落
+	optional double raiseExplore = 13;		//探索速度
+	optional double raiseGF = 14;			//金币掉落	
+        optional string hpBig = 15;					//生命(大数据)
+	optional string clickDamageBig = 16;		//攻击(大数据)
+	optional string reduceDamageBig = 17;		//防御(大数据)
+	optional string secondDamageBig = 18;		//秒伤(大数据)
+	optional string recoverHpBig = 19;			//恢复(大数据)
+	optional string CriXBig = 20;				//暴击率(大数据)
+	optional string CriDamageBig = 21;			//暴击增伤(大数据)
+	optional string blockXBig = 22;				//格档率(大数据)
+	optional string blockDamageBig = 23;		//格档减伤(大数据)
+        
+}
+
+message BriefPlayerEventInfosProto {
+    repeated BriefPlayerEventInfoProto eventInfos = 1;
+}
+
+message BriefPlayerEventInfoProto {
+    required int32 id = 1;
+    optional int32 comradeRank = 2;
+    optional int64 comradeScore = 3;
+    optional int64 comradeSharedScore = 4;
+}
+
+//-----------------------Mail--------------------------------------------------- 
+message MailListProto{
+    required int32 typeGroup = 1;                 //邮件组别(0系统 1用户)
+    repeated MailBriefProto mailBriefs = 2;       //邮件简略信息列表
+}
+
+message MailBriefProto{
+    required int64 mailId = 1;      //邮件号
+    required int32 type = 2;    	//邮件类型(0系统,1玩家,2公会,3市场)
+    optional int32 fromId = 3;      //发信人Id
+    required string title = 4;      //邮件标题
+    required int32 status = 5;      //邮件状态（0.未读 1.已读 2.已领取）
+    optional string senderName = 6; //发信人名字
+    optional string shortDesc = 7;  //内容缩略
+    optional int64 sendTime = 8;    //发信时间
+    optional bool hasReward = 9;    //是否有附件
+	optional RewardProto reward = 10;  //邮件物品
+}
+
+message MailNumProto{
+    required int32 totalNum = 1;    	// 邮件总数
+    required int32 unreadNum = 2;   	// 未读邮件数
+    required int32 unreadSystemNum = 3; //未读系统邮件数
+    required int32 unreadUserNum = 4;   //未读用户邮件数
+}
+
+message MailProto {
+    required int64 mailId = 1;         // 邮件id
+    required int32 type = 2;           //邮件类型(0系统,1玩家,2活动,3市场)
+    optional int64 FromId = 3;         //发信者Id
+    required string title = 4;         //邮件标题
+    required string description = 5;   //邮件内容
+    optional RewardProto reward = 6;   //邮件物品
+    required int32 status = 7;         //邮件状态
+    optional string senderName = 8;    //发信人名字
+    optional int64 sendTime = 9;       //发信时间
+}
+
+//玩家发送邮件
+message MailSendProto {
+    required int32 targetId = 1;        //目标玩家Id
+    required string title = 2;          //邮件标题
+    required string content = 3;        //邮件内容
+}
+
+message MailGottenProto {
+    required int32 typeGroup = 1;
+    required int64 mailId = 2;
+    optional RewardProto reward = 3;
+}
+
+//--------------------Card Operations-------------------------------
+//C2S sold card request
+message CardSoldRequestProto {
+    repeated int32 cardInstIds = 1;
+}
+
+//S2C sold card result
+message CardSoldResultProto {
+    required double gold = 1;
+    repeated RewardProto boxes = 2;
+}
+
+//C2S awake request
+message CardAwakeRequestProto {
+    required int32 cardInstId = 1;
+    required int32 materialInstId = 2;
+}
+
+//S2C awake card result
+message CardAwakeResultProto {
+    required int32 cardInstId = 1;
+    required int32 awakeTime = 2;
+    optional int64 lockEndTime = 3;
+}
+
+//S2C one button awake result
+message CardOneButtonAwakeResultProto {
+    repeated int32 removeCardInstIdList = 1;
+    repeated IntIntProto cardInstIdAwakeTimeList = 2;
+    optional double goldCost = 3;
+}
+
+//C2S strengthen card request
+message CardStrengthenRequestProto {
+    required int32 cardInstId = 1;
+    required int32 strengthenType = 2;  //强化类型(1普通培养 2全力培养)
+    optional int32 strengthenNum = 3;
+}
+
+//S2C strengthen card result
+message CardStrengthenResultProto {
+    required int32 cardInstId = 1;
+    required int32 HPTrain = 2;
+    required int32 ATKTrain = 3;
+    required int32 DEFTrain = 4;
+    required int32 MIGTrain = 5;
+    required int32 AGITrain = 6;
+}
+
+//S2C card levelup or gain experience
+message CardLevelExperienceProto {
+    required int32 cardInstId = 1;
+    required int32 level = 2;
+    required double experience = 3;
+}
+
+
+//C2S card change slot request
+message CardChangeFormationRequestProto {
+    required FormationProto newformation = 1;
+}
+
+
+//--------------------Weapon Operations-------------------------------
+
+//C2S weapon equip request
+//Use IntValueProto
+
+//S2C weapon equip response
+//Use IntValueProto
+
+//C2S weapon strengthen request
+message WeaponStrengthenRequestProto {
+    required int32 weaponId = 1;
+    optional int32 levelupTime = 2;
+}
+
+//C2S weapon rankup request
+message WeaponRankupRequestProto {
+    required int32 weaponId = 1;
+    optional int32 rankupTime = 2;
+}
+
+//C2S weapon raiseup request
+message WeaponRaiseupRequestProto {
+    required int32 weaponId = 1;
+    optional int32 raiseupTime = 2;
+}
+
+//C2S weapon raiseup request
+message WeaponDimandInlayRequestProto {
+    required int32 weaponId = 1;
+    required int32 inlayNum = 2;
+	required int32 itemId = 3;
+}
+
+//C2S weapon raiseup request
+message WeaponDimandDetachRequestProto {
+    required int32 weaponId = 1;
+    required int32 inlayNum = 2;
+}
+
+//C2S Human reborns
+//Use IntValueProto
+
+//S2C weapon change response, levelup or rankup or raiseup or experience
+message WeaponChangeProto {
+    required int32 weaponId = 1;
+    optional int32 level = 2;
+	optional int32 rank = 3;
+	optional int32 raise = 4;
+}
+
+//S2C weapon strengthen response, levelup or gain experience
+message WeaponLevelChangeProto {
+    required int32 weaponId = 1;
+    required int32 level = 2;
+	optional int32 result = 3; //结果码
+}
+
+//S2C weapon strengthen response, levelup or gain experience
+message WeaponRankChangeProto {
+    required int32 weaponId = 1;
+    required int32 rank = 2;
+	optional int32 result = 3; 			//结果码
+	optional int64 hp = 4;				//武器吸收的宝石属性
+    optional int64 clickDamage = 5;		//武器吸收的宝石属性
+    optional int64 reduceDamage = 6;	//武器吸收的宝石属性
+	optional int64 secondDamage = 7;	//武器吸收的宝石属性
+	optional int64 recoverHp = 8;		//武器吸收的宝石属性
+    optional int64 CriX = 9;			//武器吸收的宝石属性
+    optional int64 CriDamage = 10;		//武器吸收的宝石属性
+    optional int64 blockX = 11;			//武器吸收的宝石属性
+    optional int64 blockDamage = 12;	//武器吸收的宝石属性
+    optional WeaponEnchantProto enchant = 13;       //附魔
+    optional string hpBig = 14;				//武器吸收的宝石属性(大数据）
+    optional string clickDamageBig = 15;		//武器吸收的宝石属性(大数据）
+    optional string reduceDamageBig = 16;	//武器吸收的宝石属性(大数据）
+    optional string secondDamageBig = 17;	//武器吸收的宝石属性(大数据）
+    optional string recoverHpBig = 18;		//武器吸收的宝石属性(大数据）
+    optional string CriXBig = 19;			//武器吸收的宝石属性(大数据）
+    optional string CriDamageBig = 20;		//武器吸收的宝石属性(大数据）
+    optional string blockXBig = 21;			//武器吸收的宝石属性(大数据）
+    optional string blockDamageBig = 22;	//武器吸收的宝石属性(大数据）
+    repeated WeaponEnchantProto enchantList = 23;       //附魔列表（用于一键升阶）
+}
+
+//S2C weapon strengthen response, levelup or gain experience
+message WeaponRaiseChangeProto {
+    required int32 weaponId = 1;
+    required int32 raise = 2;	//上升的raise 
+	optional int32 result = 3;  //结果码
+	optional int32 weaponRaise = 4; //武器最新raise
+}
+
+//S2C weapon inlay change response
+message WeaponInlayChangeProto {
+    required int32 weaponId = 1;
+    required int32 inlayNum = 2;
+	required int32 itemId = 3;
+	optional int32 result = 4; //结果码
+}
+
+//C2S weapon onekey inlay response
+message WeaponInlayOneKeyRequestProto {
+    required int32 weaponId = 1;
+	required int32 type = 2; //0表示不自动，１表示自动扣除宝石能量
+}
+
+//S2C weapon onekey inlay response
+message WeaponInlayOneKeyResponseProto {
+    required int32 weaponId = 1;
+	required int32 result = 2; //结果码
+    required int32 inlay1 = 3;
+	required int32 inlay2 = 4;
+	required int32 inlay3 = 5;
+	required int32 inlay4 = 6;
+	optional int32 inlay5 = 7;
+	optional int32 inlay6 = 8;
+	optional double energy = 9;
+}
+
+//C2S diamand compose request
+message DiamandComposeProto {
+    required int32 itemId = 1;		//宝石id
+    required double energy = 2;		//需要粉的量
+	required int32 newItemId = 3;	//新宝石id
+}
+
+//S2C diamand compose request
+message DiamandComposeResultProto {
+    required double energy = 1;	//现在粉的量
+	required int32 result = 2;	//结果码
+}
+
+//C2S weapon compose request
+message WeaponComposeProto {
+    required int32 weaponId = 1;	//需合成的武器id
+}
+
+//S2C weapon compose response
+message WeaponComposeResultProto {
+    required int32 weaponId = 1;	//武器id
+	required int32 result = 2;		//结果码
+}
+
+//C2S rule compose request
+message RuleComposeProto {
+    required int32 ruleId = 1;		//符文id
+    required int32 num = 2;			//合成的数量
+}
+
+//S2C rule compose response
+message RuleComposeResultProto {
+    required int32 ruleId = 1;	//符文id
+	optional int32 num = 2;		//合成的数量
+	optional double rulemana = 3;//人物的符文能量
+	optional int32 result = 4;	//结果码
+}
+
+//-------------------------Store--------------------------------------
+//S2C product list
+message StoreProto {
+    optional int32 storeType = 1;                //商城类型(1卡包 2道具)
+    repeated StoreCardBagProto cardBags = 2;   //卡包列表
+    repeated StoreItemProto items = 3;          //道具列表
+}
+
+message StoreCardBagProto {
+    required int32 cardBagId = 1;               //卡包Id
+    required string name = 2;                    //卡包名称
+    required string desc = 3;                    //卡包说明
+    required int32 buyNumLeft = 4;              //购买次数剩余(-1为无限制)
+    required int64 buyTimeLeft = 5;             //购买时间剩余(-1为无限制，单位是秒)
+    required int32 refreshType = 6;             //刷新类型(0无刷新 1每日刷新 2每周刷新)
+    required int32 consumeItemId = 7;           //消耗道具Id(代币)
+    required int32 diamondPrice = 8;            //抽取消耗龙晶
+    optional int32 multiDrawNum = 9;            //连抽次数
+    optional int32 multiDrawPrice = 10;         //连抽消耗龙晶
+    optional string saleInfo = 11;               //打折信息
+    optional IntValuesProto showCards = 12;    //展示卡牌信息
+    optional int32 status = 13;                  //0 无, 1 New, 2 Hot, 3 Sale
+    optional int32 iconType = 14;                //头像类型 1英灵 2图片
+    optional string iconName = 15;               //头像名称
+    optional string iconBorder = 16;             //头像边框
+    optional int32 bgId = 17;                     //1金 2银 3铜 4活动 5rmb
+    optional int32 buyNumTotal = 18;             //购买次数限制
+    optional int32 priority = 19;                //表现排列优先级
+    optional int32 originalPrice = 20;          //原价
+}
+
+message StoreItemProto {
+    required int32 itemId = 1;                   //道具Id
+    required string name = 2;                    //道具名称
+    required string desc = 3;                    //道具说明
+    required int32 buyNumLeft = 4;              //购买次数剩余(-1为无限制)
+    required int64 buyTimeLeft = 5;             //购买时间剩余(-1为无限制，单位是秒)
+    required int32 refreshType = 6;             //刷新类型(0无刷新 1每日刷新 2每周刷新)
+    required int32 price = 7;                    //购买一次价格(龙晶)
+    optional int32 multiBuyNum = 8;             //批量购买次数
+    optional int32 multiBuyPrice = 9;           //批量购买消耗龙晶
+    optional string saleInfo = 10;               //打折信息
+    optional int32 status = 11;                  //0 无, 1 New, 2 Hot, 3 Sale
+    optional string iconName = 12;               //头像名称
+    optional string iconBorder = 13;             //头像边框
+    optional int32 bgId = 14;                     //6道具默认底图
+    optional int32 buyNumTotal = 15;             //购买次数限制
+    optional int32 priority = 16;                //表现排列优先级
+    optional int32 originalPrice = 17;          //原价
+}
+
+//C2S buy product request
+message StoreBuyRequestProto {
+    required int32 productType = 1;             //购买类型(1卡包　2道具)
+    required int32 productId = 2;               //购买的商品Id 
+    required bool isMultiBuy = 3;               //是否批量购买
+}
+
+
+//S2S buy item result
+message StoreBuyItemResultProto {
+    required int32 result = 1;
+    required int32 productId = 2;
+    optional VariableValuesProto product = 3; 
+    optional int32 buyNumLeft = 4;
+}
+
+//S2S buy cardbag result
+message StoreBuyCardBagResultProto {
+    required int32 result = 1;
+    required int32 productId = 2;
+    optional IntValuesProto card = 3; 
+    optional int32 buyNumLeft = 4;
+}
+
+//use VariableValuesProto (id,level)
+
+message StoreProductRefreshProto {
+    required int32 productType = 1;
+    required int32 productId = 2;
+    required int32 buyNumLeft =3;
+}
+
+message MysteryStoreProto {
+    repeated MysteryStoreItemProto items = 1;
+    required int32 refreshMysteryDiamondNum = 2;
+}
+
+message MysteryStoreItemProto {
+    required int32 index = 1;
+    required bool bought = 2;
+    required int32 currency = 3;
+    required int32 price = 4;
+    required int32 type = 5;
+    required int32 id = 6;
+    required int32 num = 7;
+}
+
+message MysteryStoreBuyResultProto {
+    required int32 result = 1;
+    optional RewardItemProto reward = 2;
+}
+
+message MysteryStoreRefreshResultProto {
+    required int32 result = 1;
+    repeated MysteryStoreItemProto items = 2;
+}
+
+//------------------------------Market-------------------------------
+message StallsProto {
+    optional int32 ownerId = 1;
+    optional string ownerName = 2;
+    optional IntValuesProto stallOpenLevel = 3;
+    optional string password = 4;
+    optional bool passwordEnabled = 5;
+    repeated StallProto stalls = 6;
+}
+
+message StallProto {
+    required int32 stallId = 1;
+    required int64 orderId = 2;
+    required int64 endTime = 3;
+    required StallItemProto provide = 4;
+    required StallItemProto require = 5;
+}
+
+message StallItemProto {
+    required int32 type = 1;
+    optional int32 id = 2;
+    optional int32 num = 3;
+
+    optional int64 gloablId = 4;         //卡片全局Id
+    optional int32 level = 5;            //卡片等级
+    optional double experience = 6;       //卡片当前等级经验
+    optional int32 awakeTime = 7;        //卡片觉醒次数
+    optional int32 HPTrain = 8;          //卡片HP加成数(符文强化)
+    optional int32 ATKTrain = 9;         //卡片攻击加成数
+    optional int32 DEFTrain = 10;        //卡片防御加成数
+    optional int32 MIGTrain = 11;        //卡片魔力加成数
+    optional int32 AGITrain = 12;        //卡片敏捷加成数    
+}
+
+//C2S add stall request
+message StallAddProto {
+    required int32 stallId = 1;
+    optional int32 cardInstId = 2;
+    required int32 requireType = 3;
+    optional int32 requireId = 4;
+    optional int32 requireNum = 5;
+}
+
+//S2C add stall response
+//use IntValueProto
+
+
+//C2S search card provide request
+message SearchCardRequestProto {
+    required int32 requestType = 1; //0搜索卖单 1搜索买单
+    required int32 cardId = 2;
+    required int32 pageNum = 3;     //页序号,从1开始
+    required int32 numEachPage = 4;
+}
+
+//S2C search card provide result
+message SearchCardResultProto {
+    repeated SearchCardStallProto stalls = 1;
+    required int32 totalPageNum = 2;
+    required int32 currentPageNum = 3;
+}
+
+message SearchCardStallProto {
+    required int32 ownerId = 1;
+    required string ownerName = 2;
+    required int64 orderId = 3;
+    required int64 endTime = 4;
+    required StallItemProto provide = 5;
+    required StallItemProto require = 6;
+}
+
+//C2S accept order request
+message AcceptOrderRequestProto {
+    required int64 orderId = 1;
+    optional int32 cardInstId = 2;
+}
+
+//S2C accept order result
+//use IntValueProto
+
+//-----------------------------Boss--------------------------------
+message BossListBriefProto {
+    repeated BossBriefProto bossList = 1;
+    optional BossBriefProto myBoss = 2;
+}
+
+message BossBriefProto {
+    required int32 instId = 1;
+    required int32 bossId = 2;
+    required int32 level = 3;
+    required string finderName = 4;
+    required int64 curHP = 5;
+    required int64 leaveTime = 6;
+    required bool attacked = 7;
+    optional int64 killTime = 8;
+    optional bool awaked = 9;
+}
+
+message BossListDetailProto {
+    repeated BossProto bossList = 1;
+    optional BossProto myBoss = 2;
+}
+
+message BossProto {
+    required int32 instId = 1;
+    optional int32 bossId = 2;
+    optional int32 level = 3;
+    optional int64 curHP = 4;
+    optional int32 finderId = 5;
+    optional string finderName = 6;
+    optional int64 leaveTime = 7;
+    repeated DamageProto damageList = 8;
+    optional int32 killerId = 9;
+    optional string killerName = 10;
+    optional int64 killTime = 11;
+    optional int32 bossType = 12;
+    optional bool awaked = 13;
+}
+
+message DamageProto {
+    required int32 playerId = 1;
+    required string playerName = 2;
+    required int64 damage = 3;
+}
+
+message BossNoteProto {
+    required int32 type = 1;
+    required int32 bossInstId = 2;
+    optional int32 playerId = 3;
+    optional string playerName = 4;
+    optional int64 damage = 5;
+    optional int64 remainHp = 6;
+    optional BossProto bossInfo = 7;
+}
+
+//C2S start attack request
+message BossAttackRequestProto {
+    required int32 battleType = 1;
+    required int32 attackType = 2;
+    required int32 bossInstId = 3;
+    required int32 formationId = 4;
+    optional int32 useItemId = 5;
+}
+
+//S2C start attack result
+message BossAttackResultProto {
+    required int32 battleType = 1;
+    required int32 requestResult = 2;
+    optional int32 battleResult = 3;
+    optional int32 attackType = 4;
+    optional int32 bossInstId = 5;
+    optional int32 formationId = 6;
+    optional int64 seed = 7;
+    optional int64 damage = 8;
+    optional double gold = 9;
+    optional BossRewardProto reward = 10;
+    optional BossProto surpriseBoss = 11;
+    optional int32 bossId = 12;
+    optional int32 bossLevel = 13;
+    optional int64 bossCurHp = 14;
+    optional int32 leaveRound = 15;
+    optional HeroLevelUpProto levelupHero = 16;        //主角升级信息
+    optional CardsLevelUpProto levelupCards = 17;      //升级的英灵
+    repeated double expGain = 18;
+    optional int32 campAPct = 19;                         //我方全力一击加成
+    repeated int32 eliteAPct = 20;                        //我方活动精英加成
+    optional LevelStatusProto levelStatus = 21;
+    optional int32 bossType = 22;
+    repeated int64 testHps = 23;            //测试用血值(0到5我方血量,6boss血量,7战斗号)
+}
+
+message LevelStatusProto {
+    optional int32 heroLevel = 1;
+    repeated IntIntProto cardLevels = 2;
+}
+
+//C2S get reward request
+//use IntValueProto, bossInstId
+
+//S2C get reward result
+message BossRewardProto {
+    required int32 bossInstId = 1;
+    required bool hasReward = 2;
+    optional RewardProto attackReward = 3;
+    optional RewardProto findReward = 4;
+    optional RewardProto killReward = 5;
+    optional RewardProto mvpReward = 6;
+    optional RewardProto mvp2Reward = 7;
+    optional RewardProto mvp3Reward = 8;
+}
+
+//--------------------------PvP-----------------------------------
+message PvPBriefProto {
+    required int32 instId = 1;
+    optional int64 finishTime = 2;
+    optional int32 currentIndex = 3;
+    optional int32 pvpContNum = 4;
+    repeated PvPOpponentBriefProto opponents = 5;
+    optional int32 groupLevel = 6;      //raidpvp活动段位
+}
+
+message PvPOpponentBriefProto {
+    required int32 id = 1;
+    required string name = 2;
+    required bool isMale = 3;
+    required int32 level = 4;
+    required int32 icon = 5;
+    repeated IntBoolProto defenceCardIds = 6;
+    repeated int32 equippedWeaponIds = 7;
+    optional int32 score = 8;   //活动获得的积分
+    optional int32 power = 9;   //战力
+}
+
+message PvPOpponentProto {
+    required int32 id = 1;
+    required string name = 2;
+    required bool isMale = 3;
+    required int32 level = 4;
+    repeated PvPWeaponInfoProto equippedWeapons = 5;
+    repeated PvPCardInfoProto defenceCards = 6;
+    repeated int32 propertyValues = 7;
+}
+
+
+message PvPCardInfoProto {
+    required int32 id = 1;           //卡片Id
+    required int32 level = 2;        //卡片等级
+    optional int32 awakeTime = 3;   //卡片觉醒次数
+    optional int32 HPTrain = 4;     //生命加成
+    optional int32 ATKTrain = 5;    //攻击加成
+    optional int32 DEFTrain = 6;    //防御加成
+    optional int32 MIGTrain = 7;   //魔力加成
+    optional int32 AGITrain = 8;   //敏捷加成
+}
+
+message PvPWeaponInfoProto {
+    required int32 id = 1;            //装备Id
+    required int32 level = 2;        //装备等级
+}
+
+
+//C2S start attack request
+message PvPAttackRequestProto {
+    optional int32 battleType = 1;
+    required int32 attackType = 2;
+    optional int32 opponentIndex = 3;
+    optional int32 formationId = 4;
+    optional int32 useItemId = 5;
+}
+
+//S2C start attack result
+message PvPAttackResultProto {
+    optional int32 battleType = 1;
+    required int32 result = 2;
+    optional int32 attackType = 3;
+    optional int32 opponentIndex = 4;
+    optional PvPOpponentProto opponent = 5;
+    optional int32 formationId = 6;
+    optional int64 seed = 7;
+    optional int32 campAPct = 8;                        //我方全力一击加成
+    optional int32 campBPct = 9;                        //敌方全力一击加成
+    repeated int32 eliteAPct = 10;                      //我方活动精英加成
+    repeated int32 eliteBPct = 11;                      //敌方活动精英加成
+    optional LevelStatusProto levelStatus = 12;
+}
+
+//C2S attack complete request
+message PvPAttackCompleteRequestProto {
+    optional int32 battleType = 1;
+    required BattleRequestProto battleRequest = 2;
+    required int32 attackType = 3;
+    required int32 opponentIndex = 4;
+    required int32 formationId = 5;
+}
+
+//S2C attack complete result
+message PvPAttackCompleteResultProto {
+    optional int32 battleType = 1;
+    required int32 result = 2;
+    required int32 winner = 3;
+    repeated double expGain = 4;
+    optional CardsLevelUpProto levelupCards = 5;      //升级的英灵
+    optional HeroLevelUpProto levelupHero = 6;        //主角升级信息
+    optional PvPRewardProto reward = 7; 
+    optional int32 opponentPlayerId = 8;
+    optional string opponentPlayerName = 9;
+    optional int32 opponentPlayerLevel = 10;
+    optional int32 opponentPlayerIcon = 11;
+    optional int32 contNum = 12;
+    optional int32 dailyContNum = 13;
+    optional PvPBriefProto nextPvP = 14;
+}
+
+message PvPRewardProto {
+    optional RewardProto contReward = 2;
+    optional RewardProto dailyReward = 4;
+}
+
+//--------------------------Event---------------------------------
+message EventBriefInfoProto {
+    required int32 eventId = 1;
+    optional int32 eventType = 2;
+    optional int32 eventStatus = 3;
+    optional int64 eventStartTime = 4;
+    optional int64 eventEndTime = 5;
+    optional int64 score = 6;
+    optional int32 rank = 7;
+    optional int32 anotherRank = 8;
+    optional int32 nextRewardScoreLeft = 9;
+    optional RewardProto nextReward = 10;
+    optional bool anotherRankEnabled = 11;
+    optional string eventName = 12;
+    optional int32 noticeId = 13;
+    repeated EventEliteProto elites = 14;
+    optional int32 scoreX = 15;
+    optional int64 scoreXEndTime = 16;
+}
+
+message EventEliteProto {
+    required int32 heroId = 1;
+    required int32 awakeTime = 2;
+    required float attributeX = 3;
+}
+
+message EventStatusChangeProto {
+    required int32 eventId = 1;
+    required int32 eventType = 2;
+    required int32 eventStatus = 3;
+    required int64 eventStartTime = 4;
+    required int64 eventEndTime = 5;
+}
+
+message RankListProto {
+    required int32 rankType = 1;
+    repeated RankInfoProto list = 2;
+}
+
+message RankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int64 score = 7;
+    repeated int32 honours = 8;
+    optional string tid = 20;
+}
+
+//S2C score reward
+message EventScoreRewardProto {
+    required int32 rewardScore = 1;
+    optional RewardProto scoreReward = 2;
+    optional int32 nextRewardScoreLeft = 3;
+    optional RewardProto nextReward = 4;
+}
+
+//C2S enter event stage request
+message EventEnterStageProto {
+    required int32 eventStageIndex = 1;
+    required int32 formationId = 2;
+}
+
+//---------------------Endless-----------------------
+message EndlessDifficultyRankListProto {
+    required int32 rankType = 1;
+    repeated EndlessDifficultyRankInfoProto list = 2;
+}
+
+message EndlessDifficultyRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 difficulty = 7;
+    required int32 level = 8;
+    repeated int32 honours = 9;
+
+    optional string tid = 20;
+}
+
+message EndlessStageOptionProto {
+    optional int32 difficulty = 1;
+    optional int32 level = 2;
+    optional int32 maxDifficulty = 3;
+    optional int32 maxLevel = 4;
+    repeated EndlessStageBriefInfoProto stageList = 5;
+    optional int32 result = 6;                     //获得关卡选项结果(0正常获得 1活动已结束)
+}
+
+message EndlessStageBriefInfoProto {
+    required int32 stageId = 1;
+    required int32 specialEvent = 2;
+    required float scoreRate = 3;
+}
+
+//S2C difficulty and level change
+message EndlessDifficultyLevelChangeProto {
+    required int32 difficulty = 1;
+    required int32 level = 2;
+    repeated EndlessStageBriefInfoProto stageList = 3;
+}
+
+//S2C complete stage rewards
+message EndlessCompleteStageRewardProto {
+    required RewardProto normalCompleteReward = 1;
+    optional RewardProto firstCompleteDifficultyReward = 2;
+}
+
+//做表现用，获得分数的统计
+message EndlessScoreStatisticProto {
+    required int32 baseScore = 1;
+    optional int32 difficultyX = 2;
+    optional int32 eventX = 3;
+    optional int32 totalScore = 4;
+    optional int32 firstCompleteX = 5;
+}
+
+
+//---------------------Scuffle-----------------------
+message ScuffleContWinRankListProto {
+    required int32 rankType = 1;
+    repeated ScuffleContWinRankInfoProto list = 2;
+}
+
+message ScuffleContWinRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 contWinNum = 7;
+    repeated int32 honours = 8;
+    optional string tid = 20;
+}
+
+message ScuffleStageOptionProto {
+    optional int32 groupId = 1;
+    optional int32 contWinNum = 2;
+    optional int32 maxContWinNum = 3;
+    repeated ScuffleStageBriefInfoProto stageList = 4;
+    optional int32 result = 5;                     //获得关卡选项结果(0正常获得 1活动已结束)
+}
+
+message ScuffleStageBriefInfoProto {
+    required int32 stageId = 1;
+    required float winScoreRate = 2;
+}
+
+message ScuffleContWinChangeProto {
+    required int32 contWinNum = 1;
+    required int32 maxContWinNum = 2;
+}
+
+message ScuffleContWinRewardProto {
+    required RewardProto contWinReward = 1;
+    required int32 contWinNum = 2;
+}
+
+//做表现用，获得分数的统计
+message ScuffleScoreStatisticProto {
+    required int32 winScore = 1;
+    optional int32 conWinX = 2;
+    optional int32 totalScore = 3;
+}
+
+//---------------------Hegemony-----------------------
+message HegemonyKingdomRankListProto {
+    required int32 rankType = 1;
+    repeated HegemonyKingdomRankInfoProto list = 2;
+}
+
+message HegemonyKingdomRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 land = 7;
+    repeated int32 honours = 8;
+
+    optional string tid = 20;
+}
+
+message HegemonyEventStatusProto {
+    optional int32 level = 1;
+    optional int32 lastLevel = 2;
+    optional int32 land = 3;
+    optional int32 tax = 4;
+    optional int32 defendFormationId = 5;
+    optional int64 protectTime = 6;
+    optional int32 landGrowValue = 7;  //一小时土地增长值(需计算)
+    optional float taxRate = 8;         //一小时税率增长值(需计算)
+    optional int32 maxTax = 9;          
+    optional int64 nextPermitRefreshOpponentTime = 10;
+    optional int64 nextPermitGetTaxTime = 11;
+    optional int32 nextLevelRequireLandNum = 12;
+    optional HegemonyOpponentListProto opponent = 13;
+    optional int32 result = 14;                     //获得活动信息结果(0正常获得 1活动已结束)
+    
+}
+
+message HegemonyOpponentListProto {
+    repeated HegemonyOpponentProto list = 1;
+}
+
+message HegemonyOpponentProto {
+    required int32 playerId = 1;
+    required string playerName = 2;
+    required int32 playerLevel = 3;
+    required int32 playerIcon = 4;
+    required int32 nobilityLevel = 5;
+    required int32 land = 6;
+    required int32 tax = 7;
+    optional int32 kingdomRank = 8;
+    optional int32 stageId = 9;
+
+    optional string tid = 20;
+}
+
+message HegemonyNobilityLevelUpProto {
+    required int32 newLevel = 1;
+    optional int32 newLevelLandGrow = 2;
+    optional float newLevelTaxRate = 3;
+    optional int32 nextLevelRequireLandNum = 4;
+    optional int32 newLevelMaxTax = 5;
+}
+
+message HegemonyAttackHistoryProto {
+    repeated HegemonyAttackRecordProto histories = 1;
+}
+
+message HegemonyAttackRecordProto {
+    required int32 attackerId = 1;
+    required string attackerName = 2;
+    required int32 attackType = 3;
+    required int32 result = 4;
+    required int32 loseValue = 5;
+    required int64 attackTime = 6;
+}
+
+message HegemonyGetTaxProto {
+    required int32 tax = 1;
+    required int64 nextPermitGetTaxTime = 2;
+}
+
+//做表现用，获得分数的统计
+message HegemonyScoreStatisticProto {
+    required int32 baseScore = 1;
+    required int32 type = 2;        //1税收积分 2掠夺积分
+    required int32 totalScore = 3;
+    optional int32 beatScore = 4;   //掠夺击败
+    optional int32 beatLevel = 5;   //掠夺的对象等级
+}
+
+//--------------------------Treasure------------------------------
+message TreasureTotalLevelRankListProto {
+    required int32 rankType = 1;
+    repeated TreasureTotalLevelRankInfoProto list = 2;
+}
+
+message TreasureTotalLevelRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 totalLevel = 7;
+    repeated int32 honours = 8;
+
+    optional string tid = 20;
+}
+
+
+message TreasureStageOptionProto {
+    optional int32 hunterLevel = 1;
+    repeated int32 treasureLevel = 2;
+    repeated int32 pieceNum = 3;
+    repeated int32 pieceMaxNum = 4;
+    repeated TreasureStageBriefInfoProto stageList = 5;
+    optional int32 result = 6;                     //获得关卡选项结果(0正常获得 1活动已结束)
+}
+
+message TreasureStageBriefInfoProto {
+    required int32 stageId = 1;
+    required int32 raceId = 2;
+    required int32 mapId = 3;
+    required int32 specialEvent = 4;
+}
+
+message TreasureTreasureLevelPieceNumChangeProto {
+    required int32 raceId = 1;
+    required int32 level = 2;
+    required int32 pieceNum = 3;
+    optional int32 maxPieceNum = 4;
+    optional int32 addPieceNum = 5;
+}
+
+message TreasureHunterLevelChangeProto {
+    required int32 newLevel = 1;
+    optional int32 treasureRank = 2;
+}
+
+//做表现用，获得分数的统计
+message TreasureScoreStatisticProto {
+    required int32 baseScore = 1;
+    optional int32 eventX = 2;
+    optional int32 raceLevel = 3;
+    optional int32 totalScore = 4;
+    required int32 type = 5;        //1完成宝图 2遗宝升级
+}
+
+//---------------------Raidboss-----------------------
+message RaidbossKillRankListProto {
+    required int32 rankType = 1;
+    repeated RaidbossKillRankInfoProto list = 2;
+}
+
+message RaidbossKillRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 killScore = 7;
+    repeated int32 honours = 8;
+
+    optional string tid = 20;
+}
+
+//做表现用，获得分数的统计
+message RaidbossScoreStatisticProto {
+    required int32 damageScore = 1;
+    optional int32 attackScore = 2;
+    optional int32 friendX = 3;
+    optional int32 comradeX = 4;
+    optional int32 comboNum = 5;
+    optional int32 comboX = 6;
+    optional int32 mvpNumber = 7;
+    optional int32 mvpX = 8;
+    optional int32 totalScore = 9;
+}
+
+//---------------------Raidpvp-----------------------
+message RaidpvpMaxContWinRankListProto {
+    required int32 rankType = 1;
+    repeated RaidpvpMaxContWinRankInfoProto list = 2;
+}
+
+message RaidpvpMaxContWinRankInfoProto {
+    required int32 rank = 1;
+    required int32 playerId = 2;
+    required string playerName = 3;
+    required int32 playerLevel = 4;
+    required int32 playerIcon = 5;
+    required int32 relation = 6;
+    required int32 maxContWin = 7;
+    repeated int32 honours = 8;
+    optional int32 groupLevel = 9;
+
+    optional string tid = 20;
+}
+
+//做表现用，获得分数的统计
+message RaidpvpScoreStatisticProto {
+    required int32 score = 1;
+    optional int32 comboNum = 2;
+    optional float comboX = 3;
+    optional int32 totalScore = 4;
+    optional float groupX = 5;
+}
+
+//--------------------------ContSign------------------------------
+message ContSignProto {
+    required int32 signMonth = 1;
+    required int32 signNum = 2;
+    required int32 lastSignDay = 3;
+    repeated ContSignDetailProto detail = 4;
+}
+
+message ContSignDetailProto {
+    required int32 day = 1;
+    required int32 viplevel = 2;
+	repeated RewardItemProto reward = 3;
+	optional int32 isGotten = 4; 			//领取值：未领取为0,普通领取为1, VIP领取为2
+}
+
+message ContSignResponseProto {
+	required int32 result = 1;
+	optional int32 lastSignDay = 2;
+	optional int32 signNum = 3;
+	optional int32 isGotten = 4;		   //领取值：未领取为0,普通领取为1, VIP领取为2, VIP补领为3
+	repeated RewardItemProto reward = 5;
+}
+
+//-------------------------Invitation-----------------------------
+message InvitationProto {
+    required int32 referee = 1;
+    required int32 invitedPlayerNum = 2;
+    repeated InviteStatusProto status = 3;
+    optional string refereeName = 4;
+}
+
+message InviteStatusProto {
+    required int32 seriesId = 1;
+    required int32 currentLevel = 2;
+    required int32 status = 3;          //1未完成 2已完成 3已领取
+
+    optional int32 requireLv = 4;
+    optional int32 requireRecharge = 5;
+    optional int32 requireNum = 6;
+    optional RewardItemProto reward = 7;
+    optional int32 meetNum = 8;     //达成的人数
+}
+
+message InvitationGetRewardProto {
+    required int32 seriesId = 1;
+    required int32 level = 2;
+}
+
+message InvitationNumProto{
+    required int32 rewardNum = 1;   // 未领取奖励数
+}
+
+message InvitationSetRefereeResultProto {
+    required int32 result = 1;
+    optional string refereeId = 2;
+    optional RewardProto reward = 3;
+}
+
+message InvitationGetFBRewardProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+}
+
+//-------------------------Coupon-----------------------------
+message CouponRewardProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+}
+
+//-------------------------Recharge---------------------------
+message RechargeRewardProto {
+    required int32 result = 1;
+    optional int32 requireRechargeNum = 2;
+    optional RewardProto reward = 3;
+}
+
+message RechargeStaticInfoProto {
+    repeated RechargeItemStaticInfoProto items = 1;
+}
+
+message RechargeItemStaticInfoProto {
+    required int32 requireRechargeNum = 1;
+    repeated RewardItemProto rewardItems = 2;
+}
+
+//-------------------------Vitality---------------------------
+message VitalityProto {
+	required int32 result = 1;
+    repeated VitalityItemProto items = 2;
+}
+
+message VitalityItemProto {
+    required int32 id = 1;			 //任务id
+    required string desc = 2;        //任务描述
+    required int32 currentNum = 3;   //当前完成次数
+    required int32 requireNum = 4;	 //每日任务次数
+	required string unit = 5;		 //单位
+	required bool finish = 6;		 //已完成奖励
+	required bool gotten = 7;		 //已领取奖励
+    optional RewardProto reward = 8; //奖励列表
+    optional string icon = 9;       //图标
+}
+
+message VitalityGetRewardProto {
+    required int32 result = 1;
+	required int32 id = 2;
+    optional RewardProto reward = 3; 
+}
+
+message VitalityChangeProto {
+    required int32 id = 1;			 //任务id
+    required int32 currentNum = 2;   //当前完成次数
+	required bool finish = 3;		 //已完成奖励
+}
+
+//-------------------------Times------------------------
+message TimesInfoProto {
+    required int32 id = 1;			 				//时代id
+	optional string name = 2; 						//时代说明
+	optional string tab = 3; 						//时代标签
+	optional string desc = 4; 						//时代说明
+	optional int32 leftDay = 5; 					//剩余开启天数
+	optional double rate1 = 6;						//宏伟秘境原石增幅	
+	optional double rate2 = 7;						//秘境精华获取增幅	
+	optional double rate3 = 8;						//技巧挑战奖励增幅
+}
+
+message TimesTargetInfoProto {
+    repeated TimesTargetItemProto peakItem = 1;		//巅峰目标
+	repeated TimesTargetItemProto personalItem = 2;	//个人目标
+	repeated TimesTargetItemProto serverItem = 3;	//全服目标
+}
+
+message TimesTargetItemProto {
+    required int32 id = 1;				//小id
+    required string desc = 2;			//说明
+	optional int32 type = 3;			//成就类型 (全服目标为条件类型 1 巅峰 2 个人)
+	required double maxNum = 4;			//配置值   (全服目标为条件对应的Id,巅峰目标未保存)
+    required double currentNum = 5;		//个人当前值(全服目标无意义，默认0)
+    required bool achieved = 6;			//已获得	
+    required bool gotten = 7;			//已领取奖励
+	optional string peakName = 8;		//巅峰目标达成人的名字
+	optional RewardProto reward = 9;    //奖励物品
+	optional int32 peakId = 10;			//巅峰目标达成人的id
+	optional string maxNumBig = 11;			//配置值   (全服目标为条件对应的Id,巅峰目标未保存)(大数据)
+        optional string currentNumBig = 12;		//个人当前值(全服目标无意义，默认0)(大数据)
+}
+
+message TimesTargetReachProto {
+    repeated TimesTargetItemProto peakItem = 1;		//巅峰目标
+	repeated TimesTargetItemProto personalItem = 2;	//个人目标
+	repeated TimesTargetItemProto serverItem = 3;	//全服目标
+}
+
+message TimesGetRewardProto {
+    required int32 result = 1;
+	optional int32 type = 2;
+	optional int32 id = 3;
+    optional RewardProto reward = 4; 
+}
+
+//-------------------------SevenDaysTarget------------------------
+message SevenDaysInfoProto {
+    repeated SevenDaysItemProto item = 1;
+}
+
+message SevenDaysItemProto {
+    required int32 id = 1;				//任务id
+	required int32 day = 2;				//任务第几天
+	required int32 tab = 3;				//标签页
+    required string title = 4;			//标签
+    required string desc = 5;			//说明
+    required double currentNum = 6;		//当前值
+    required double maxNum = 7;			//配置值
+    required bool achieved = 8;			//已获得
+    required bool gotten = 9;			//已领取奖励
+	optional RewardProto reward = 10;   //奖励物品
+	optional int32 type = 11;			//成就类型
+}
+
+message SevenDaysReachProto {
+    repeated SevenDaysItemProto item = 1;
+}
+
+message SevenDaysGetRewardProto {
+    required int32 result = 1;
+	optional int32 id = 2;
+    optional RewardProto reward = 3; 
+}
+
+message SevenDaysStoreInfoProto {
+    repeated SevenDaysStoreItemProto item = 1;	//商店物品
+}
+
+message SevenDaysStoreItemProto {
+	required int32 id = 1;				   //id	
+	required int32 day = 2;			   	   //第几天
+	optional string title = 3;			   //标签
+	optional ActivityItemProto item = 4;   //兑换物品
+    required int32 currentNum = 5;		   //玩家已购买数
+    required int32 maxNum = 6;			   //可购买总数	
+	required int32 price = 7;			   //价格
+    required bool bought = 8;			   //是否已购买
+}
+
+message SevenDaysStoreBuyRequestProto {
+	required int32 day = 1;			   	   //第几天	
+	required int32 itemId = 2;			   //物品id	
+    optional int32 buyNum = 3;			   //购买数量
+}
+
+message SevenDaysStoreBuyResultProto {
+    required int32 result = 1;			//结果码
+	optional ItemProto item = 2;		//购买结果
+}	
+	
+message SevenDaysStoreNumChangeProto {
+	required int32 day = 1;			   	   //第几天	
+    required int32 itemId = 2;			   //物品id						   	
+    required int32 currentNum = 3;		   //玩家已购买数
+}
+
+message SevenDaysTargetDayProto {
+	required int32 day = 1;			   	   //第几天	
+    required int32 finishDay = 2;		   //完成时限
+	required int32 rewardDay = 3;		   //领取时限	
+}
+
+//-------------------------Achievement------------------------
+message AchievementProto {
+    repeated AchievementSeriesProto series = 1;
+}
+
+message AchievementSeriesProto {
+    required int32 type = 1;					//成就类型
+    repeated AchievementItemProto items = 2; 	//成就明细
+}
+
+message AchievementItemProto {
+    required int32 id = 1;				//成就id
+    required string title = 2;			//成就标题
+    required string desc = 3;			//成就描述
+    required double currentNum = 4;		//当前值
+    required double maxNum = 5;			//配置值
+	required int32 type = 6;			//成就类型
+    required bool achieved = 7;			//已获得
+    required bool gotten = 8;			//已领取奖励
+	optional RewardProto reward = 9;    //奖励物品
+	optional int32 nextId = 10;			//下一成就id
+	optional int32 icon = 11;			//图标
+	optional bool isRoot = 12;			//是一个根成就
+    optional string currentNumBig = 13;		//当前值(大数据)
+    optional string maxNumBig = 14;			//配置值(大数据)
+}
+
+message AchievementReachProto {
+    repeated AchievementItemProto items = 1;
+}
+
+message AchievementGetRewardProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2; 
+}
+
+//-------------------------Activity---------------------------
+message EnterActivityProto {
+    repeated EnterActivityDetailProto activityInfo = 1;
+}
+
+message EnterActivityDetailProto {
+    optional int32 mainId = 1;
+    optional string activityIcon = 2;
+    optional string activityTitle = 3;
+    optional int32 activityType = 4;
+    optional string activityRemark = 5;
+}
+
+message ActivityIntValueProto{
+    required int32 mainId = 1;
+    optional int32 singleId = 2;
+}
+
+message ActivityExchangeProto {
+    repeated ActivityExchangeItemProto items = 1;
+    optional int32 mainId = 2;
+    optional string endTime = 3;
+    optional string startTime = 4;
+}
+
+message ActivityRechargeProto {
+    repeated ActivityRechargeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityRankProto {
+    optional ActivityRankItemProto items = 1;
+    optional int32 mainId = 2;
+    repeated ActivityRankDetailProto rankDetail = 3;     //排名情况
+    repeated ActivityRankRewardsProto rewards = 4; //奖励清单
+    optional ActivityRankDetailProto playerRankInfo = 5;   //玩家当前排名和奖励
+}
+
+message ActivityRankRewardsProto {
+    required int32 rank = 1;
+    repeated ActivityItemProto reward = 2;
+}
+
+message ActivityRankDetailProto {
+    required int32 rank = 1;
+    optional int32 playerId = 2;
+    optional string playerName = 3;
+    optional double score = 4;
+    optional string scoreBig = 5; //(大数据)
+}
+
+message ActivityOnceRechargeProto {
+    repeated ActivityOnceRechargeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityDialProto {
+    optional ActivityDialItemProto items = 1;
+    optional int32 mainId = 2;
+    optional ActivityDialTotalInfoProto totalInfo = 3;  //充值信息
+}
+
+message ActivityDialTotalInfoProto{
+    required int32 curTotalNum = 1;     //当前全服充值数
+    optional int32 nextNeedTotalNum = 2;    //全服下一个档次需要充值数
+    repeated DialLuckyInfoProto luckyInfo = 3;       //历史幸运玩家公告
+}
+
+message DialLuckyInfoProto{
+    optional int32 needTotalNum = 1;    //达到的全服充值总数
+    optional string luckyPlayerName = 2;    //幸运玩家
+    optional int32 luckyRecharge = 3;       //达到额外奖励时该玩家所充的值
+}
+
+message ActivityContractProto{
+    required int32 contractId = 1;      //玩家契约id
+    optional ContractPlayerInfoProto mainContract = 2;       //契主信息
+    repeated ContractPlayerInfoProto followContract = 3;     //契奴信息
+    optional int32 contractLevel = 4;       //我的契约等级
+    optional int32 contractExp = 5;         //我的契约经验
+    optional float returnValue = 6;     //返利比率
+    optional int64 cancelTime = 7;      //可解约倒计时
+    optional int32 mainId = 8;
+    optional string name = 9;       //玩家名字
+    optional int32 playerId = 10;   //玩家id
+    optional int32 totalContractExp = 11;       //当前档的总契约经验
+    optional int32 mainReturnValue = 12;        //契主的返利比率
+}
+
+message ContractApproveProto {
+    required int32 mainId = 1;
+    optional int32 contractId = 2;
+    optional int32 playerId = 3;    //契奴的玩家id
+    optional bool isAgree = 4;      //是否同意
+}
+
+message ContractCancelRequestProto {
+    required int32 mainId = 1;
+    optional bool isMain = 2;       //解约对象是否是契主
+    optional int32 playerId = 3;    //解约对象的玩家id
+}
+
+message ContractRelationProto {
+    required int32 result = 1;
+    optional ActivityContractProto contract = 2;
+}
+
+message ContractPlayerInfoProto {
+    required int32 playerId = 1;    //契主或契奴id
+    optional string playerName = 2;
+    optional int32 reborns = 3;     //转生
+    optional int32 recharge = 4;    //该玩家充值数
+    optional int32 provideDiamond = 5;  //已为契主提供的钻石数
+    optional int32 contractLevel = 6;   //契约等级
+    optional bool isContract = 7;   //是否有契约关系
+    optional int64 cancelTime = 8;      //解约的时间
+    optional int64 offLineTime = 9;     //离线时间
+    optional bool isApproved = 10;       //是否待审批
+    optional int32 contractId = 11;     //契约id
+    optional int64 signTime = 12;       //签约时间
+    optional bool inGame = 13;      //是否在线
+    optional int32 vipLevel = 14;   //vip等级
+}
+
+message ActivitySeckillProto {
+    repeated ActivitySeckillItemProto items = 1;
+    optional int32 mainId = 2;
+    optional string endTime = 3;
+    optional string startTime = 4;
+}
+
+message ActivitySpendProto {
+    repeated ActivitySpendItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityAnnounceProto {
+    required ActivityAnnounceItemProto announce = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityLoginProto {
+    repeated ActivityLoginItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityContinuallyRechargeProto {
+    repeated ActivityContinuallyRechargeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityUpgradeProto {
+    repeated ActivityUpgradeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityFoundationProto {
+    required int32 result = 1;
+    repeated ActivityUpgradeItemProto items = 2;
+    optional int32 mainId = 3;
+    optional bool isBuy = 4;        //是否已购买
+}
+
+message ActivityFoundationNumProto {
+    required int32 result = 1;
+    repeated ActivityUpgradeItemProto items = 2;
+    optional int32 mainId = 3;
+    optional int32 totalBuyNum = 4;     //总共购买数量
+    optional bool isBuy = 5;
+}
+
+message ActivityCubeProto{
+    repeated ActivityCubeItemProto items = 1;
+    optional ActivityCubeDrawTimesProto drawTimes = 2;		//当天已抽取次数，每天重置
+    optional int32 mainId = 3;
+}
+
+message ActivityCubeDrawTimesProto {
+    required int32 mainId = 1;
+    optional int32 drawTimes = 2;
+}
+
+message ActivityCubeItemProto{
+    required int32 id = 1;
+    optional int32 consume = 2;
+    optional int32 lowest = 3;
+    optional int32 highest = 4;
+    optional int32 showLowest = 5;
+    optional string startTime = 6;
+    optional string endTime = 7;
+    optional int32 vipLimit = 8;
+}
+
+message ActivityNewCubeProto{
+    repeated ActivityNewCubeItemProto items = 1;    //魔盒信息
+    optional int32 mainId = 3;          //大id
+    optional bool canDraw = 4;          //能否转动
+    optional string drawBeginTime = 5;   //转动开启时间
+    optional string startTime = 6;      //活动开始时间
+    optional string endTime = 7;        //活动结束时间
+    optional int32 drawNum = 8;         //当前转动次数
+    optional int32 curPoints = 9;
+}
+
+//message ActivityNewCubeDrawTimesProto {
+//    required int32 mainId = 1;
+//    optional int32 drawTimes = 2;
+//}
+
+message ActivityNewCubeItemProto{
+    required int32 id = 1;
+    optional int32 needPoints = 2;
+    optional int32 highest = 3;
+    optional int32 showLowest = 4;
+    optional int32 vipLimit = 5;
+}
+
+message ActivityAltarProto{
+    repeated ActivityAltarItemProto items = 1;
+}
+
+message ActivityAltarItemProto{
+    required int32 id = 1;
+    optional int64 beginTime = 2;
+    optional int64 endTime = 3;
+    optional bool rewardGotten = 4;		//是否已领取，每天重置
+}
+
+message ActivityExchangeItemProto {
+    required int32 id = 1;				//兑换id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已兑换次数
+    required int32 maxNum = 4;			//可兑换总数
+    repeated ActivityItemProto target = 5;	//兑换目标
+    repeated ActivityItemProto provide = 6; //兑换材料
+    optional string startTime = 7;       //开始时间
+    optional int64 singleStartTime = 8;     //单项开始时间
+    optional int64 singleEndTime = 9;       //单项结束时间
+}
+
+message ActivityRechargeItemProto {
+    required int32 id = 1;				//充值id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已冲值额度
+    required int32 maxNum = 4;			//奖励需要的额度
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityRankItemProto {
+    required int32 id = 1;				//id
+    required string endTime = 2;			//结束时间
+    optional string startTime = 3;       //开始时间
+    optional string rankType = 4;       //具体排行榜类型
+}
+
+message ActivityOnceRechargeItemProto {
+    required int32 id = 1;				//充值id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家当前可以领取次数
+    required int32 maxNum = 4;			//总共可以领取次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required int32 rewardGotten = 6;		//玩家已领奖次数
+    optional string startTime = 7;       //开始时间
+    optional int32 needRchargeNum = 8;      //需要充值的档次额度
+}
+
+message ActivityDialItemProto {
+    required int32 id = 1;				//充值id
+    optional string endTime = 2;			//结束时间
+    optional int32 currentNum = 3;		//玩家剩余充值次数
+    optional int32 maxNum = 4;			//奖励需要的额度
+    repeated ActivityItemProto rewardList = 5; //奖励清单
+    repeated ActivityItemProto luckyRewardList = 6;     //幸运玩家奖池
+    repeated ActivityItemProto drawRewardList = 7;      //普通抽奖奖池
+    optional string startTime = 8;       //开始时间
+    optional int32 rechargeNum = 9;     //玩家当前充值额度
+}
+
+message ActivitySeckillItemProto {
+    required int32 id = 1;				   //秒杀id
+    required string startTime = 2;		   //开始时间
+    required string endTime = 3;			   //结束时间	
+    required int32 currentNum = 4;		   //玩家已兑换次数
+    required int32 maxNum = 5;			   //可兑换总数
+    repeated ActivityItemProto target = 6; //兑换目标
+    repeated ActivityItemProto provide = 7;//兑换材料
+    required bool bought = 8;
+    optional int64 singleStartTime = 9;     //单项开始时间
+    optional int64 singleEndTime = 10;       //单项结束时间
+}
+
+message ActivityLoginItemProto {
+    required int32 id = 1;				//登陆id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已登陆次数
+    required int32 maxNum = 4;			//奖励需要的登陆次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityContinuallyRechargeItemProto {
+    required int32 id = 1;				//登陆id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已登陆次数
+    required int32 maxNum = 4;			//奖励需要的登陆次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivitySpendItemProto {
+    required int32 id = 1;				//花费id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已花费额度
+    required int32 maxNum = 4;			//奖励需要的额度
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityAnnounceItemProto {
+    required int32 id = 1;				//
+    required string endTime = 2;			//结束时间
+    optional string startTime = 3;       //开始时间
+    optional string activityRemark = 4;	//公告内容
+}
+
+message ActivityUpgradeItemProto {
+    required int32 id = 1;				//转生id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已转生次数
+    required int32 maxNum = 4;			//奖励需要的转生次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityItemProto {
+    required int32 type = 1;
+    optional int32 id = 2;
+    required int32 num = 3;
+    optional double dNum = 4;
+}
+
+message ActivityExchangeExchangeRequestProto {
+    required int32 activityId = 1;
+    optional int32 times = 2;				//兑换次数
+    optional int32 mainId = 3;
+}
+
+message ActivityExchangeExchangeResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityRechargeGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityOnceRechargeGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityDialGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+    repeated ActivityItemProto newRewardList = 5;   //抽完奖后新的物品信息
+}
+
+message ActivitySeckillBuyRequestProto {
+    required int32 activityId = 1;
+    optional int32 buyNum = 2;
+    optional int32 mainId = 3;
+}
+
+message ActivitySeckillBuyResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySeckillNumChangeProto {
+    required int32 id = 1;
+    required int32 currentNum = 2;
+    optional int32 mainId = 3;      //大id
+}
+
+//message ActivityCubeNumChangeProto{
+//    required int32 id = 1;
+//    required int32 currentNum = 2;
+//}
+
+message ActivityStatusProto {
+    /*optional bool exchangeIcon = 1;
+    optional bool rechargeIcon = 2;
+    optional bool seckillIcon = 3;
+	optional bool spendIcon = 4;
+    optional bool loginIcon = 5;
+    optional bool upgradeIcon = 6;
+    optional bool exchangeAlert = 7;
+    optional bool rechargeAlert = 8;
+    optional bool seckillAlert = 9;
+	optional bool spendAlert = 10;
+    optional bool loginAlert = 11;
+    optional bool upgradeAlert = 12;
+    optional bool cubeIcon = 13;
+    optional bool altarIcon = 14;
+    optional bool cubeAlert = 15;
+    optional bool altarAlert = 16;*/
+    repeated IntIntProto alertActivity = 1;
+	optional int32 alertNum = 2;
+}
+
+message ActivityGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityLoginGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySpendGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityUpgradeGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityAltarRequestProto{
+    required int32 activityId = 1;
+}
+
+message ActivityAltarResponseProto{
+    required int32 result = 1;
+    optional int32 BossBattleTimes = 2;
+    optional int32 getDiamond = 3;
+	optional bool rewardGotten = 4;		//是否已领取
+}
+
+message ActivityCubeResponseProto{
+    required int32 result = 1;
+    optional int32 diamondNum = 2;  //获得钻石数
+	optional ActivityCubeDrawTimesProto drawTimes = 3;  //抽取次数
+    optional ActivityCubeItemProto item = 4;
+}
+
+message ActivityNewCubeResponseProto{
+    required int32 result = 1;
+    optional int32 diamondNum = 2;  //获得钻石数
+    optional ActivityNewCubeItemProto item = 3;
+    optional int32 curPoints = 4;   //当前积分
+}
+
+message RefreshActivityEquipProto {
+	required int32 result = 1;
+	optional int32 diamond = 2;	//消耗的钻石
+	repeated ItemProto item = 3;//刷新的物品列表 服务器当前数量
+}
+
+message DrawActivityEquipRequestProto {
+	required int32 tabId = 1;
+	optional int32 block = 2;			//格子1-6，0表示全要 
+}
+
+message DrawActivityEquipResponseProto {
+	required int32 result = 1;
+	optional int32 diamond = 2;				//本次消耗的钻石
+	repeated BlockItemProto blockItem = 3; 	//已翻开的格子和物品
+	optional int32 freeDrawTimes = 4;		//当天免费抽剩余次数
+	optional int32 roundDrawTimes = 5;		//该轮已翻牌次数
+	optional int32 score = 6;				//最新积分
+	optional int32 rank = 7;				//最新排名
+	repeated ItemProto nextItems = 8;		//下一轮的物品
+}
+
+message BlockItemProto {
+	required int32 block = 1;	//格子号,1-6
+	optional ItemProto item = 2;
+}
+
+message ActivityEquipResponseProto {
+	required int32 result = 1;				
+	required int32 tabId = 2;				//活动tab id
+	optional int32 score = 3;				//最新积分
+	optional int32 freeDrawTimes = 4;		//当天免费抽剩余次数
+	repeated BlockItemProto blockItem = 5;	//已翻开的格子和物品id
+	optional int32 roundDrawTimes = 6;		//该轮已翻牌次数
+	optional int32 rank = 7;				//最新排名
+	repeated ItemProto items = 8;			//本轮所有剩余的物品
+	optional string startTime = 9;       	//开始时间
+	optional string endTime = 10;			//结束时间
+	optional ActivityRankInfoProto rankInfo = 11;//排行榜信息
+}
+
+message ActivitySpecialItemChangeProto {
+	required int32 tabId = 1;				//活动tab id
+	repeated ItemProto specialItems = 2; 	//限定物品及数量
+}
+
+message DrawActivityRetinueRequestProto {
+	required int32 tabId = 1;
+	optional int32 type = 2;			//抽取的类型 0表示免费抽,1表示人民币抽 
+}
+
+message DrawActivityRetinueResponseProto {
+	required int32 result = 1;
+	optional int32 type = 2;			//抽取的类型 0表示免费抽,1表示人民币抽 
+	optional int32 diamond = 3;			//消耗的钻石
+	repeated ItemProto item = 4; 		//抽到的物品id
+	optional int32 score = 5; 			//最新的积分
+	optional int32 rank = 6;			//最新排名 
+	optional int64 freeDrawTime = 7;	//上次免费抽的时间
+	optional double currentRate = 8;	//当前折扣
+	optional double nextRate = 9;		//下一折扣
+	optional int32 nextScoreNeed = 10;	//下一折扣所差积分
+	optional int32 diamondNeed = 11;	//单次抽奖消耗
+	optional string currentRateDes = 12;//当前折扣说明
+	optional string nextRateDes = 13;	//下一折扣说明
+	optional double nextTenDrawDiamond = 14; //下一次十连的消耗
+}
+
+message ActivityRetinueResponseProto {
+	required int32 result = 1;			//
+	required int32 tabId = 2;			//活动tab id
+	optional int32 score = 3; 			//最新的积分
+	optional int32 rank = 4;			//最新排名
+	optional int64 freeDrawTime = 5;	//上次免费抽的时间	
+	optional double currentRate = 6;	//当前折扣
+	optional double nextRate = 7;		//下一折扣
+	optional int32 nextScoreNeed = 8;	//下一折扣所差积分
+	optional int32 diamondNeed = 9;		//单次抽奖消耗
+	optional ItemProto rareItem = 10; 	//稀有物品 
+	optional string currentRateDes = 11;//当前折扣说明
+	optional string nextRateDes = 12;	//下一折扣说明
+	optional int64 coolDownDrawTime = 13; //免费抽CD时长 毫秒	
+	optional string startTime = 14;       	//开始时间
+	optional string endTime = 15;			//结束时间
+	optional ActivityRankInfoProto rankInfo = 16; //排行榜信息
+	optional double nextTenDrawDiamond = 17; //下一次十连的消耗
+}
+
+//-------------------------Season-----------------------------
+message SeasonNoticeProto {
+    required NoticeProto seasonNotice = 1;
+    repeated NoticeProto eventNotices = 2;
+}
+
+
+//-------------------------Notice-----------------------------
+message WorldNoticeProto {
+    repeated NoticeProto notices = 1;
+}
+
+message NoticeProto {
+    required int32 id = 1;
+    optional int64 startTime = 2;
+    optional int64 endTime = 3;
+    optional int32 priority = 4;
+    optional string content = 5;
+}
+
+//-------------------------Broadcast-----------------------------
+message WorldBroadcastProto {
+    repeated BroadcastProto broadcasts = 1;
+}
+
+message BroadcastProto {
+    required int32 id = 1;
+    optional int64 startTime = 2;
+    optional int64 endTime = 3;
+    optional int32 playFrequent = 4;
+    optional int32 playNum = 5;
+    optional string content = 6;
+}
+
+//-------------------------Story-----------------------------
+message WordProto {
+    optional string iconName = 1;
+    optional int32 pos = 2;
+    optional string charName =3;
+    optional string text = 4;
+}
+
+message StoryProto {
+    required int32 storyId = 1;
+    repeated WordProto words = 2;
+}
+
+message StaminaChangeProto {
+    required int32 stamina = 1;
+    required int64 lastStaminaUseTime = 2;
+	optional int32 reason = 3; // 0 自然恢复,不可超上限  1 道具恢复  2 自然消耗(目前只有boss战会消耗) 3 转生奖励 4 祭坛恢复
+}
+
+message EnergyChangeProto {
+    required double energy = 1;
+    required int64 lastEnergyUseTime = 2;
+}
+
+message AddFriendNoteProto {
+    required int32 type = 1;            //添加好友相关消息类型(NoteTypeDefine.java)
+    required int32 id = 2;
+    required string name = 3;
+    required int32 level = 4;
+}
+
+message AddComradeNoteProto {
+    required int32 type = 1;            //添加战友相关消息类型(NoteTypeDefine.java)
+    required int32 id = 2;
+    required string name = 3;
+    required int32 level = 4;
+}
+
+message OrderCreateProto {
+    required int32 thirdpartyid = 1;
+    required int32 itemId = 2;
+    required int32 itemNum = 3;
+}
+
+message ReceiptValidatingProto {
+    required int32 type = 1;            //2Ios 3Google play
+    required string receipt = 2;
+    optional string signature = 3;
+    optional string publicKey_base64 = 4;
+}
+
+//---------------------Talking Data----------------------
+message TalkingDataOnRewardProto {
+    required int32 amount = 1;
+    required string reason = 2;
+}
+
+message TalkingDataOnPurchaseProto {
+    required string item = 1;
+    required int32 itemNumber = 2;
+    required int32 price = 3;
+}
+
+message TalkingDataChargeSuccessProto{
+    required string orderId = 1;
+    optional string productName = 2;
+    optional int32 currencyAmount = 3;              //单位分
+    optional int32 virtualCurrencyAmount = 4;
+    optional string paymentType = 5;
+}
+
+message TalkingDataOnEventProto {
+    required string actionId = 1;
+    repeated StringStringProto parameters = 2;
+}
+
+//-----------------------YYB-------------------------
+message YYBPayRequestProto {
+    required string openid = 1;
+    required string openkey = 2;
+    required string paytoken = 3;
+    required string pf = 4;
+    required string pfkey = 5;
+    required string amt = 6;
+    required string zoneid = 7;
+    required string platform = 8;
+    required string orderNo = 9;    //服务器订单号
+}
+
+message YYBLoginInfoProto {
+    required string platform = 1;
+    required string openid = 2;
+    required string openkey = 3;
+    required string paytoken = 4;
+    required string pf = 5;
+    required string pfkey = 6;
+    required string zoneid = 7;
+    repeated string friendOpenIds = 8;
+}
+
+//------------------------JL----------------------------
+message JLCreateOrderRequestProto {
+    required string player_id = 1;
+    required string api_key = 2;
+    required string deal_price = 3;
+    required string out_order_no = 4;
+    required string subject = 5;
+}
+
+//------------------------Vivo----------------------------
+message VivoCreateOrderRequestProto {
+    required string player_id = 1;
+    required string cpOrderNumber = 2;
+    required string orderTime = 3;
+    required string orderAmount = 4;
+    required string orderTitle = 5;
+    required string orderDesc = 6;
+    required string extInfo = 7;
+}
+
+//------------------------橘子----------------------------
+message JZCreateOrderRequestProto {
+    required string order_id = 1;
+    required string product_id = 2;
+    required string price = 3;
+    required string game_uid = 4;
+    required string u_id = 5;
+    required string game_id = 6;
+}
+
+
+//----------随从相关----------
+message RetinueProto {
+    required int32 id = 1;       //随从id
+	required int32 lv = 2;		 //等级
+    required int32 star = 3;     //星级
+    required int32 rank = 4;     //阶数
+    optional double exp = 5;     //经验
+    repeated IntIntProto runes = 6;  //符文列表 6个
+	optional int64 hp = 17;				//吸收的属性
+    optional int64 clickDamage = 18;	//吸收的属性
+    optional int64 reduceDamage = 19;	//吸收的属性
+	optional int64 secondDamage = 20;	//吸收的属性
+	optional int64 recoverHp = 21;		//吸收的属性
+    optional int64 CriX = 22;			//吸收的属性
+    optional int64 CriDamage = 23;		//吸收的属性
+    optional int64 blockX = 24;			//吸收的属性
+    optional int64 blockDamage = 25;	//吸收的属性
+	optional int32 specialWeaponId = 26;	//专属武器id
+	optional int32 specialRetinueId = 27;	//专属随从id
+
+        optional GodhoodsProto godhoods = 30;    //神格
+        optional int32 awakeLevel = 31; //随从觉醒等级        
+        repeated IntIntProto relicsMapping = 32; //6个圣物
+    optional string hpBig = 33;				//吸收的属性(大数据）
+    optional string clickDamageBig = 34;	//吸收的属性(大数据）
+    optional string reduceDamageBig = 35;	//吸收的属性(大数据）
+    optional string secondDamageBig = 36;	//吸收的属性(大数据）
+    optional string recoverHpBig = 37;		//吸收的属性(大数据）
+    optional string CriXBig = 38;			//吸收的属性(大数据）
+    optional string CriDamageBig = 39;		//吸收的属性(大数据）
+    optional string blockXBig = 40;			//吸收的属性(大数据）
+    optional string blockDamageBig = 41;	//吸收的属性(大数据）
+}
+
+message RetinueFormationProto {
+    required int32 formationId = 1;       //阵形id 1-10
+    required int32 retinueId = 2;     	  //随从id
+}
+
+message RetinueRankUpRequestProto {
+    required int32 id = 1;       //随从id
+	required int32 rank = 2;     //随从rank
+	required int32 times = 3;    //rankup次数
+}
+
+message RetinueRankUpResponseProto {
+    required int32 id = 1; 			//随从id
+    required int32 rank = 2;     	//最新阶数
+	required int32 result = 3;     	//结果码
+	optional int64 hp = 4;				//吸收的属性
+    optional int64 clickDamage = 5;	//吸收的属性
+    optional int64 reduceDamage = 6;	//吸收的属性
+	optional int64 secondDamage = 7;	//吸收的属性
+	optional int64 recoverHp = 8;		//吸收的属性
+    optional int64 CriX = 9;			//吸收的属性
+    optional int64 CriDamage = 10;		//吸收的属性
+    optional int64 blockX = 11;			//吸收的属性
+    optional int64 blockDamage = 12;	//吸收的属性
+    optional string hpBig = 13;				//吸收的属性(大数据)
+    optional string clickDamageBig = 14;	//吸收的属性(大数据)
+    optional string reduceDamageBig = 15;	//吸收的属性(大数据)
+    optional string secondDamageBig = 16;	//吸收的属性(大数据)
+    optional string recoverHpBig = 17;		//吸收的属性(大数据)
+    optional string CriXBig = 18;			//吸收的属性(大数据)
+    optional string CriDamageBig = 19;		//吸收的属性(大数据)
+    optional string blockXBig = 20;			//吸收的属性(大数据)
+    optional string blockDamageBig = 21;	//吸收的属性(大数据)
+}
+
+message RetinueRunesInlayRequestProto {
+    required int32 id = 1;       		//随从id
+	required int32 runesHole = 2;       //符文格子序号
+	required int32 runesId = 3;       	//符文id
+}
+
+message RetinueRunesInlayResponseProto {
+    required int32 id = 1; 				//随从id
+    required int32 runesHole = 2;     	//符文格子序号
+	required int32 runesId = 3;     	//符文id
+	required int32 result = 4;     		//结果码
+}
+
+//C2S retinue onekey inlay response
+message RetinueInlayOneKeyRequestProto {
+    required int32 id = 1; 	 //随从id
+	required int32 type = 2; //0表示不自动，１表示自动扣除符文能量
+}
+
+message RetinueInlayOneKeyResponseProto {
+    required int32 id = 1; 				//随从id
+	required int32 result = 2;     		//结果码
+    optional int32 runesHole0 = 3;     	//符文格子0
+	optional int32 runesHole1 = 4;     	//符文格子1
+	optional int32 runesHole2 = 5;     	//符文格子2
+	optional int32 runesHole3 = 6;     	//符文格子3
+	optional int32 runesHole4 = 7;     	//符文格子4
+	optional int32 runesHole5 = 8;     	//符文格子5
+	optional double rulesmana = 9;     	//符文能量
+}
+
+message RetinueStarUpRequestProto {
+    required int32 id = 1;       		//随从id
+	required int32 star = 2;       		//随从star
+	required int32 times = 3;       	//starup次数
+}
+
+message RetinueStarUpResponseProto {
+    required int32 id = 1; 				//随从id
+	required int32 star = 2;     		//上升的star
+	required int32 result = 3;     		//结果 0表示成功 1表示升华石或随从碎片不足 2表示随从不存在 3表示json出错
+	optional int32 retinueStar = 4;		//随从star
+}
+
+message RetinueLevelUpRequestProto {
+    required int32 id = 1;       		//随从id
+	required int32 level = 2;       	//随从level
+	required int32 times = 3;       	//times次数
+}
+
+message RetinueLevelUpResponseProto {
+    required int32 id = 1; 				//随从id
+	required int32 level = 2;     		//最新level
+	required int32 result = 3;     		//结果 0表示成功 1表示升级书不足 2表示随从不存在 3表示json出错
+}
+
+message RetinueInBattleRequestProto {
+	required int32 formation = 1;       //阵上的序号
+	required int32 id = 2;       		//随从id
+}
+
+message RetinueInBattleResponseProto {
+	required int32 formation = 1;       //阵上的序号
+	required int32 id = 2;     			//随从id
+	required int32 result = 3;     		//结果 0表示成功 1表示随从不存在 2表示json出错
+	optional int32 secondFormation = 4; //阵上的序号2
+	optional int32 secondId = 5;     	//随从id2
+}
+
+message RetinueComposeRequestProto {
+	required int32 id = 1;       		//随从id
+}
+
+message RetinueComposeResponseProto {
+	required int32 id = 1;     			//随从id
+	required int32 result = 2;     		//结果 0表示成功 1表示碎片不足 2表示随从已存在 3表示json出错
+}
+
+message RetinueMyRetinueOnResponse {
+	required int32 result = 1;     		//结果 
+    optional int32 id = 2; 				//随从id
+	optional int32 myRetinueId = 3;     //魂契随从id 	
+}
+
+message RetinueMyRetinueOffResponse {
+	required int32 result = 1;     		//结果 
+    optional int32 id = 2; 				//随从id	
+}
+
+message RetinueMyWeaponOnResponse {
+	required int32 result = 1;     		//结果 
+    optional int32 id = 2; 				//随从id
+	optional int32 myWeaponId = 3;      //专属武器id	
+}
+
+message RetinueMyWeaponOffResponse {
+	required int32 result = 1;     		//结果 
+    optional int32 id = 2; 				//随从id
+}
+
+message EnterStoreRequestProto{
+    required int32 type = 1;      //商城类型, 1:卡包商城
+}
+
+message EnterStoreResponseProto{
+    required int32 result = 1;						
+    repeated CardBagDetailProto cardBag = 2;			//卡包信息
+}
+
+message CardBagDetailProto {
+    required int32 cardType = 1;					//卡包类型 1 普通 2传奇 3神话装备 4神话随从
+	optional string cardName  = 2;					//卡包名
+	optional string cardDescription = 3;			//卡包描述
+	repeated DrawCardRewardProto reward  = 4;		//必出卡片(类型,id)
+	optional int64 lastRecruitTime = 5;				//上次招募时间
+	optional int32 freeRecruitTimes = 6;			//免费招募剩余次数
+	optional int32 vipLevel = 7;					//开启VIP等级
+	optional int32 consumeType = 8;					//消耗类型
+	optional int32 consumeOneTime = 9;				//单抽消耗数量
+	optional int32 consumeTenTimes = 10;			//10连抽消耗数量
+	optional int32 sureTimes = 11;					//剩余必出次数
+	optional DrawCardRewardProto weekCard = 12;		//本周热点卡片(类型,id)
+}
+
+message DrawCardRequestProto{
+    required int32 cardType = 1;        //卡包类型 1 普通 2传奇 3神话装备 4神话随从
+    required int32 isTenCost = 2;       //连抽次数 1 10
+}
+
+message DrawCardResponseProto{
+    required int32 result = 1;
+    repeated DrawCardRewardProto reward = 2;		//获得物品
+	optional int64 lastRecruitTime = 3;				//上次招募时间
+	optional int32 freeRecruitTimes = 4;			//免费招募剩余次数 暂不启用
+	optional int32 sureTimes = 5;					//剩余必出次数
+}
+
+message DrawCardRewardProto{
+    required int32 id = 1;          //物品id
+    required int32 type = 2;        //抽出类型
+	optional int32 num = 3;			//抽出数量
+	optional bool isFragment = 4;	//变成碎片
+}
+
+message TalentCreateRequestProto{
+    required int32 id = 1;        					//天赋id
+}
+
+message TalentCreateResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+	optional int64 talent = 3;						//当前的天赋点数
+    optional int32 tabId = 4;           //天赋页签
+}
+
+message TalentLevelupRequestProto{
+    required int32 id = 1;        					//天赋id
+    required int32 levelup = 2;       				//所升的等级数
+}
+
+message TalentLevelupResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+    optional int32 level = 3;       				//天赋的最新等级
+	optional int64 talent = 4;						//最新的天赋点数
+    optional int32 tabId = 5;           //天赋页签
+}
+
+message TalentRemoveRequestProto{
+	required int32 id = 1;        					//天赋id
+}
+
+message TalentRemoveResponseProto{
+    required int32 result = 1;
+	repeated int32 id = 2;        					//天赋id
+	optional int64 talent = 3;						//最新的天赋点数
+	optional int32 diamand = 4;						//最新的钻石数
+    optional int32 tabId = 5;           //天赋页签
+}
+
+message TalentLockResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+	optional int32 locked = 3;						//锁定标记 0未锁 1锁定
+    optional int32 tabId = 4;           //天赋页签
+}
+
+message DiamandChangeProto {
+    required int32 diamand = 1;	//现在钻石的量
+}
+
+message MysteryStoneOriginalChangeProto{
+    required int32 mysteryStoneOriginal = 1;    //秘石原石的数量
+}
+
+message SoulStoneChangeProto{
+    required int32 soulStone = 1;       //魂石数量
+}
+
+message ArenaTokenChangeProto {
+    required int32 arenaToken = 1;	//竞技场代币
+}
+
+message DamageTokenChangeProto {
+    required int32 damageToken = 1;	//伤害代币
+}
+
+
+//---------------------竞技场--------------------------
+message RefreshOpponentResponseProto{
+    required int32 result = 1;
+    repeated OpponentProto opponentProto = 2;   //对手列表
+    optional int32 alreadyFreshTimes = 3;   //已刷新对手的次数
+    optional int32 totalFreshTimes = 4;     //总的可以刷新的次数
+}
+
+message CurrentOpponentResponseProto{
+    required int32 result = 1;
+    repeated OpponentProto opponentProto = 2;   //对手列表
+}
+
+message StartArenaRequestProto{
+    required int32 opponentId = 1;						 //对手id
+	repeated RetinueFormationProto retinueFormation = 2; //竞技场阵型 
+}
+
+message StartArenaResponseProto{
+    required int32 result = 1;
+    optional int32 opponentId = 2;      	//对手id
+    optional int32 battleTimes = 3;    		//已挑战次数
+	optional bool isWin = 4;         		//战斗结果
+    optional int32 opponentRank = 5;       				//对手最新排名
+    optional int32 rank = 6;        					//玩家最新排名
+    repeated OpponentProto opponentList = 7;     		//胜利后刷新对手列表
+	optional ArenaBattleInfoProto battleInfo = 8;  //竞技场战斗信息	
+	optional int64 gold = 9;				//获得的金币
+	optional int64 arenatoken = 10;			//获得的竞技场代币
+	optional OpponentProto enemyOpponent = 11; //对手的信息  
+}
+
+message EndArenaRequestProto{
+    required int32 fightResult = 1;     //战斗结果
+    required int32 opponentId = 2;      //对手id
+}
+
+message EndArenaResponseProto{
+    required int32 result = 1;
+    optional int32 opponentId = 2;
+    optional int32 opponentRank = 3;       				//对手最新排名
+    optional int32 rank = 4;        					//玩家最新排名
+    repeated OpponentProto opponentList= 5;     		//胜利后刷新对手列表
+}
+
+message ArenaFormationChangeRequestProto {
+	repeated RetinueFormationProto retinueFormation = 1; //竞技场阵型变更 
+}
+
+message ArenaBattleInfoProto {
+	repeated RetinueInfoProto myRetinueInfo = 1;  
+	repeated ArenaBattleInfoDetailProto detail = 2;  
+	optional ArenaBattleFinalStatusProto finalStatus = 3;
+}
+
+message ArenaBattleFinalStatusProto {
+	optional double myHp = 1;     							//我方主角血量
+	repeated RetinueBattleInfoProto myFormation = 2;        //我方阵型信息
+	optional double enemyHp = 3;  							//敌方主角血量
+	repeated RetinueBattleInfoProto enemyFormation = 4; 	//敌方阵型信息	
+	optional int32 myScore = 5;								//我方得分
+	optional int32 enemyScore = 6;							//敌方得分
+        optional string myHpBig = 7;     							//我方主角血量(大数据)
+        optional string enemyHpBig = 8;  							//敌方主角血量(大数据)
+}
+
+message RetinueBattleInfoProto {
+	required int32 formationId = 1;       	//阵形id 1-10
+    required int32 retinueId = 2;     	  	//随从id
+	optional double hp = 3;					//血量
+	optional bool isDead = 4;				//是否已死亡
+        optional string hpBig = 5;					//血量(大数据)
+}
+
+message ArenaBattleInfoDetailProto {
+	required int32 round = 1;    							//轮次，第０轮为初始信息，round不超过3
+	optional double myHp = 2;     							//我方本轮开始时主角血量 血量<=0则带主角死亡惩罚
+	repeated RetinueFormationProto myFormation = 3;         //我方本轮开始时阵型
+	optional double enemyHp = 4;  							//敌方本轮开始时主角血量 血量<=0则带主角死亡惩罚
+	repeated RetinueFormationProto enemyFormation = 5; 		//敌方本轮开始时阵型
+	repeated ArenaBattleSkillDetailProto myActiveSkill = 6;   //我方先制技能的情况
+	repeated ArenaBattleSkillDetailProto enemyActiveSkill = 7;//敌方先制技能的情况
+	repeated int32 myFirstDeadRetinue = 8;					//第一次结算我方死亡的随从
+	repeated int32 enemyFirstDeadRetinue = 9;				//第一次结算敌方死亡的随从
+	repeated ArenaBattleSkillDetailProto myBuffSkill = 10;   //我方战斗技能buff的情况~~
+	repeated ArenaBattleSkillDetailProto enemyBuffSkill = 11;//敌方战斗技能buff的情况~~	
+	repeated ArenaRetinueSecondDamangeProto secondDamage = 12; //互相秒伤情况
+	repeated int32 mySecondDeadRetinue = 13;				   //第二次结算我方死亡的随从
+	repeated int32 enemySecondDeadRetinue = 14;		   		   //第二次结算敌方死亡的随从
+	optional double myMasterDamage = 15;				   	   //我方主角100次点击造成伤害
+	optional double enemyMasterDamage = 16;		   		       //敌方主角100次点击造成伤害
+	repeated ArenaBattleSkillDetailProto myDeadSkill = 17;     //我方死愿技能的情况~~
+	repeated ArenaBattleSkillDetailProto enemyDeadSkill = 18;  //敌方死愿技能的情况~~
+	repeated int32 myThirdDeadRetinue = 19;				   	   //第三次结算我方死亡的随从
+	repeated int32 enemyThirdDeadRetinue = 20;		   		   //第三次结算敌方死亡的随从	
+        optional string myHpBig = 21;     							//我方本轮开始时主角血量 血量<=0则带主角死亡惩罚(大数据)	
+        optional string enemyHpBig = 22;  							//敌方本轮开始时主角血量 血量<=0则带主角死亡惩罚(大数据)	
+	optional string myMasterDamageBig = 23;				   	   //我方主角100次点击造成伤害(大数据)	
+	optional string enemyMasterDamageBig = 24;		   		       //敌方主角100次点击造成伤害(大数据)	
+}
+
+message ArenaRetinueSecondDamangeProto {
+	optional int32 formationId = 1;			//阵型id
+	optional double second = 2;				//战斗秒数
+	optional double myRetinueDamage = 3; 	//我方秒伤（buff后）
+	optional double enemyRetinueDamage = 4; //对手秒伤（buff后）
+	optional double myRetinueHp = 5;		//我方随从剩余血量
+	optional double enemyRetinueHp = 6;		//敌方随从剩余血量
+	optional string myRetinueDamageBig = 7; 	//我方秒伤（buff后）(大数据)
+	optional string enemyRetinueDamageBig = 8; //对手秒伤（buff后）(大数据)
+	optional string myRetinueHpBig = 9;		//我方随从剩余血量(大数据)
+	optional string enemyRetinueHpBig = 10;		//敌方随从剩余血量(大数据)
+}
+
+message ArenaBattleProto {
+	required int32 myposition = 1;    	//施放位置
+	optional int32 skillId = 2;    		//技能id
+	optional int32 type = 3;    		//自定义类型 1伤害
+	repeated ArenaBattleDamageProto damages = 4; //伤害列表
+}
+
+message ArenaBattleSkillDetailProto {
+	required int32 myposition = 1;    	//施放位置
+	optional int32 skillId = 2;    		//技能id
+	optional int32 type = 3;    		//自定义类型 1先制伤害　2hp护盾　3pvp对手失效 
+	repeated ArenaBattleDamageProto damages = 4; //伤害列表1
+	optional bool  isDisabled = 5;		//技能是否被反制
+	optional int32 enemyskillId = 6;	//敌方反制技能id
+	optional double value = 7;			//百分比是整数
+}
+
+message ArenaBattleDamageProto {
+	required int32 enemyposition = 1; //敌方位置
+	optional double damage = 2;        //造成的伤害值
+	optional int32 fromposition = 3;  //我方位置（仅１０１３５起效）
+	optional string damageBig = 4;        //造成的伤害值(大数据)
+}
+
+message ArenaFormationChangeResponseProto {
+	required int32 result = 1; //敌方位置
+	repeated RetinueFormationProto retinueFormation = 2; //竞技场阵型信息
+}
+
+//
+message RefreshShopRequestProto{
+    required int32 type = 1;    //类型码(1 竞技场 2 神秘 3伤害)
+}
+
+message RefreshShopResponseProto{
+    required int32 result = 1;
+    repeated ItemProto itemProto = 2;     			//最新物品列表
+    optional int32 alreadyFreshShopTimes = 3;       //已刷新商店次数
+    optional int32 totalFreshShopTimes = 4;     	//总的可以刷新的次数
+}
+
+message BuyBossTimesRequestProto {
+    required int32 stageId = 1; 				//小关卡id
+	required int32 rankId = 2; 					//rank id
+}
+
+message BuyBossTimesResponseProto {
+    required int32 result = 1;  
+    optional int32 stageId = 2; 				//小关卡id
+	optional int32 rankId = 3; 					//rank id
+	optional int32 buyTimes = 4;                //最新的已购买的次数
+	optional int32 battleTimes = 5;				//该关卡已挑战次数
+}
+
+message BuyTimesRequestProto {
+    required int32 type = 1;    //类型（1购买挑战次数 2购买刷新对手次数）
+}
+
+message BuyTimesResponseProto {
+    required int32 result = 1;  
+    optional int32 type = 2;    				//类型
+    optional int32 battleTimes = 3;     		//最新的可挑战次数
+	optional int32 buyTimes = 4;                //最新的已购买的次数
+}
+
+message DiamondBuyCommodityResponseProto {
+	required int32 result = 1;  
+    optional int32 itemId = 2;    				//物品id
+    optional int32 itemNum = 3;     			//物品数量
+	optional int32 diamondCost = 4;				//消耗的钻石数量
+}
+
+message ArenaRewardProto{
+    required int32 arenaGoldReward = 1; //竞技币奖励
+    required double goldsReward = 2;     //金币奖励
+    required int32 rebornStone = 3;     //转生石奖励
+}
+
+//*****GBL*****
+message EventGBLStartResponseProto{
+    required int32 result = 1;
+    optional int32 battleTimes = 2;  		//每日剩余可挑战次数
+	optional int32 GoldRatio = 3; 			//哥布林金币系数
+	optional int32 timeAllowed = 4; 		//哥布林战斗时长
+	optional int64 seed = 5;				//种子
+}
+
+message EventGBLEndRequestProto{
+    required double currentGolds = 1;    //当前收益
+	optional int32 dropNum = 2;			 //掉落数量
+	optional BattleDetailInfoProto battleInfo = 3;	//战斗信息 
+}
+
+message EventGBLEndResponseProto{
+    required int32 result = 1;			//结果码
+	optional RewardProto reward = 2;	//掉落物品列表
+}
+
+message EventDamageEnterResponseProto {
+    required int32 result = 1;			//结果码
+    optional int32 bossId = 2;			//bossId
+	optional double damage = 3;			//个人伤害记录
+	optional int32 rank = 4; 			//个人排名
+	optional int32 historyRank = 5; 	//历史最高排名
+	optional string damageBig = 6;			//个人伤害记录(大数据)
+}
+
+message EventDamageStartResponseProto {
+    required int32 result = 1;
+    optional int32 battleTimes = 2;    //已挑战次数
+	optional int32 timeAllowed = 3;    //允许战斗时长
+	optional int64 seed = 4;		   //种子
+}
+
+message EventDamageEndRequestProto{
+    required double currentDamage = 1;   			//当前总伤害
+	optional BattleDetailInfoProto battleInfo = 2;	//战斗信息
+        optional string currentDamageBig = 3;   			//当前总伤害(大数据)
+}
+
+message EventDamageEndResponseProto {
+    required int32 result = 1;    		//结果码
+	optional double damage = 2;			//个人最新伤害记录
+	optional int32 rank = 3; 			//个人最新排名
+	optional string damageBig = 4;			//个人最新伤害记录(大数据)
+}
+
+message ActivityRankResponseProto {
+	required int32 result = 1;    					 //结果码
+	required int32 tabId = 2;						 //页签
+	repeated RankListResponseDetailProto detail = 3; //排行榜	
+}
+
+message RankListRequestProto {
+    required int32 rankType = 1;			//类型 1 伤害天梯 2 pvp 3 悬赏
+}
+
+message RankListResponseProto { 			//类型 1 伤害天梯 2 pvp 3 悬赏 
+    required int32 rankType = 1;
+    repeated RankListResponseDetailProto detail = 2;
+    extensions 3 to 50;
+}
+
+message RankListResponseDetailProto {
+    required int32 rank = 1;
+    optional int32 playerId = 2;
+    optional string playerName = 3;
+    optional int32 playerLevel = 4;
+    optional int32 playerIcon = 5;
+    optional int32 reborns = 6;
+	optional double damage = 7;
+	optional double battlePower = 8;			//以下PVP启用
+	repeated RetinueInfoProto retinueInfo = 9;
+	optional RewardProto item = 10;
+	optional bool isMale = 11;
+        optional int32 hitNum = 12;         //点击次数
+        optional string damageBig = 13;                           //大数据
+	optional string battlePowerBig = 14;			//大数据
+    extensions 15 to 100;
+}
+
+message ActivityRankInfoProto {
+	repeated ActivityRankDetailInfoProto detail = 1;
+}
+
+message ActivityRankDetailInfoProto {
+	required int32 rank = 1;
+	optional RewardProto item = 2;
+}
+
+message RetinueInfoProto {
+    required int32 formationId = 1;       //阵形id 1-10
+    required int32 retinueId = 2;     	  //随从id
+	optional double hp = 3;				  //血量
+	optional double secondDamage = 4;	  //秒伤
+	optional int32 pvpSkillId = 5;		  //pvp技能	
+	optional int32 openFlag = 6;		  //开启标志（0未开启，1开启，2进阶开启）
+	optional double hps = 7;			  //恢复血量
+	optional int32 lv = 8;				  //等级
+	optional int32 rank = 9;			  //阶数
+	optional int32 raise = 10;			  //星数
+        optional string hpBig = 11;				  //血量(大数据)
+	optional string secondDamageBig = 12;	  //秒伤(大数据)
+	optional string hpsBig = 13;			  //恢复血量(大数据)
+}
+
+message RankListRewardRequestProto {
+    required int32 rankType = 1;			//类型 1 pvp 2 伤害天梯 3 悬赏任务
+}
+
+message RankListRewardResponseProto {
+    required int32 rankType = 1;
+	repeated RankListRewardDetailProto rewardProto = 3;
+}
+
+message RankListRewardDetailProto {
+    required int32 rank = 1;
+	optional RewardProto item = 2;
+}
+
+message RetinueExpInfoProto {
+    required int32 retinueId = 1;		//随从id
+	required int32 lv = 2;		 		//等级
+    required double exp = 3;      		//经验 
+}
+
+message RetinueExpChangeProto {
+	repeated RetinueExpInfoProto retinueExpInfoProto = 1;	//随从经验
+}
+
+//
+//--------------------------Rank---------------------------------
+message RankBriefInfoProto {
+    required int32 rankType = 1;
+	optional int32 rank = 2;
+    optional int64 value = 3;
+}
+
+
+//---------------------------------------------秘境------------------------------
+message BeginSecretPlaceFightRequestProto{
+    required int32 currentFloor = 1;				//当前层
+}
+
+message BeginSecretPlaceFightResponseProto{
+    required int32 result = 1;
+	optional int32 currentFloor = 2;				//当前层
+	repeated ItemProto items = 3;					//会获得的宝石id和数量
+	optional double energy = 4;						//获得的宝石能量
+	optional int64 seed = 5;						//种子
+}
+
+message EndSecretPlaceFightRequestProto{
+    required int32 currentFloor = 1;		//当前层	
+	optional BattleDetailInfoProto battleInfo = 2;	//战斗信息  
+}
+
+message EndSecretPlaceFightResponseProto{
+    required int32 result = 1;		
+    optional int32 nextFloor = 2;					//下一层数
+	optional double energy = 3;						//增加的精华
+	repeated ItemProto items = 4;					//获得的宝石id和数量
+	optional int32 highestFloor = 5;				//最高层
+}
+
+message ResetRequestProto{
+    required int32 currentFloor = 1;
+}
+
+message ResetResponseProto {
+    required int32 result = 1;
+    optional int32 battleTimes = 2;					//已挑战次数
+}
+
+message ResetMinerResponseProto {
+    required int32 result = 1;
+    optional int32 battleTimes = 2;					//已挑战次数
+}
+
+message BeginAutoUpResponseProto{
+    required int32 result = 1;
+    optional int32 highestFloor = 2;				//最高层
+	optional double energy = 3;						//增加的精华
+	repeated ItemProto items = 4;					//获得的宝石id和数量
+	optional int32 nextFloor = 5;					//下一层数
+}
+
+message EndAutoUpResponseProto{
+    required int32 result = 1;
+    optional double energy = 2;		//增加的精华
+	repeated ItemProto items = 3;	//获得的宝石id和数量
+	optional int32 nextFloor = 4;	//下一层数
+}
+
+message RankPersonProto{
+    required int32 type = 1;								//排行榜类型 1 伤害 2 PVP
+    optional int32 rank = 2;								//名次
+	optional double value = 3;								//伤害值,战斗力
+        optional string valueBig = 4;								//伤害值,战斗力(大数据)
+}
+
+message RaiseStoneChangeProto{
+    required int32 raiseStone = 1;      //升华石
+}
+
+message WakeStoneChangeProto{
+    required int32 wakeStone = 1;       //觉醒丹
+}
+
+//-----------------------------------商店 1 竞技场 2 神秘 3伤害天梯------------------------
+message StoreRefreshRequestProto{
+    required int32 storeId = 1;     //商店类型
+    optional int32 isFirst = 2;     //1为免费刷
+    optional int32 refreshType = 3;     //刷新类型  1.普通刷新  2.黄金刷新  3.至尊刷新
+}
+
+message StoreRefreshResponseProto{
+    required int32 result = 1;
+    required int32 storeId = 2;     //商店类型
+    repeated RefreshItemProto item = 3;        //刷新的物品列表
+    extensions 4 to 20;
+}
+
+message StoreBuyItemRequestProto{
+    required int32 storeId = 1;     //商店类型
+    required int32 id = 2;      //购买商品id
+}
+
+message StoreBuyItemResponseProto{
+    required int32 result = 1;
+    required int32 storeId = 2;     //商店类型
+    optional int32 id = 3;      //商品id
+    extensions 4 to 20;     //目前用到4
+}
+
+message RefreshItemProto {
+    required int32 id = 1;
+    optional int32 num = 2;
+	optional int32 itemId = 3;
+    optional int32 type = 4;  //物品类型
+    optional int32 costType = 5; //消费类型 1 竞技场代币 2 钻石 3伤害天梯代币
+    optional bool isSold = 6;	 //是否已售出
+	optional int64 cost = 7;	//售价
+    extensions 8 to 30;     //当前用到12
+}
+
+message StoreRefreshAlertProto {
+    required bool refreshArenaShop = 1;        //竞技场商店刷新
+    required bool refreshSecretShop = 2;        //神秘商店
+    required bool refreshDamageShop = 3;        //伤害天梯商店
+    required bool refreshDeathShop = 4;         //死亡商店
+    extensions 5 to 20;     //目前用到5
+}
+//-----------------------------------挖矿------------------------
+message MineRequestProto{
+    required int32 mineTimes = 1;     //挖矿次数 1或10
+}
+
+message MineResponseProto{
+    required int32 result = 1;			//结果码
+    optional int32 mineTimes = 2;    	//矿石当前等级已挖的次数
+	optional double gold = 3;    		//消耗的总金币
+	optional int32 level = 4;    		//矿石当前等级
+	optional int32 accumulateTimes= 5;  //总的挖矿次数
+    repeated MineDetailProto detail = 6;//挖矿详细信息
+}
+
+message MineDetailProto{
+    required int32 time = 1;			//第几次
+    required int32 critValue = 2;    	//暴击值
+	required int32 luckValue = 3;    	//幸运值
+	repeated ItemProto items = 4;		//获得的物品
+}
+
+//-----------------------------------重生------------------------
+message RebirthRequestProto{
+    repeated RebirthItemProto items = 1;     
+}
+
+message RebirthResponseProto{
+	required int32 result = 1;			//结果码
+    repeated RebirthItemProto items = 2;     
+	repeated ItemProto newItems = 3;
+	optional double gold = 4;    		//获得的金币
+	optional double energy = 5;    		//获得的宝石能量
+	optional double rulemana = 6;    	//获得的符文能量
+}
+
+message RebirthItemProto {
+	required int32 type = 1;		//1表示武器，2表示随从
+	required int32 id = 2;			//物品Id
+}
+
+//-----------------------------------熔炼------------------------
+message MeltRequestProto {
+    repeated ItemProto items = 1;     
+}
+
+message MeltResponseProto {
+	required int32 result = 1;						//结果码 
+	repeated ItemProto items = 2;					//获得的item id和数量
+	optional double energy = 3;    					//获得的宝石能量
+	optional double rulemana = 4;    				//获得的符文能量
+} 
+
+message RulemanaChangeProto {
+    required double rulemana = 1;
+    required int64 lastEnergyUseTime = 2;
+}
+
+message ExperienceChangeProto {
+    required int32 lv = 1;
+    required double exp = 2;
+	optional double increaseExp = 3;
+}
+
+//-----------------------------------挂机------------------------
+message HangupBeginResponseProto{
+    required int32 result = 1;						//结果码  
+	optional int64 startTime = 3;					//挂机开始时间
+}
+
+message HangupEndResponseProto {
+	required int32 result = 1;						//结果码 
+	optional int64 currentHangupTime = 2;			//本次挂机时间
+	optional int64 endTime = 3;						//挂机结束时间
+}
+
+//一键领取
+message HangupBagReceiveProto {
+	required int32 result = 1;						//结果码  
+	repeated ItemProto items = 2;					//item id和最新的数量
+	optional double gold = 3;						//金钱最新的数量
+	optional double exp = 4;						//经验最新的数量
+}
+
+message HangupItemNumChangeProto {
+	repeated ItemProto items = 1;
+}
+
+//推送功能解锁信息
+message FunctionLockChangeProto {
+	repeated IntBoolProto functions = 1;
+}
+
+//杀怪数量
+message MonsterKillInfoProto {
+	optional int32 monsterNum = 1;
+	optional int32 eliteNum = 2;
+	optional int32 bossNum = 3;
+}
+
+//补魂结果
+message FixSoulResponseProto {
+	required int32 result = 1;
+	optional int32 soulLevel = 2;
+	optional int32 soulPoint = 3;
+	optional int32 soul = 4;
+	optional int32 id = 5;
+}
+
+//补魂信息
+message FixSoulProto {
+	optional int32 soulLevel = 1;
+	optional int32 soulPoint = 2;
+	optional int32 id = 3;
+}
+
+//--------------------------------------------黑市商人------------------------------
+message BlackMarketProto{
+    required int32 refreshNum = 1;      //刷新次数
+    repeated BlackMarketItemProto hitItems = 2;     //砸罐子的物品
+    repeated BlackMarketItemProto showItems = 3;    //底下显示的物品
+    optional int32 captureNum = 4;    //夺取次数
+    optional int32 hitNum = 5;      //砸罐子次数
+}
+
+message BlackMarketItemProto {
+    required int32 id = 1;
+    optional int32 num = 2;
+	optional int32 itemId = 3;
+    optional int32 type = 4;  //物品类型
+    optional int32 costType = 5; //砸罐子类型 0 玩家 1 NPC
+    optional bool isSold = 6;	 //是否已售出
+	optional int32 cost = 7;	//是否已抢夺
+        optional int32 pos = 8;     //展现给客户端时物品位置
+}
+
+message RefreshBlackMarketResponseProto{
+    required int32 result = 1;
+    optional BlackMarketProto blackMarket = 2;
+}
+
+message HitPotRequestProto{
+    required int32 playerPotId = 1;     //玩家点击的罐子id(不是位置)
+}
+
+message HitPotResponseProto{
+    required int32 result = 1;
+    optional int32 npcPotId = 2;        //返回npc罐子的位置
+	optional int32 showPlayerHitId = 3;		//返回玩家砸完罐子下方显示区域的罐子位置
+    optional BlackMarketProto blackMarket = 4;
+}
+
+message CapturePotRequestProto{
+    required int32 npcPotId = 1;
+}
+
+message CapturePotResponseProto{
+    required int32 result = 1;
+    optional int32 showCaptureId = 2;       //返回玩家夺取罐子后下方显示区域的罐子位置id
+     optional BlackMarketProto blackMarket = 3;
+}
+
+//---------------------------------------迷窟探险-------------------------------------
+message UpToolLevelRequestProto{
+    required int32 toolType = 1;        //工具等级类型
+}
+
+message UpToolLevelResponseProto{
+    required int32 result = 1;
+    optional int32 toolType = 2;
+    optional int32 newToolLevel = 3;        //新的工具等级
+}
+
+message GetItemProto{
+    required int32 result = 1;
+    optional int32 itemId = 2;      //获得装备id
+    optional int32 itemtype = 3;    //装备类型
+    optional int32 itemnum = 4;     //装备数量
+    optional int32 turnRemain = 5;
+    optional int32 dayRemain = 6;
+    optional double advanceExp = 7;
+    optional int32 curLevel = 8;
+}
+
+message MysteryCaveRequestProto{
+    required int32 costLevel = 1;       //玩家选择的消费类型
+}
+
+message MysteryCaveResponseProto{
+    required int32 result = 1;
+    optional MysteryCaveProto mysteryCaveProto = 2;
+    optional int32 upgradeToolType = 3;     //升级的工具类型
+    optional bool isIncrease = 4;       //是否增加迷窟探险次数
+    optional bool isCrit = 5;       //是否暴击
+    optional double increaseValue = 6;       //探索的进度值
+}
+
+message MysteryCaveProto{
+    optional int32 turnRemain = 1;      //本轮剩余次数
+    optional int32 dayRemain = 2;       //本日剩余次数
+    repeated ToolProto tool = 3;        //工具的信息
+    repeated ActivityItemProto item = 4;        //获得的装备
+    optional double advanceExp = 5;      //探险总经验值
+    optional int32 curLevel = 6;        //探险等级
+    optional int64 countDown = 7;       //倒计时
+}
+
+message ToolProto{
+    required int32 type = 1;        //工具类型
+    optional int32 level = 2;       //工具等级
+}
+
+message MysteryCaveRefreshProto{
+    required int32 result = 1;
+    optional MysteryCaveProto mysteryCave = 2;
+}
+
+//---------------------------------------购买月卡和商品-------------------------------------
+message BuyMonthCardResponseProto{
+	required int32 result = 1;			//
+	optional int32 id = 2;				//月卡id
+    optional int64 DueDate = 3;      	//新的到期日期
+    optional int32 MoneyMinus = 4;		//扣除的人民币
+    optional bool isFirst = 5;        	//是否首充
+	optional int32 diamandGet = 6;		//得到的钻石
+}
+
+message BuyDiamandResponseProto{
+	required int32 result = 1;			//
+	optional int32 amount = 2;			//购买的档次
+    optional int32 MoneyMinus = 3;		//扣除的人民币
+    optional bool isFirst = 4;        	//是否首充
+	optional int32 diamandGet = 5;		//得到的钻石
+}
+
+message VipExpChangeProto {
+    required int32 vipLevel = 1;
+    required double vipExp = 2;
+	optional double increaseExp = 3;
+}
+
+message PlayerAliveResponseProto {
+    required int32 result = 1;
+	optional double aliveGold = 2;
+}
+
+message RebornsResponseProto {
+	required int32 result = 1;
+	optional int32 reborns = 2;
+	optional int32 staminaRecover = 3;
+}
+
+
+//-------------------------------------------秘石-----------------------------
+message MysteryStoneInfoProto{
+    required int32 id = 1;              //唯一id，区分不同的秘石
+    required int32 stoneId = 2;         //秘石id
+    optional int32 level = 3;           //等级
+    optional bool isInlay = 4;		//是否已镶嵌
+    optional int32 num = 5;         //数量
+}
+
+message AttributeBonusProto{
+    required int32 type = 1;        //加成类型
+    optional int32 value = 2;         //加成值
+}
+
+message MysteryStoneProto{
+    repeated MysteryStoneInfoProto msInfo = 1;  //玩家拥有的秘石信息
+    repeated StoneIntIntProto stoneInfo = 2;    //玩家拥有秘石信息
+    repeated StoneIntIntProto greatSP = 3;     //宏伟秘境重置（七日与成就）
+    repeated StoneIntIntProto stoneUpgrade = 4;     //秘石等级信息
+}
+
+message StoneIntIntProto{
+    optional int32 intValue1 = 1;
+    optional int32 intValue2 = 2;
+}
+//message MysteryStoneMapProto{
+//    required int32 key = 1;
+//    optional MysteryStoneInfoProto msInfo = 2;
+//}
+
+message OperationMysteryStoneRequestProto{
+    required int32 id = 1;              //秘石的id
+    required int32 operationType = 2;       //秘石操作类型，1.升级 2.分解 3.重置 4.镶嵌或替换 5.卸下
+    optional int32 weaponId = 3;        //武器id
+    optional int32 inlayNum = 4;        //槽位，值为5或者6
+    //optional int32 newStoneId = 5;      //替换的秘石的唯一id，不是秘石本身id
+}
+
+message OperationMysteryStoneResponseProto{
+    required int32 result = 1;
+    optional MysteryStoneInfoProto msInfo = 2;
+    optional int32 originalNum = 3;      //分解或重置秘石后能得到的原石数
+}
+
+//message oneKeyApartRequestProto{
+//    required int32 id = 1;      //秘石id
+//}
+
+message oneKeyApartResponseProto{
+    required int32 result = 1;
+    optional MysteryStoneProto msInfo = 2;
+    optional int32 originalNum = 3;     //分解获得原石数
+    optional int32 apartNum = 4;        //分解的秘石数目
+}
+
+//------------------------------------------赌石----------------------------------------
+message GambleStoneInfoProto{
+    repeated GambleStoneMasterProto gsMaster = 1;
+}
+
+message GambleStoneMasterProto{
+    required int32 id = 1;          //赌石师id
+    optional bool isUnlock = 2;     //是否开启
+    //repeated MasterRewardProto reward = 3;      //赌石师产出
+}
+
+//message MasterRewardProto{
+//    repeated int32 mysteryStoneId = 1;       //秘石id
+//下面3个不知道是什么，先这样写
+//    optional DiamondProto diamond = 2;      //宝石
+//    optional MysteryStoneOriginal ssOriginal = 3;     //秘石原石
+//    optional DiamondCream diamondCream = 4;     //宝石精华
+//}
+
+message SummonCainResponseProto{
+    required int32 result = 1;
+    repeated GambleStoneMasterProto gsMaster = 2;   //返回赌石师的信息
+}
+
+message GambleStoneRequestProto{
+    required bool isTenGamble = 1;      //是否赌石十次
+    optional bool isOnekeyGamble = 2;       //是否一键赌石
+}
+
+message GambleStoneResponseProto{
+    required int32 result = 1;
+    //repeated ItemProto reward = 2;            //宝石精华
+    //optional MysteryStoneProto ms = 3;      //返回赌石后的秘石信息
+    repeated GambleStoneRewardProto reward = 2;     //奖励
+    optional bool isUnlockNextMaster = 3;       //是否开启下一级赌石师
+    repeated GambleStoneInfoProto gsMaster = 4;   //返回赌石师的信息
+    extensions 5 to 20;
+}
+
+message GambleStoneRewardProto{
+    optional ItemProto stoneEssence = 1;    //宝石精华
+    optional MysteryStoneInfoProto ms = 2;      //秘石信息
+}
+//秘石仓库如何实现
+//message MSStoreHouseProto{
+//    repeated MysteryStoneInfoProto msInfo = 1;
+//}
+
+//--------------------------------------------宏伟秘境------------------------------------
+message GreateSecretPlaceProto{
+    required int32 level = 1;       //层数
+    optional int32 highestLevel = 2;        //历史最高层数
+    optional OpponentProto opponent = 3;    //对手信息
+    repeated ItemProto reward = 4;      //随机获得的2种奖励
+    optional int32 mysteryStoneOriginal = 5;    //秘石原石数
+    optional int64 countDown = 6;       //失败时下一次挑战的时间（冷却15分钟）
+    repeated RetinueFormationProto retinueFormation = 7;    //阵型信息
+}
+
+//message OpponentMapProto{
+//    required int32 level = 1;       //层数
+//    optional OpponentProto opponent = 2;        //层数对应的对手信息
+//}
+
+message ResetGreateSPResponseProto{
+    required int32 result = 1;
+    optional GreateSecretPlaceProto greateSP = 2;
+    optional int32 battleTimes = 3;     //重置的次数
+}
+
+message AutoUpGreateSPResponseProto{
+    required int32 result = 1;
+    optional GreateSecretPlaceProto greateSP = 2;
+    repeated ItemProto reward = 3;              //自动爬塔获得的奖励
+}
+
+message BattleSecretPlaceResponseProto{
+    required int32 result = 1;
+    optional int32 isWin = 2;        //是否胜利
+    optional GreateSecretPlaceProto greateSP = 3;
+    optional ArenaBattleInfoProto battleInfo = 4;   //战斗信息
+    repeated ItemProto curReward = 5;   //当前层数获胜奖励
+    optional OpponentProto opponent = 6;        //当前对手信息
+}
+
+message GSPFormationChangeRequestProto {
+	repeated RetinueFormationProto retinueFormation = 1; //宏伟秘境阵型变更 
+}
+
+message GSPFormationChangeResponseProto {
+	required int32 result = 1;
+	repeated RetinueFormationProto retinueFormation = 2; //宏伟秘境阵型信息
+}
+
+//message GSPRewardProto {
+//    required int32 id = 1;
+//    required int32 num = 2;
+//    required int32 type = 3;
+//    optional int32 weight = 4;
+//}
+
+//-------------------------------------------------------------------------------------------------
+message ChallengeTimesProto{
+	repeated ChallengeInfoProto challenges = 1;
+}
+
+message BattlePowerChangeProto{
+    required int32 type = 1;       			//类型     ０ 普通　1 竞技场
+    optional double battlePower = 2;        //战斗力值 	
+    optional string battlePowerBig = 3;        //战斗力值(大数据)
+}
+
+message FirstRewardProto {
+    required int32 result = 1;
+    repeated ItemProto rewardItem = 2;	
+}
+
+//message DBGuildShopItemProto{
+//    required int32 id = 1;
+//    repeated int32 buyNum = 2;
+//}
+
+//------------------------------战斗技能-------------------------------
+message EndBattleSkillRequestProto {
+	required int64 battleStartTime = 1;			//客户端战斗开始时间
+	required int64 battleEndTime = 2;			//客户端战斗结束时间
+	repeated SkillUseProto skillDetail= 3;		//技能释放信息
+	optional int32 battleType = 4;				//战斗类型 1 关卡 2 秘境 3 天梯  6 生存试炼
+	optional SkillInfoProto skillInfo = 5;		//特殊技能信息 100411 100621 101521
+        optional int32 version = 6;                             //版本号
+        optional string md5 = 7;                                //技能信息MD5校验
+}
+
+message EndBattleSkillResponseProto {
+	required int32 result = 1;					//结果码
+	optional SkillInfoProto skillInfo= 2;		//技能最新信息
+}
+
+message SkillUseProto {
+	required int32 skillId = 1;					//技能id
+	required int64 useTime = 2;					//技能释放时间
+        optional int32 skillRank = 3;                           //技能阶级
+}
+
+message SkillInfoProto {
+	repeated SkillDetailInfoProto detail = 1;	//技能信息
+	required int64 extraCoolDownReduction = 2;	//技能额外冷却缩减时间 毫秒
+	required int64 calculationTime = 3;			//结算时间点
+}
+
+message SkillDetailInfoProto {
+	required int32 skillId = 1;					//技能id
+	required int32 retinueId = 2;				//随从id
+	required int32 chargeTimes = 3;        		//充能次数
+    required int64 accumulatedTime = 4; 		//累计时间 毫秒
+	optional int64 calculationTime = 5; 		//上次计算时间点 毫秒
+}
+//--------------------------------悬赏任务--------------------------------
+//用于战斗时计算和返回boss信息
+message WantedBossInfoProto{
+    required int32 instId = 1;
+    optional int32 bossId = 2;
+    optional int32 level = 3;           //boss等级
+    optional double curHP = 4;           //当前血量
+    optional int32 finderId = 5;      //发现者id
+    optional string finderName = 6;    //发现者名字
+    optional bool hasShared = 7;      //是否分享过
+    optional int64 findTime = 8;       //被发现的时间
+    optional int32 quality = 9;         //品质
+    optional int32 difficulty = 10;     //难度
+    optional int32 multiValue = 11;     //系数
+    optional int64 escapeTime = 12;      //逃跑时间
+    repeated AttendPlayerProto attender = 13;    //参与者
+    repeated AttendPlayerProto shareList = 14;  //分享者列表
+    optional bool isAttacked = 15;      //是否激活过
+    optional double initHP = 16;		//初始血量
+    optional int32 killer = 17;     //击杀者id
+    optional string killerName = 18;        //击杀者名字
+    optional string curHPBig = 19;           //当前血量(大数据)
+    optional string initHPBig = 20;		//初始血量(大数据)
+}
+
+message AttendPlayerProto{
+    required int32 playerId = 1;        //玩家id
+    optional bool hasGetReward = 2;     //是否已领取奖励
+    optional bool isAttacked = 3;       //是否攻击过
+    optional double damage = 4;          //攻击血量
+    optional string name = 5;           //玩家名字
+    optional string damageBig = 6;          //攻击血量(大数据)
+}
+
+//message WantedBossListProto{
+    //repeated BossProto wantedInfo = 1;      //悬赏列表信息
+    //repeated BossProto bossInfo = 2;        //BOSS列表信息
+//    repeated WantedBossInfoProto bossInfo = 1;
+//}
+
+    //***************进入游戏相关***********
+message WantedProto{
+    repeated WantedBossDetailProto wanted = 1;            //悬赏列表
+    repeated WantedBossDetailProto bossList = 2;          //boss列表
+    repeated WantedRewardProto totalReward = 3;         //所有奖励
+    repeated int32 alreadyGot = 4;          //已领取奖励
+    optional double damage = 5;                          //总伤害量
+    optional int32 challengeTimes = 6;     //花费钻石的挑战次数
+    optional int32 killNum = 7;         //击杀boss数量
+    //repeated WantedBossDetailProto historyBattleBoss = 3;          //挑战过的boss情况列表
+    //optional int32 maxLevel = 4;            //boss最高等级，击杀后+1，失败后等级-1
+    optional string damageBig = 8;                          //总伤害量(大数据)
+}
+
+    //***************当日花费钻石的挑战次数*************
+message WantedChallengeTimesProto{
+    required int32 challengeTimes = 1;      //挑战次数
+}
+
+    //***************悬赏列表和boss列表刷新相关***********
+message WantedRefreshRequestProto{
+    required int32 costType = 1;        //刷新消费类型
+}
+
+message WantedRefreshResponseProto{
+    required int32 result = 1;
+    optional bool isAuto = 2;
+    repeated WantedBossDetailProto wantedInfo = 3;
+}
+
+message BossInfoChangeProto{
+    optional WantedBossDetailProto bossListInfo = 1;
+    optional int32 changeType = 2;      //boss信息更改类型 1.增加该boss 2.该boss状态更改 3.删除该boss
+}
+
+//用于悬赏列表和boss列表展示boss信息
+message WantedBossDetailProto{
+    required int32 instId = 1;
+    optional int32 bossId = 2;
+    optional int32 level = 3;
+    optional double initHP = 4;
+    optional double curHP = 5;
+    optional int64 escapeTime = 6;      //该boss剩余逃跑时间
+    optional int32 quality = 7;         //品质
+    optional string finderName = 8;     //发现者名字
+    optional bool isAttend = 9;         //我是否参与
+    optional string killerName = 10;    //击杀者名字
+    optional int32 killerId = 11;       //击杀者id
+    optional bool hasShare = 12;        //boss是否已分享
+    optional int32 finderId = 13;       //发现者id
+    optional int32 difficulty = 14;     //boss难度
+    optional int32 multiValue = 15;     //boss系数
+    optional string initHPBig = 16; //大数据
+    optional string curHPBig = 17; //大数据
+}
+
+    //***************boss挑战开始相关***********
+message WantedBattleBeginRequestProto{
+    required int32 instId = 1;              //boss唯一id
+    optional int32 battleType = 2;          //挑战类型，1.普通 3.全力一击
+    optional int32 costType = 3;            //花费类型，1.挑战券 2.钻石
+}
+
+message WantedBattleBeginResponseProto{
+    //required int32 stageId = 1;
+    //required int32 rankId = 2;
+    //required BossProto curBossInfo = 1;     //最新boss信息
+    required int32 result = 1;
+    optional WantedBossInfoProto bossInfo = 2;        //boss最新的信息
+    optional int32 battleType = 3;          //挑战类型，1.普通 2.全力一击
+}
+
+    //***************boss挑战结束相关***********
+message WantedBattleEndRequestProto{
+    required int32 instId = 1; 					 //boss的唯一id
+    optional double beforeBattleHP = 2;                        //战斗前血量
+    optional double curHP = 3;                          //战斗后血量
+    optional double playerCurHP = 4;                    //玩家血量
+	optional BattleDetailInfoProto battleInfo = 5;	//战斗信息
+    optional string beforeBattleHPBig = 6;                        //战斗前血量(大数据)
+    optional string curHPBig = 7;                          //战斗后血量(大数据)
+    optional string playerCurHPBig = 8;                    //玩家血量(大数据)
+}
+
+message WantedBattleEndResponseProto{
+    required int32 result = 1;
+    optional double newDamage = 2;          //最新总伤害
+    optional bool hasShared = 3;            //是否分享过
+    optional double curHP = 4;              //当前血量
+    optional int32 finderId = 5;            //发现者id
+    optional ItemProto findReward = 6;      //发现奖
+    optional ItemProto attackReward = 7;    //攻击奖
+    optional ItemProto killReward = 8;      //击杀奖
+    optional ItemProto attendReward = 9;    //参与奖
+    optional int32 instanId = 10;           //boss的唯一id
+    optional double playerCurHP = 11;       //玩家当前HP
+    optional int32 killNum = 12;        //玩家当日击杀boss数量
+    optional string newDamageBig = 13;          //最新总伤害(大数据)
+    optional string curHPBig = 14;              //当前血量(大数据)
+    optional string playerCurHPBig = 15;       //玩家当前HP(大数据)
+}
+
+//***************分享好友相关***********
+message WantedBossShareRequestProto{
+    required int32 instId = 1;
+    //optional 
+}
+
+message WantedBossShareResponseProto{
+    required int32 result = 1;
+    //optional WantedBossDetailProto bossInfo = 2;
+}
+
+    //***************boss操作(boss领取奖励)相关***********
+message BossOperateRequestProto{
+    required int32 instId = 1;
+    optional bool isAuto = 2;
+}
+
+message BossOperateResponseProto{
+    required int32 result = 1;
+    optional int32 instanId = 2;        //boss唯一id
+    repeated ItemProto reward = 3;      //奖励
+    optional bool isAuto = 4;           //是否自动操作
+}
+
+//**************每天达到的伤害奖励*******************
+message WantedDamageRewardRequestProto{
+    required int32 id = 1;          //领取奖励档次
+}
+
+message WantedDamageRewardResponseProto{
+    required int32 result = 1;
+    optional WantedRewardProto reward = 2;
+}
+
+message WantedRewardProto{
+    required int32 id = 1;
+    //optional int32 type = 2;
+    //optional int32 itemId = 3;
+    //optional int32 num = 4;
+    repeated ItemProto rewards = 2;
+    optional int32 killNum = 3;     //击杀的boss数量
+}
+
+message ItemUseProto {
+	required int32 itemId = 1;
+	required int32 num = 2;
+	optional int32 itemIndex = 3;
+}
+
+//**************许愿系统*******************
+message WishProto {
+	required int32 chargeTimes = 1;					//当天许愿的总收费次数
+}
+
+message WishResponseProto {
+	required int32 result = 1;						
+	required int32 itemId = 2;						//许愿的物品id
+	optional int32 stone = 3;						//本次消耗的许愿石数量
+	optional int32 diamond = 4;						//本次消耗的钻石数量
+	optional int32 itemTimes = 5;					//该物品玩家已许愿次数
+	optional int32 chargeTimes = 6;					//当天玩家许愿的总收费次数
+	optional int32 itemTotalTimes = 7;				//该物品服务器许愿次数
+	repeated IntIntProto newItemRank = 8;			//变动的物品排名
+}	
+
+message WishRankProto {
+	repeated WishRankDetailProto detail = 1;	//物品的排行明细
+}
+
+message WishRankDetailProto {	
+	required int32 rank = 1;	//名次，没有许愿数就返回０
+    required int32 itemId = 2;	//物品id
+	optional int32 itemNum = 3;	//当天服务器总许愿数
+	optional int32 myNum = 4;	//当天自己的许愿次数
+}
+
+//----------------------------整点刷新相关----------------------------
+message ZeroOclockRefreshProto{
+    optional double mysteryCaveAdvanceExp = 1;
+    optional int32 mysteryCaveCurLevel = 2;
+    optional int32 mysteryCaveDayRemain = 3;
+    optional int32 mysteryCaveTurnRemain = 4;
+    repeated ToolProto mysteryCaveTool = 5;
+    optional int32 blackMarketCaptureNum = 6;
+    optional int32 blackMarketHitNum = 7;
+    optional int32 blackMarketRefreshNum = 8;
+    optional int32 greateSecretPlaceBattleTimes = 9;
+    optional double wantedTotalDamage = 10;
+    repeated int32 wantedAlreadyGot = 11;
+    optional int32 wantedChallengeTimes = 12;
+	optional int32 wishTimes = 13;
+        repeated int32 weeklyGiftGot = 14;
+        repeated int32 dailyGiftGot = 15;
+        optional int32 killNum = 16;        //悬赏任务每日击杀boss数
+        optional string wantedTotalDamageBig = 17; //大数据
+}
+
+message BattleDetailInfoProto {
+	optional string macAddress = 1;			//mac地址
+	optional int64	battleBeginTime = 2;	//战斗开始时间
+	optional int64	battleEndTime = 3;		//战斗结束时间
+	optional int32  clickTimes = 4;			//点击总次数
+	optional int32  enemyId = 5;			//敌人id
+	optional int32  enemyLevel = 6;			//敌人等级 
+	optional int32  battleResult = 7;		//战斗结果
+	optional string description = 8;		//生成的md5码
+	optional BattlePersonInfoProto info = 9;//个人属性 
+        optional double remainingHP = 10; //剩余血量
+        optional float clickIntervalVariance = 11;
+        optional float clickPosDistanceVariance = 12;
+        optional int32 version = 13;      //版本号
+        optional string remainingHPBig = 14; //剩余血量(大数据)
+        optional int32 autoClickTimes = 15; //自动点击次数
+        optional int32 bonusClickTimes = 16; //追加点击次数
+}
+
+message BattlePersonInfoProto {
+    optional double hp = 1;				
+    optional double clickDamage = 2;		
+    optional double reduceDamage = 3;	
+    optional double secondDamage = 4;	
+    optional double recoverHp = 5;		
+    optional double CriX = 6;			
+    optional double CriDamage = 7;		
+    optional double blockX = 8;			
+    optional double blockDamage = 9;
+    optional int32 lv = 10;
+    optional int32 reborns = 11;
+    repeated BattleWeaponProto weapon = 12;	//上阵武器
+    repeated BattleRetinueProto retinue = 13; //上阵随从
+    optional string hpBig = 14;			//大数据	
+    optional string clickDamageBig = 15;		//大数据	
+    optional string reduceDamageBig = 16;        //大数据	
+    optional string secondDamageBig = 17;	       //大数据	
+    optional string recoverHpBig = 18;	//大数据	 
+    optional string CriXBig = 19;		//大数据		
+    optional string CriDamageBig = 20;	//大数据		
+    optional string blockXBig = 21;	//大数据			
+    optional string blockDamageBig = 22;  //大数据	
+}
+
+message BattleWeaponProto {
+    required int32 id = 1;
+    required int32 lv = 2;
+	optional int32 rank = 3;    //阶数
+	optional int32 raise = 4;   //星级
+}
+
+message BattleRetinueProto {
+    required int32 id = 1;       
+	required int32 lv = 2;		 
+    required int32 rank = 3;     //阶数
+	required int32 raise = 4;    //星级
+}	
+
+message WeeklyGiftProto{
+    repeated WeeklyGiftItemProto item = 1;
+}
+
+message WeeklyGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 oldPrice = 3;
+    optional int32 newPrice = 4;
+    optional int32 hasGot = 5;
+}
+
+message WeeklyGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+message DailyGiftProto{
+    repeated DailyGiftItemProto item = 1;
+}
+
+message DailyGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 hasGot = 3;
+}
+
+message DailyGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+message OnceGiftProto{
+    repeated OnceGiftItemProto item = 1;
+}
+
+message OnceGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 hasGot = 3;
+}
+
+message OnceGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+//--------------------------------------公会商店和boss-------------------------------
+message GuildShopProto{
+    repeated GuildShopItemProto items = 1;
+    optional int32 type = 2;            //商店类型
+}
+
+message GuildShopItemProto{
+    required int32 id = 1;              //购买id
+    repeated ItemProto cost = 2;        //消耗资源
+    optional ItemProto reward = 3;      //获得物品
+    optional int32 buyNum = 4;       //已购买数量
+    optional int32 remainNum = 5;       //全公会剩余总数
+    optional int32 totalNum = 6;        //可购买总数量
+    optional int32 guildLevel = 7;     //公会等级限制
+}
+
+message GuildShopBuyResponseProto{
+    required int32 result = 1;
+    optional int32 id = 2;                      //购买id
+    optional ActivityItemProto reward = 3;      //获得的物品
+    optional int32 type = 4;                        //商店类型
+    repeated GuildShopItemProto items = 5;      //最新的物品购买情况
+}
+    //*********公会boss************
+message GuildBossInfoProto{
+    required int32 instId = 1;
+    optional int32 bossId = 2;
+    optional int32 level = 3;
+    optional int32 points = 4;          //积分
+    optional int32 status = 5;          //boss状态，0.未开启  1.已开启  2.今日攻打目标  3.明日攻打目标  4.既是今日也是明日攻打目标
+    optional int32 needGuildLevel = 6;      //需要的公会等级
+    optional bool hasEnoughPoints = 7;         //是否达到过可以领取奖励的积分
+    optional bool hasReward  = 8;      //是否有奖励可以领取
+    optional int32 requiredPoints = 9;      //可以领奖需要的积分
+}
+
+message GuildBossListProto{
+    repeated GuildBossInfoProto bossList = 1;       //公会boss列表
+    optional int32 challengeTimes = 2;
+}
+
+message GuildBossBeginBattleRequestProto{
+    required int32 instId = 1;      //boss唯一id
+}
+
+message GuildBossBeginBattleResponseProto {
+    required int32 result = 1;
+    optional GuildBossInfoProto bossInfo = 2;       //boss最新信息
+    
+}
+
+message GuildBossEndBattleRequestProto{
+    required int32 instId = 1;      //boss唯一id
+    optional double damage = 2;     //伤害
+	optional BattleDetailInfoProto battleInfo = 3;	//战斗信息~
+    optional string damageBig = 4;     //伤害(大数据)
+}
+
+message GuildBossEndBattleResponseProto {
+    required int32 result = 1;
+    optional double newDamage = 2;      //本次挑战总伤害 
+    optional int32 unionGold = 3;       //活动会贡数
+    optional int32 instId = 4;      //boss唯一id
+    optional int32 challengeNum = 5;        //当日boss挑战次数
+    optional int32 contributePoints = 6;      //贡献了多少积分
+    optional string newDamageBig = 7;      //本次挑战总伤害 (大数据)
+}
+
+message GuildBossRewardShowProto{
+    repeated ItemProto showList = 1;    //宝藏预览
+    repeated GuildBossRewardBoxProto gotRewardList = 2;     //已领取的物品信息
+    optional int32 unionGold = 3;       //可领取会贡数
+    optional int64 remainTime = 4;      //剩余可领取的时间
+}
+
+message GuildBossRewardProto{
+    required int32 bossId = 1;
+    repeated GuildBossRewardBoxProto reward = 2;
+}
+
+message GuildBossRewardBoxProto{
+    required ItemProto item = 1;     //
+    optional int32 gotPlayerId = 2;       //玩家id
+    optional int32 id = 3;          //物品id
+    optional string gotPlayerName = 4;  //玩家名字
+}
+
+message GuildBossSetTargetResponseProto{
+    required int32 result = 1;
+    optional int32 instId = 2;
+    optional GuildBossInfoProto bossInfo = 3;       //设置完的boss最新信息
+}
+
+message GuildBossChangeProto{
+    required GuildBossInfoProto bossInfo = 1;
+}
+
+message GuildBossGetRewardRequestProto{
+    optional int32 pos = 1;             //如果是领物品则为物品奖励位置，如果是会贡则表示boss等级
+    optional int32 type = 2;            //领奖励类型，1.物品奖励 2.会贡
+}
+
+message GuildBossGetRewardResponseProto{
+    required int32 result = 1;
+    optional GuildBossRewardBoxProto reward = 2;
+    optional int32 boxId = 3;
+    optional int32 unionGold = 4;
+}
+
+//---------------------------------------生存试炼---------------------------------------------
+message SurvivalProto{
+    required int32 highestLevel = 1;        //历史最高波数
+    optional int64 highestSurvivalTime = 2;     //历史最高波数对应的顶住时间
+    optional int32 level = 3;       //当前波数
+    optional int64 survivalTime = 4;       //当前波数怪物顶住的时间
+    repeated ItemProto reward = 5;          //奖励信息
+    optional int64 countDown = 6;           //失败后冷却时间
+    optional int32 rank = 7;        //排行榜中的排名
+    optional int32 resetTimes = 8;      //当日重置次数
+    optional SurvivalBossProto bossInfo = 9;        //boss信息
+}
+
+message SurvivalBossProto{
+    required int32 id = 1;      //波数id
+    optional int32 bossId = 2;          //守关bossId
+    optional int32 prefixId = 3;       //守关怪物前缀ID
+    optional int32 addSkillId = 4;       //追加怪物技能id
+    optional int32 bossDifficult = 5;   //怪物难度
+    optional int32 altarType = 6;         //祭坛类型
+}
+
+message SurvivalBattleBeginResponseProto{
+    required int32 result = 1;
+    optional int32 curLevel = 2;        //开战的波数
+    optional SurvivalBossProto bossInfo = 3;        //开战boss信息
+}
+
+message SurvivalBattleEndRequestProto{
+    required int64 battleTime = 1;  //战斗时间
+    optional double damage = 2;       //玩家受伤害总量
+    optional BattleDetailInfoProto battleInfo = 3;  //校验
+    optional string damageBig = 4;       //玩家受伤害总量(大数据)
+}
+
+//战斗成功进入下一波
+message SurvivalBattleEndResponseProto{
+    required int32 result = 1;
+    optional SurvivalBossProto nextBossInfo = 2;        //下一波boss信息
+}
+
+message ResetSurvivalProto{
+    required int32 result = 1;
+    optional SurvivalProto survivalProto = 2;
+}
+
+//---------------------------------------技巧试炼-----------------------------------------
+message SkillProto{
+    //required int32 bossId = 1;
+    required int32 hitNum = 1;      //最高点击次数
+    optional double damage = 2;     //最高伤害
+    optional int32 curRank = 3;     //当前名次
+    repeated ItemProto reward = 4;  //名次奖励
+    optional string damageBig = 5;     //最高伤害(大数据)
+}
+
+message SkillBattleBeginResponseProto{
+    required int32 result = 1;
+    repeated SkillBossInfoProto bossInfo = 2;
+}
+
+message SkillBossInfoProto{
+    repeated int32 bossId = 1;
+    optional int64 appearTime = 2;
+}
+
+message SkillBattleEndRequestProto{
+    required int32 hitNum = 1;      //玩家点击次数
+    optional double curDamage = 2;      //当前伤害
+    optional BattleDetailInfoProto battleInfo = 3;	//战斗信息
+    optional string curDamageBig = 4;      //当前伤害(大数据)
+}
+
+message SkillBattleEndResponseProto{
+    required int32 result = 1;
+    optional int32 hitNum = 2;          //最新点击次数
+    optional double damage = 3;         //最新伤害
+    optional int32 rank = 4;            //最新名次
+    optional string damageBig = 5;         //最新伤害(大数据)
+}
+
+//-------------------------------------------聊天------------------------------------
+message ChatProto{
+    required int32 tabId = 1;       //发送对象，1.世界 2.公会
+    optional string playerName = 2;     //玩家名字
+    optional string content = 3;        //内容
+    optional int64 sendTime = 4;        //发送时间
+    optional int32 playerId = 5;        //玩家id
+}
+
+message EnterChatProto{
+    required int32 tabId = 1;       //发送对象，1.世界 2.公会
+    repeated ChatProto chatInfo = 2;
+}
+
+message SendChatResponseProto{
+    required int32 result = 1;
+}
+
+//------------------------------------------秘石精炼-------------------------------
+message StoneComposeProto{
+    required int32 result = 1;
+    repeated MysteryStoneInfoProto stoneInfo = 2;
+}
+
+//-------------------------------------矿山-----------------------------------
+message BackyardMineProto {         //后院矿山
+    repeated BackyardMineDetailProto backyardMineDetail = 1;
+    optional int64 getBackyardMineTime = 2;         //出矿时间
+}
+
+message BackyardMineDetailProto {
+    required int32 backyardMineId = 1;          //矿山id
+    required int32 backyardMineType = 2;        //矿山类型
+    optional int32 level = 3;           //矿山等级
+    optional int32 curOutputNum = 4;    //当前该矿山产出的矿石数量
+}
+
+message BackyardMineUpgradeResponseProto {
+    required int32 result = 1;
+    optional BackyardMineDetailProto backyardMineDetail = 2;
+}
+
+message BackyardMineShowRewardProto {
+    repeated ItemProto items = 1;
+    optional int64 nextGetMineTime = 2;     //下一次出矿时间
+}
+
+message BackyardMineGetRewardProto {
+    required int32 result = 1;
+    repeated ItemProto items = 2;
+}
+
+message CliffMountainAllAreaProto{     //全局所有矿区信息
+    repeated CliffMountainAreaProto cmAreaInfo = 1;
+    optional int64 lastOutputTime = 2;      //上次产矿时间（用于在关服期间维护产矿数量）
+}
+
+message CliffMountainAreaProto{
+    required int32 key = 1;         //在全局矿区中的键值
+    repeated CliffMountainMineProto CliffMountain = 2;
+}
+
+message CliffMountainProto {
+    repeated CliffMountainDetailProto detailProto = 1;
+    repeated int32 achievementMineId = 2;
+}
+
+message CliffMountainDetailProto {      //玩家3个矿区信息
+    required int32 id = 1;          //矿区id
+    optional bool isOpen = 2;       //是否正在开垦
+    optional int64 freeTime = 3;        //免费开垦时间
+    optional CliffMountainAreaProto mineDetail = 4;        //每个矿山详情
+}
+
+message CliffMountainMineProto {
+    required int32 id = 1;              //矿区中矿山的id
+    required int32 mineType = 2;        //矿山类型
+    optional int32 level = 3;       //矿山等级，分为 1.低级 2.中级 3.高级
+    optional int32 outPutNum = 4;     //每10分钟产出数量
+    //optional CliffMountainOwnInfoProto ownerInfo = 5;     //矿山占有者信息
+    optional OpponentProto ownerInfo = 5;     //矿山占有者信息
+    optional int64 ownTime = 6;     //某个玩家占有这个矿山的时间点
+    optional int32 remainNum = 7;       //未收货矿石数量
+    optional int64 quitTime = 8;        //原玩家放弃该矿山的时间点
+}
+/*
+message CliffMountainOwnInfoProto {
+    required int32 ownerId = 1;
+    optional string ownerName = 2;
+    optional int32 ownerLevel = 3;
+    optional int32 reborns = 4;
+    optional double battlePower = 5;        //战斗力
+}
+*/
+message OpenCliffMountainResponseProto {
+    required int32 result = 1;
+    repeated CliffMountainDetailProto mineDetail = 2;        //矿区详情
+}
+/*
+message RobMineRequestProto{
+    required int32 areaId = 1;      //矿区id
+    optional int32 mineId = 2;      //矿山id
+    optional OpponentProto opponent = 3;    //对手信息
+    repeated RetinueFormationProto retinueFormation = 4;    //阵型信息
+}
+*/
+message RobMineResponseProto{
+    required int32 result = 1;
+    optional int32 isWin = 2;        //是否胜利
+    optional ArenaBattleInfoProto battleInfo = 3;   //战斗信息
+    optional CliffMountainMineProto newMineInfo = 4;   //该矿山最新信息
+    optional OpponentProto opponent = 5;        //当前对手信息
+}
+
+message TakeOrGiveUpRequestProto {
+    required int32 areaId = 1;      //矿区id
+    optional int32 mineId = 2;      //矿山id
+    optional int32 operatType = 3;      //操作类型（1.占领 2.放弃）
+}
+
+message TakeOrGiveUpResponseProto {
+    required int32 result = 1;
+    optional CliffMountainMineProto newMineInfo = 2;   //该矿山最新信息
+}
+
+message CliffMountainShowRewardProto {
+    repeated ItemProto items = 1;
+}
+
+message CliffMountainGetRewardProto {
+    required int32 result = 1;
+    repeated ItemProto items = 2;
+}
+
+message RefreshCliffMountainResponseProto {
+    required int32 result = 1;
+    repeated CliffMountainMineProto mineDetail = 2;        //每个矿山详情
+}
+
+//-------------------------------------传教-----------------------------------
+message BeliefProto {
+    repeated BeliefBlockProto blocks = 1;
+    required int32 currentBlockIndex = 2;     //当前格子位置
+    
+    required int32 diceNum = 3;                 //骰子数量
+    
+    required int32 beliefPoint = 4;         //信仰值
+    required int32 beliefThisRound = 5;    //本轮信仰值
+    repeated IntIntProto eventIds = 6;     //本轮buffer事件Id
+    
+    required int32 beliefAddPct = 7;      //本轮信仰值加成(%)
+    required int32 battleAddPct = 8;      //本轮战斗力加成(%)
+
+    optional int32 buyDiceNumToday = 9;         //当日购买骰子次数
+    optional int32 buyMobileDiceNumToday = 10;  //当日购买遥控骰子次数
+    
+    optional int32 waitingForBuildIndex = 11;    //等待建造位置
+    optional int32 beliefDecrease = 12;           //被怪物占领减少的本轮信仰值
+}
+
+message BeliefBlockProto {
+    required int32 index = 1;           //序号从0开始
+    required int32 type = 2;            //地块类型 0起点 1普通格子 2事件 3骰子
+    required int32 structureId = 3;     //普通建筑Id
+    required int32 bossId = 4;          //怪物Id
+    required int32 bossDifficulty = 5;  //怪物难度
+    
+    //大地格额外属性
+    required bool isBigBlock = 6;               //是否大地格
+    required int32 brotherIndex = 7;            //大地格的兄弟坐标
+    required int32 specialStructureId = 8;      //特殊建筑Id
+
+}
+
+message BeliefGoRequestProto {
+    required int32 diceType = 1;        //骰子类型 1普通骰子 2遥控骰子
+    optional int32 mobileDiceValue = 2;     //遥控骰子数值
+}
+
+message BeliefGoResultProto {
+    optional int32 result = 1;
+    required int32 currentIndex = 2;    //到达的位置
+    required int32 beliefPoint = 3;     //信仰值
+    required int32 beliefThisRound = 4; //本轮信仰值
+    optional int32 eventId = 5;          //事件的Id(走到事件格,或者走到预言所)
+    optional int32 eventGainValue = 6;  //事件中获得的数值（比如得到的信仰值）
+    optional int32 bossId = 7;           //如果走到怪物或者事件触发战斗，怪物的Id
+    optional int32 difficulty = 8;      //怪物的难度
+    optional int32 battleAddPct = 9;    //战斗力变化百分比
+    optional int64 seed = 10;             //战斗种子(估计没用)
+    optional int32 step = 11;             //骰子的结果
+    optional bool isWaitingForBuild = 12;   //是否等待建造
+    optional BeliefGoResultProto moveByEvent = 13;     //由于事件的2次移动
+    optional int32 diceNum = 14;          //骰子数量
+    repeated IntIntProto bufferList = 15;  //buffer列表
+    optional int32 beliefAddPct = 16;    //信仰值变化百分比
+    optional int32 beliefDecrease = 17;  //被怪物占领减少的本轮信仰值
+}
+
+message BeliefFightEndRequestProto {
+    required int32 index = 1;                           //当前位置
+    optional BattleDetailInfoProto battleInfo = 2;	 //战斗信息
+    optional bool isBribe = 3;                          //是否收买
+}
+
+message BeliefFigheEndResponseProto {
+    required int32 result = 1;
+    optional BeliefGoResultProto stepInBlock = 2;     //打完怪物才触发格子,想当于原地踏步一下(非事件触发的战斗)
+    repeated ItemProto items = 3;                       //战利品
+}
+
+message BeliefUpgradeSturctureRequestProto {
+    required int32 index = 1;
+    optional int32 specialSturctureType = 2;    //大格子空地需要选择特殊建筑种类
+}
+
+message BeliefUpgradeSturctureResponseProto {
+    required int32 result = 1;
+    required int32 index = 2;
+    optional int32 structureId = 3;
+    optional int32 beliefThisRound = 4;
+    optional int32 beliefDecrease = 5;
+}
+
+message BeliefBuyDiceResponseProto {
+    required int32 result = 1;
+    optional int32 buyDiceNumToday = 2;         //当日购买骰子次数
+    optional int32 buyMobileDiceNumToday = 3;  //当日购买遥控骰子次数
+    optional int32 diceNum = 4;                     
+}
+
+//----------------------------------------炼金--------------------------------------
+message AlchemyProto {
+    repeated AlchemyFormulaProto formula = 1;
+    optional int64 nextFreeTime = 2;        //下次免费刷新时间点
+}
+
+message AlchemyFormulaProto{
+    required int32 id = 1;      //1.普通 2.精良 3.传奇
+    optional int32 increaseType = 2;    //增加的类型 1.生命 2.攻击 3.防御 4.格挡等级 5.格挡减伤 6.暴击等级 7.暴击减伤
+    optional int32 increaseNum = 3;     //增加的数量
+    //optional int32 increaseAptitude = 4;        //增加的资质数量
+    repeated ItemProto needItems = 4;       //需要的物品
+}
+
+message AlchemyResponseProto{
+    required int32 result = 1;
+    optional AlchemyFormulaProto newFormula = 2;
+    optional WeaponProto weaponInfo = 3;        //炼金后该武器当前信息
+}
+
+message AlchemyBreakResponseProto{
+    required int32 result = 1;
+    optional int32 curBreakRank = 2;        //当前突破到的阶层
+    optional int32 weaponId = 3;            //装备id
+}
+
+message AlchemyRefreshProto{
+    required int32 result = 1;
+    optional AlchemyProto alchemy = 2;
+}
+
+message AlchemyAttributeProto{      //增加到武器上面的资质
+    optional int32 hp = 1;
+    optional int32 damage = 2;
+    optional int32 reduceDamage = 3;
+    optional int32 CriX = 4;
+    optional int32 CriDamage = 5;
+    optional int32 blockX = 6;
+    optional int32 blockDamage = 7;
+    optional int32 curBreakRank = 8;        //当前突破到的阶层，进阶到红色时开启值为0，进阶到粉色值为1，以此类推
+}
+
+//--------------------------------资质升华（暂时没用，信息客户端可以自己算，只要对平数值即可）-------------------------------
+message AptitudeRaiseProto{
+    required int32 level = 1;       //当前等级
+    optional int32 curTotalAptitude = 2;        //当前总资质
+    optional int32 tagetTotalAptitude = 3;      //目标总资质
+    optional double raiseNum = 4;            //提升效果
+}
+
+message ShowAptitudeRaiseProto{
+    required AptitudeRaiseProto curAptitudeRaise = 1;      //当前等级升华信息
+    optional AptitudeRaiseProto nextAptitudeRaise = 2;      //下一个等级升华信息
+}
+
+//-----------------------------天赋点变化----------------
+message TalentChangeProto {
+    optional int64 firstTabRemain = 1;      //第一个页签剩余天赋点数
+    optional int64 sencondTabRemain = 2;    //第二个页签剩余天赋点数
+    required int64 humanTalent = 3;     //玩家身上总天赋点数
+}
+
+//-------------------------------------神格-----------------------------------
+message GodhoodsProto{
+    repeated GodhoodProto godhoods = 1;
+    optional int32 retinueId = 2;
+}
+
+message GodhoodProto{
+    required int32 index = 1;       //位置下标0开始
+    required int32 id = 2;          //类型
+    required int32 quality = 3;     //品质(0普通 1优秀 2精良 3非凡...从非凡开始和随从登场星级一样)
+    required int32 attack = 4;      //攻击
+    required int32 hp = 5;          //生命
+    required int32 recover = 6;     //恢复
+    required bool set = 7;          //是否已镶嵌
+    required bool enabled = 8;      //是否起效
+}
+
+//request用IntIntProto, retinueId, index
+message GodhoodSetResponseProto {
+    required int32 result = 1;
+    optional GodhoodProto godhood = 2;
+}
+
+//request用IntIntProto, retinueId, index
+message GodhoodRefreshResponseProto {
+    required int32 result = 1;
+    optional GodhoodProto godhood = 2;
+    optional int32 idNew = 3;
+    optional int32 qualityNew = 4;
+    optional int32 attackNew = 5;
+    optional int32 hpNew = 6;
+    optional int32 recoverNew = 7;
+}
+
+
+message GodhoodRefreshConfirmRequestProto {
+    required int32 retinueId = 1;
+    required int32 index = 2;
+    required bool change = 3;
+}
+
+message GodhoodRefreshConfirmResponseProto {
+    required int32 result = 1;
+    optional GodhoodProto godhood = 2;
+}
+

@@ -1,0 +1,114 @@
+package chanyu;
+
+option java_package = "com.chanyu.core.protobuf";
+
+option optimize_for = SPEED;
+
+message IntValueProto {
+    required int32 value = 1;
+}
+
+message LongValueProto {
+    required int64 value = 1;
+}
+
+message BoolValueProto {
+    required bool value = 1;
+}
+
+message StringValueProto {
+    required string value = 1;
+}
+
+message IntStringProto {
+    required int32 intValue = 1;
+    required string stringValue = 2;
+}
+
+message IntIntProto {
+    required int32 intValue1 = 1;
+    required int32 intValue2 = 2;
+}
+
+message IntIntIntProto {
+    required int32 intValue1 = 1;
+    required int32 intValue2 = 2;
+	required int32 intValue3 = 3;
+}
+
+message IntIntIntIntProto {
+    required int32 intValue1 = 1;
+    required int32 intValue2 = 2;
+	required int32 intValue3 = 3;
+	required int32 intValue4 = 4;
+}
+
+message StringStringProto {
+    required string stringValue1 = 1;
+    required string stringValue2 = 2;
+}
+
+message IntBoolProto {
+    required int32 intValue = 1;
+    required bool boolValue = 2;
+}
+
+message IntValuesProto {
+    repeated int32 values = 1;
+}
+
+message VariableValueProto {
+    required int32 id = 1;   // 变量id
+    required int64 value = 2;   // 变量值
+}
+
+message VariableValuesProto {
+    repeated VariableValueProto values = 1;
+}
+
+message LoginProto {
+    required int32 thirdpartyid = 1;
+    required string userid = 2;
+    required string loginsession = 3;
+    optional int32 serverid = 4;
+    optional string usertype = 5;    //同一渠道的SDK整合多个渠道
+    optional string stringValue1 = 6;
+}
+
+message CreateCharProto {
+    optional string name = 1;
+    optional bool isMale = 2;
+}
+
+message EnterGameRetProto {
+    optional bytes data = 1;
+}
+
+message NoteProto{
+    required int32 type = 1;    // 通知消息类型
+    optional bytes data = 2;    // 消息数据
+}
+
+message OrderNotifyProto {
+    required string orderId = 1;
+    optional string thirdPartyOrderId = 2;
+    required int32 thirdPartyId = 3;
+    optional string thirdPartyUserId = 4;
+    optional int32 cid = 5;
+    required int32 amount = 6;
+}
+
+message OrderVerifyProto {
+    required int32 playerId = 1;
+    required string orderId = 2;
+    required int32 thirdPartyId = 3;
+    optional string thirdPartyUserId = 4;
+    required string productName = 5;
+    required int32 productNum = 6;
+}
+
+message LoginUserInfoProto {
+    optional string session = 1;
+    optional string userInfo = 2;   //校验登陆信息后返回的用户信息
+}
+

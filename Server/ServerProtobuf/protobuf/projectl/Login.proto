@@ -1,0 +1,189 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//C2S_Login  1  登录  LoginProto
+//C2S_CREATECHAR = 2 创角  CreateCharProto
+
+//S2C_LOGIN_INFO = 50  登录后角色信息  LoginInfoProto
+
+
+import "Base.proto";
+import "ItemPackage.proto";
+import "Hero.proto";
+import "Equipment.proto";
+import "Stage.proto";
+import "Treasure.proto";
+import "Fairy.proto";
+import "AreaBattle.proto";
+import "Hangup.proto";
+import "Building.proto";
+import "Common.proto";
+import "Resonance.proto";
+import "FormationInfo.proto";
+import "PowerRate.proto";
+import "Hunt.proto";
+import "TempleWish.proto";
+import "GodHood.proto";
+import "RewardBase.proto";
+import "Chat.proto";
+message LoginProto {
+    required int32 thirdpartyid = 1;
+    required string userid = 2;
+    required string loginsession = 3;
+    optional int32 serverid = 4;
+    optional string usertype = 5;    //同一渠道的SDK整合多个渠道
+    optional string stringValue1 = 6;
+    optional string systemInfo = 7; //玩家手机系统信息
+    optional string clientVersion = 8;      //客户端版本
+}
+
+message LoginInfoProto {
+    required int32 cid = 1;         //Id
+    required string name = 2;       //昵称
+    required bool isMale = 3;       //性别
+
+    required double gold = 4;
+    required int32 diamond = 5;
+    optional ItemsProto items = 6; 
+    repeated HeroProto heros = 7;
+    repeated HeroFormationProto formation1 = 8;
+    repeated HeroFormationProto formation2 = 9;
+	
+	repeated EquipmentProto equipments = 10;
+    
+    repeated BossInfoProto bossInfos = 11;
+
+	optional TreasureToolProto treasureInfos = 12;
+
+	required int32 lv = 13;
+	repeated int32 equipedTreasures = 14;
+	repeated FairyProto fairys = 15;
+	repeated int32 equipedFairys = 16;       //装备精灵唯一id
+	required NormalStageInfoProto currentNormslStageInfo = 17;
+	required HardStageInfoProto currentHardStageInfo = 18;
+	repeated BossInfoProto hardBossInfos = 19;
+	optional ArenaProto arenaInfo = 20;
+	optional NormalStageHangupProto stagehangup = 21;	 //挂机信息
+	repeated BuildingProto buildings = 22; // 建筑信息
+	required double exp = 23;
+	optional DrawInfoProto drawInfo = 24; //  抽 装备 英雄必掉次数
+    optional ResonanceProto resonance = 25; // 共鸣信息
+    repeated ChallengeInfoProto challengeInfo = 26;     //挑战信息
+	optional IntValuesProto guide = 27; //已经引导的id
+	optional double serverCurTime = 28;      //服务器当前时间
+    repeated int32 monsterManual = 29;         //怪物图鉴
+    repeated FormationInfoProto formationInfo = 30;     //布阵
+	repeated ArmInfoDetailProto armInfo = 31;     //抽宝具列表
+    required PowerRateProto  powerRate = 32; //战力评估
+	repeated ElfInfoDetailProto elfGardenInfo = 33;     //抽宝具列表
+    required SecretPlaceInfoProto abyssInfo = 34; //幻影深渊
+	required DamageLadderInfoProto damageLadderInfo = 35; //伤害天梯
+    optional HuntInfoProto hunt = 36;
+	optional int32 stamina = 37;            //体力
+	optional int32 nextOpen = 38;            //小妖精
+    optional LeaderTalentProto leaderTalent = 39;   //天赋
+    optional WishProto wishInfo = 40;
+    optional TalentSystemProto goodHoodInfo = 41;
+    optional ContSignProto contSignInfo = 42;
+	optional int32 vipLv = 43;               //vip等级
+    optional int32 vipExp = 44;               //vip经验
+    optional double mana = 45; //法力值
+    optional EnterChatProto chatInfo = 46; //聊天信息
+    optional bool vipFirst = 47;        //是否首充
+    optional bool vipFirstReward = 48;        //是否已领取首充奖励
+}
+
+message CreateCharProto {
+	required string name = 1;
+	required bool isMale = 2;
+}
+
+message ChallengeInfoProto {
+    required int32 id = 1;              //战斗类型 1 购买传送点　2 竞技场　3 无尽之塔  4 秘境次数 5 哥布林 6 挖矿重置次数　7 砸罐次数 8 大秘境次数~ 9 悬赏任务购买挑战 10 购买转生石次数 11 公会boss购买次数~ 12 追缴购买次数 13.神谕任务付费加速次数
+    optional int32 battleTimes = 2;     //每日已挑战次数 左边
+    optional int32 buyTimes = 3;        //每日已购买挑战次数
+    optional int32 totalTimes = 4;      //每日总可挑战次数 右边
+}
+message ChallengeTimesProto{
+    repeated ChallengeInfoProto challenges = 1;
+}
+//幻影深渊  以前的秘境
+message SecretPlaceInfoProto {
+    optional int32 currentFloor = 1;        			//秘境当前层数
+    optional double lastChallengeEndTime = 2;        				//上一场战斗结束时间
+}
+//伤害天梯
+message DamageLadderInfoProto {
+    optional double currentDamage = 1;        		
+    repeated int32 rankRewardList = 2;        		
+}
+//小精灵开启
+message NextOpenProto {
+    required int32 result = 1;
+    repeated ItemProto rewards = 2;
+	optional int32 id = 3;        
+}
+
+message ExperienceChangeProto {
+    required int32 lv = 1;
+    required double exp = 2;
+    optional double increaseExp = 3;
+}
+
+//天赋结果
+message LeaderTalentResponseProto {
+    required int32 result = 1;
+    optional double talentPoint = 2;
+    repeated int32 id = 3;
+    optional int32 currId= 4;
+}
+
+//天赋信息
+message LeaderTalentProto {
+    required double talentPoint = 1;
+    repeated int32 id = 2;
+}
+
+message FormulaProto {
+    required int32 formulaType = 1;
+    repeated FormulaDetailProto formulas = 2;
+}
+
+message FormulaDetailProto {
+    required int32 id = 1;
+    repeated int32 materials = 2;
+    optional string playerName = 3;     //生成此配方的玩家/机器人名字
+}
+
+//--------------------------ContSign------------------------------
+message ContSignProto {
+    required int32 signMonth = 1;
+    required int32 signNum = 2;
+    required int32 lastSignDay = 3;
+    repeated ContSignDetailProto detail = 4;
+}
+
+message ContSignDetailProto {
+    required int32 day = 1;
+    required int32 viplevel = 2;
+	repeated RewardItemProto reward = 3;
+	optional int32 isGotten = 4; 			//领取值：未领取为0,普通领取为1, VIP领取为2
+}
+
+message ContSignResponseProto {
+	required int32 result = 1;
+	optional int32 lastSignDay = 2;
+	optional int32 signNum = 3;
+	optional int32 isGotten = 4;		   //领取值：未领取为0,普通领取为1, VIP领取为2, VIP补领为3
+	repeated RewardItemProto reward = 5;
+}
+
+//--------------vip
+message VipExpChangeProto {
+    required int32 vipLevel = 1;
+    required double vipExp = 2;
+	optional double increaseExp = 3;
+}

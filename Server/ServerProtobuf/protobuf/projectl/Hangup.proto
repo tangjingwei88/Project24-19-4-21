@@ -1,0 +1,44 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "ItemPackage.proto";
+message NormalStageHangupProto {
+	required int64 hangupBeginTime = 1;				//挂机开始时间
+	optional int64 hangupEndTime = 2;				//挂机结束时间
+	optional int64 lastCalcucationTime = 3;			//上次结算时间 --周期性结算
+	optional bool isHangup = 4;   					//是否在挂机
+	optional int32 killNum = 5;						//本次累计击杀怪物数量
+	repeated ItemProto items = 6;					//未领取的所有物品
+	optional double gold = 7;						//金钱掉落
+	optional double exp = 8;						//经验掉落
+	optional int64 accumulatedHangupTime = 9;		//总累计挂机时间
+	optional int64 currentHangupTime = 10;			//本次累计的挂机时间
+}
+
+
+message HangupBeginResponseProto{
+    required int32 result = 1;						//结果码  
+	optional int64 startTime = 3;					//挂机开始时间
+}
+
+message HangupEndResponseProto {
+	required int32 result = 1;						//结果码 
+	optional int64 currentHangupTime = 2;			//本次挂机时间
+	optional int64 endTime = 3;						//挂机结束时间
+}
+
+//一键领取
+message HangupBagReceiveProto {
+	required int32 result = 1;						//结果码  
+	repeated ItemProto items = 2;					//item id和最新的数量
+	optional double gold = 3;						//金钱最新的数量
+	optional double exp = 4;						//经验最新的数量
+	optional int32 upLevelNum = 5;                  //新加当前领取经验是否升级了
+}
+
+message HangupItemNumChangeProto {
+	repeated ItemProto items = 1;
+}

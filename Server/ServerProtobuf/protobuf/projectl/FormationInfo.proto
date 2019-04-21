@@ -1,0 +1,40 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+
+message AllFormationProto {
+    repeated FormationInfoProto formations = 1;
+}
+
+//info 发生过来是repeated的
+message FormationInfoProto{
+    required int32 id = 1;      //系统id
+    repeated int32 defenseSlots = 2;//防御战阵型，对应随从阵型的位置顺序
+    repeated FormationPosListProto retinueFormations = 3;//英雄战阵型，对应随从阵型的位置顺序
+    required int32 retinueFormationId = 4;//当前英雄战选择id id为配置表上的id
+}
+
+message FormationPosListProto {
+    required int32 id = 1;
+    repeated int32 posInRetinueFormation = 2;
+}
+
+message FormationRequestProto {
+    required int32 systemId = 1;        //不同系统的id(目前为0)
+    required int32 type = 2;            //0.防御阵，此时下面的变量里的formId默认为0  1.英雄阵
+    optional int32 formId = 3;      //英雄阵id
+    repeated int32 posInRetinueForm = 4;   //对应的随从阵型的槽位
+
+}
+
+message FormationResponseProto {
+    required int32 result = 1;
+    required int32 systemId = 2;        //不同系统的id(目前为0)
+    required int32 type = 3;            //1.防御阵，此时下面的变量里的formId默认为0  2.英雄阵
+    optional int32 formId = 4;      //英雄阵id
+    repeated int32 posInRetinueForm = 5;   //对应的随从阵型的槽位
+}

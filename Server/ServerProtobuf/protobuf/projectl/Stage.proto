@@ -1,0 +1,151 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+import "ItemPackage.proto";
+
+message StaminaChangeProto {
+    required int32 stamina = 1;
+    required int64 lastStaminaUseTime = 2;
+	optional int32 reason = 3; // 0 自然恢复,不可超上限  1 道具恢复  2 自然消耗(目前只有boss战会消耗) 3 转生奖励 4 祭坛恢复
+}
+
+message BossInfoProto {
+	required int32 rankId = 1;			//关卡rank号
+	required int32 bigStageId = 2;		//大关卡号
+	repeated int32 sentLevels = 3;		//已发送的星级奖励
+	repeated BossSmallStageDetailProto detail = 4;//小关卡信息
+}
+	
+message BossSmallStageDetailProto {
+	required int32 stageId = 1;			//小关卡号
+	optional int32 times = 2;			//当日已挑战次数
+	optional int32 star = 3;			//关卡获得星级
+	optional int32 buyTimes = 4;		//当日已购买次数
+	optional double maxProgress = 5;    //当前关卡进度
+}
+
+message HardBossInfoProto {
+	required int32 rankId = 1;			//关卡rank号
+	required int32 bigStageId = 2;		//大关卡号
+	optional int32 gotReward = 3;		//已发送的星级奖励
+	optional int32 times = 4;			//当日已挑战次数
+	optional int32 star = 5;			//关卡获得星级
+	optional int32 buyTimes = 6;		//当日已购买次数
+}
+
+message StageBossCleanBeginProto {
+    required int32 stageId = 1; 				 //stage id
+	optional int32 rankId = 2;				     //rank id
+	optional int32 times = 3;			         //扫荡次数
+}
+
+//boss战结果
+message StageBossBattleResultProto {
+	required int32 stageId = 1; 				 //stage id
+	optional int32 rankId = 2;				     //rank id
+	optional int32 result = 3;            		 //战斗结果
+	optional int32 nextStageId = 4;            	 //下一关
+	optional int32 nextRankId = 5;            	 //下一难度
+	optional int32 nextBigStageId = 6;           //下一关
+	optional int32 battleTimes = 7;     		 //每日已挑战次数
+	optional int32 stageTimes = 8;     		 	 //该关卡已挑战次数
+	optional int32 star = 9;					 //本次完成星级
+	optional int32 maxStar = 10;				 //最高完成星级
+    optional int64 lastChallengeFailTime = 11;            //上次挑战失败时间
+    optional int32 failTimesToday = 12;                    // 当时挑战失败次数
+}
+
+//boss战扫荡结果
+message StageBossCleanResultProto {
+	required int32 stageId = 1; 				//stage id
+	optional int32 rankId = 2;				    //rank id
+	optional int32 result = 3;            		//战斗结果
+	optional int32 battleTimes = 4;     		//每日已挑战次数
+	optional int32 bossId = 5;            		//boss id	
+	optional int32 bossLevel = 6;				//boss 等级
+	repeated ItemProto item = 7;            	//掉落道具列表
+	optional double gold = 8;					//金币
+	optional double exp = 9;					//经验
+	optional int32 stageTimes = 10;     		//该关卡已挑战次数
+}
+
+//boss 星级奖励获取
+message NormalStageGetRewardRequestProto {
+    required int32 rankId = 1;
+    required int32 bigStageId = 2;
+    required int32 level = 3;
+}
+
+//boss 星级奖励获取结果
+message NormalStageGetRewardResponseProto {
+	required int32 result = 1;
+    optional int32 rankId = 2;
+	optional int32 bigStageId = 3;
+	optional int32 level = 4;		
+}
+
+//Boss 追缴宝箱领取
+message HardStegeGetRewardRequestProto  {
+    required int32 rankId = 1;
+    required int32 stageId = 2;
+}
+
+//boss 追缴星级获取结果
+message HardStegeGetRewardResponseProto{
+	required int32 result = 1;
+	optional int32 rankId = 2;
+	optional int32 stageId = 3;	
+}
+
+//C2S_HARDSTAGE_BATTLEBOSSBEGIN = 126; --追缴BOSS战开始
+message StageBossBattleBeginProto{
+    required int32 stageId = 1;
+    required int32 rankId = 2;
+}
+
+//boss S2C_HARDSTAGE_BOSS_INFO = 646;   --追缴关卡BOSS信息
+message StageBossBattleInfoProto {
+	required int32 stageId = 1; 				 //stage id
+	optional int32 rankid = 2;				     //rank id
+	optional int32 bossId = 3;            		 //boss id	
+	optional int32 bossLevel = 4;				 //boss 等级
+    repeated ItemProto item = 5;            	 //掉落道具列表
+	optional double gold = 6;					 //金币
+	optional double exp = 7;					 //经验
+	optional int32 result = 8;					 //结果码
+}
+
+//C2S_HARDSTAGE_BATTLEBOSSEND = 127;        --追缴BOSS战结束
+message HardBattleEndCProto {
+	required int32 result = 1;                   //0胜利，1失败
+	required int32 star = 2;                     //星级
+}
+
+//S2C_HARDSTAGE_BOSS_RESULT = 647; --追缴关卡BOSS战结果 IntValueProto 0通过
+message HardBattleEndSProto {
+	required int32 result = 1;                         //0通过
+	required int32 stageId = 2; 				       //stage id
+	required int32 rankId = 3;
+	required int32 star = 4;                           //星级
+	optional HardStageInfoProto newStageInfo = 5;      //解锁的最新关卡
+    optional int32 battleTimes = 6;
+}
+
+
+
+//--------
+message NormalStageInfoProto {
+	required int32 rankId = 1;			//关卡rank号
+	required int32 bigStageId = 2;		//大关卡号
+	required int32 smallStageId = 3;		//小关卡
+}
+
+message HardStageInfoProto {
+	required int32 rankId = 1;			//关卡rank号
+	required int32 stageId = 2;		//大关卡号
+}
+

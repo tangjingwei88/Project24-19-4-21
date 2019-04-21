@@ -1,0 +1,17 @@
+message StageConfig
+{
+	required int32 RankID = 1;
+	required string Name = 2;
+	required string Icon = 3;
+	required int32 TimeLong = 4;
+	required int32 Level = 5;
+	required int32 ResultColumn = 6;
+	required int32 Column = 7;
+	required int32 Lock = 8;
+	required string SelectPool = 9;
+	required double SelectItemScale = 10;
+	required double InputItemScale = 11;
+	required double LightItemScale = 12;
+	required int32 DiamondsCost = 13;
+	required int32 DiamondsWin = 14;
+}

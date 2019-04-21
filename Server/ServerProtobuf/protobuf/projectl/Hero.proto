@@ -1,0 +1,189 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//C2S_HERO_RANKUP = 711 英雄进阶 HeroRankUpRequestProto
+//C2S_HEROEQUIP_RANKUP = 5100 英雄装备进阶 HeroEquipRankUpRequestProto
+//C2S_HERO_STARUP = 713; 英雄升星  HeroStarUpRequestProto
+//C2S_HERO_LEVELUP = 714; 英雄上升等级 HeroLevelUpRequestProto
+//C2S_HERO_INBATTLE = 715 英雄上阵 HeroInBattleRequestProto
+//C2S_HERO_COMPOSE = 716 英雄合成 HeroComposeRequestProto
+//C2S_HERO_COPY_FORMATION = 5101; 英雄复制阵容 CopyFormationCProto
+
+//S2C_HERO_RANKUP = 801 英雄进阶 HeroRankUpResponseProto
+//S2C_HEROEQUIP_RANKUP = 5100 英雄装备进阶 HeroEquipRankUpResponseProto
+//S2C_HERO_STARUP = 803; 英雄升星级   HeroStarUpResponseProto
+//S2C_HERO_LEVELUP = 804; 英雄升等级 HeroLevelUpResponseProto
+//S2C_HERO_INBATTLE = 805; 英雄上阵 HeroInBattleResponseProto
+//S2C_HERO_COMPOSE = 806 英雄合成 HeroComposeResponseProto
+//S2C_HERO_COPY_FORMATION = 5101; 英雄复制阵容 CopyFormationSProto
+
+//学习随从专长
+//C2S_EXPERTISE_LEARN = 6000; 	IntValueProto 	随从id
+//S2C_EXPERTISE_LEARN = 6000; 	LearnExpertiseResponseProto
+
+//使用技能书升级随从专长
+//C2S_EXPERTISE_BOOK = 6001;	UseBookRequestProto
+//S2C_EXPERTISE_BOOK = 6001;	UseBookResponseProto
+
+//遗忘随从专长
+//C2S_EXPERTISE_FORGET = 6002; 	IntValueProto 	随从id
+//S2C_EXPERTISE_FORGET = 6002;	ForgetExpertiseResponseProto
+import "Base.proto";
+import "FormationInfo.proto";
+message HeroProto{
+	required int32 id = 1;
+	required int32 lv = 2;
+	required int32 rankLevel = 3;
+	required int32 starLevel = 4;
+	repeated int32 equipRanks = 5;
+	repeated int32 treasureToolId = 6;
+	repeated ExpertiseProto expertises = 7; //专长
+	optional int32 expertiseNum = 8;        //专长点数
+	repeated IntIntProto upgradeIds = 9;      //专长升级id路径
+	optional TempExpertiseProto tempExpertise = 10;
+}
+
+message HeroFormationProto {
+    required int32 formationId = 1;       //阵形id 1-5
+
+    required int32 heroId = 2;     	  //随从id
+}
+
+message HeroComposeRequestProto {
+	required int32 id = 1;       		//英雄id
+}
+
+message HeroComposeResponseProto {
+	required int32 id = 1;     			//英雄id
+	required int32 result = 2;     		//结果 0表示成功 1表示碎片不足 2表示随从已存在 3表示json出错
+}
+
+message HeroInBattleRequestProto {
+	required int32 formationNum = 1;       //阵编号
+	required int32 formation = 2;     //阵上的序号
+	required int32 id = 3;          //英雄id
+	optional int32 formationPos = 4;        //布阵的上阵槽位,从槽位上来带值，其他情况为-1(不处理)
+	optional int32 retinueFormId = 5;       //如果是改的英雄阵id
+	optional int32 systemId = 6;            //系统id
+
+}
+
+message HeroInBattleResponseProto {
+	required int32 formationNum = 1;    //阵编号
+	required int32 formation = 2;       //阵上的序号
+	required int32 id = 3;     			//英雄id
+	required int32 result = 4;     		//结果 0表示成功 1表示随从不存在 2表示json出错
+	optional int32 secondFormation = 5; //阵上的序号2
+	optional int32 secondId = 6;     	//英雄id2
+}
+
+message HeroStarUpRequestProto {
+    required int32 id = 1;       		//英雄id
+	required int32 star = 2;       		//英雄star
+	required int32 times = 3;       	//starup次数,-1表示一键升星
+}
+
+message HeroStarUpResponseProto {
+    required int32 id = 1; 				//英雄id
+	required int32 star = 2;     		//上升的star
+	required int32 result = 3;     		//结果 0表示成功 1表示升华石或英雄碎片不足 2表示英雄不存在 3表示json出错
+	required int32 finalStar = 4;		//英雄star
+}
+
+message HeroLevelUpRequestProto {
+    required int32 id = 1;       		//英雄id
+	required int32 level = 2;       	//英雄level
+	required int32 times = 3;       	//times次数,-1表示一键升级
+}
+
+message HeroLevelUpResponseProto {
+    required int32 id = 1; 				//英雄id
+	required int32 level = 2;     		//最新level
+	required int32 result = 3;     		//结果 0表示成功 1表示升级书不足 2表示英雄不存在 3表示json出错
+}
+
+message HeroRankUpRequestProto {
+    required int32 id = 1;       //英雄id
+	required int32 rank = 2;     //英雄rank
+	required int32 times = 3;    //rankup次数-1表示一键升级
+}
+
+message HeroRankUpResponseProto {
+    required int32 id = 1; 			//英雄id
+    required int32 rank = 2;     	//最新阶数
+	required int32 result = 3;     	//结果码
+	repeated int32 equipRanks = 4;  //英雄装备阶数
+	optional int32 expertiseNum = 5;
+}
+
+message HeroEquipRankUpRequestProto {
+    required int32 id = 1;       //英雄id
+	required int32 index = 2;    //英雄装备位置，从0开始
+	required int32 rank = 3;     //英雄装备rank
+	required int32 times = 4;    //rankup次数-1表示一键升级
+}
+
+message HeroEquipRankUpResponseProto {
+    required int32 id = 1; 			//英雄id
+	required int32 index = 2;    //英雄装备位置，从0开始
+    required int32 rank = 3;     	//最新阶数
+	required int32 result = 4;     	//结果码
+}
+
+//所做的操作就是source = target
+//message CopyFormationCProto {
+//	required int32 source = 1;      //操作阵容。1，2
+//	required int32 target = 2;      //被拷贝阵容.1，2
+//}
+//
+//message CopyFormationSProto {
+//	required int32 formationNum = 1;  //返回CopyFormationCProto.source
+//	repeated HeroFormationProto datas = 2;
+//}
+
+message CopyFormationResponseProto {
+	required int32 result = 1;
+	repeated HeroFormationProto retinueIds = 2;
+}
+
+message ExpertiseProto {
+    optional int32 id = 1;          //专长id
+    optional int32 lv = 2;
+}
+message TempExpertiseProto {
+    optional ExpertiseProto upgrade = 1;
+    optional ExpertiseProto degrade = 2;
+}
+
+message LearnExpertiseResponseProto {
+    required int32 result = 1;
+    optional int32 retinueId = 2;
+    optional ExpertiseProto newExpertise = 3;
+    repeated IntIntProto changeIds = 4;
+optional int32 expertiseNum = 5;        //当前专长点
+}
+
+
+message UseBookRequestProto {
+    required int32 retinueId = 1;
+    required int32 bookId = 2;
+}
+
+message UseBookResponseProto {
+    required int32 result = 1;
+    optional int32 retinueId = 2;
+    optional ExpertiseProto upgrade = 3;
+    optional ExpertiseProto degrade = 4;
+    repeated IntIntProto changeIds = 5;
+}
+
+message ForgetExpertiseResponseProto {
+    required int32 result = 1;
+    optional int32 retinueId = 2;
+    optional int32 returnExpertiseNum = 3;
+    optional ExpertiseProto degrade = 4;
+    repeated IntIntProto changeIds = 5;
+}

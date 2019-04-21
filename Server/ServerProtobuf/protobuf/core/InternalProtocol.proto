@@ -1,0 +1,22 @@
+package chanyu;
+
+option java_package = "com.chanyu.core.protobuf";
+
+option optimize_for = SPEED;
+
+message KickPlayerProto{
+    required int32 memberId = 1;
+    optional string reason = 2;
+}
+
+message ConsoleCommandProto {
+    optional int32 serverId = 1;
+    required int32 playerId = 2;
+    required string command = 3;
+    repeated string args = 4;
+}
+
+message ConsoleCommandResultProto {
+    required int32 type = 1;
+    required bytes data = 2;
+}

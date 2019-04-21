@@ -1,0 +1,19 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+message AchievementItemProto {
+    required int32 id = 1;				//成就id
+    required double currentNum = 2;		//当前值
+    required bool achieved = 3;			//已获得
+    required bool gotten = 4;			//已领取奖励
+    optional string currentNumBig = 5;		//当前值(大数据)
+}
+
+message AchievGetRewardResponseProto {
+    required int32 id = 1; 				//成就 id
+	required AchievementItemProto nextAchievement = 2;     		//下一个成就AchievementItem
+	required int32 result = 3;       
+}

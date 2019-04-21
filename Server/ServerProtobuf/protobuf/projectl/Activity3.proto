@@ -1,0 +1,51 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "RewardBase.proto";
+import "Activity.proto";
+import "ItemPackage.proto";
+
+message TLHeroInfoResponseProto {
+	required int32 result = 1;			//
+	required int32 mainId = 2;			//活动mianId
+	optional int32 score = 3; 			//最新的积分
+	optional int32 rank = 4;			//最新排名
+	optional int64 freeDrawTime = 5;	//上次免费抽的时间	
+	optional double currentRate = 6;	//当前折扣
+	optional double nextRate = 7;		//下一折扣
+	optional int32 nextScoreNeed = 8;	//下一折扣所差积分
+	optional int32 diamondNeed = 9;		//单次抽奖消耗
+	optional ItemProto rareItem = 10; 	//稀有物品 
+	optional string currentRateDes = 11;//当前折扣说明
+	optional string nextRateDes = 12;	//下一折扣说明
+	optional int64 coolDownDrawTime = 13; //免费抽CD时长 毫秒	
+	optional string startTime = 14;       	//开始时间
+	optional string endTime = 15;			//结束时间
+	optional ActivityRankInfoProto rankInfo = 16; //排行榜信息
+	optional double nextTenDrawDiamond = 17; //下一次十连的消耗
+}
+
+message TLHeroDrawRequestProto {
+	required int32 mainId = 1;
+	optional int32 type = 2;			//抽取的类型 0表示免费抽,1表示人民币抽 
+}
+
+message TLHeroDrawResponseProto {
+	required int32 result = 1;
+	optional int32 type = 2;			//抽取的类型 0表示免费抽,1表示人民币抽 
+	optional int32 diamond = 3;			//消耗的钻石
+	repeated ItemProto item = 4; 		//抽到的物品id
+	optional int32 score = 5; 			//最新的积分
+	optional int32 rank = 6;			//最新排名 
+	optional int64 freeDrawTime = 7;	//上次免费抽的时间
+	optional double currentRate = 8;	//当前折扣
+	optional double nextRate = 9;		//下一折扣
+	optional int32 nextScoreNeed = 10;	//下一折扣所差积分
+	optional int32 diamondNeed = 11;	//单次抽奖消耗
+	optional string currentRateDes = 12;//当前折扣说明
+	optional string nextRateDes = 13;	//下一折扣说明
+	optional double nextTenDrawDiamond = 14; //下一次十连的消耗
+}

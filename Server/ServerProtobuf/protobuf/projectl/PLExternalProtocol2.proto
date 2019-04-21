@@ -1,0 +1,1005 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "PLExternalProtocol.proto";
+import "Activity.proto";
+import "ItemPackage.proto";
+import "Base.proto";
+import "Shop.proto";
+import "RewardBase.proto";
+import "Hero.proto";
+import "Equipment.proto";
+import "AreaBattle.proto";
+import "Treasure.proto";
+import "Login.proto";
+import "Task.proto";
+
+message EnterCrossServProto {
+    repeated BattleInfoProto battles = 1;
+}
+
+message BattleInfoProto {
+    required int32 battleId = 1;      //跨服战id    1.巅峰战 2.王座战
+    optional int64 beginTime = 2;
+    optional int64 endTime = 3;
+}
+
+message FriendDetailResponseProto {
+	required int32 result = 1;
+	optional FriendDetailProto detail = 2;
+}
+
+message FriendDetailProto {
+	required int32 id = 1;              			//对手id
+	optional string name = 2;						//名字
+	optional bool isMale = 3;						//性别
+	optional int32 level = 4;						//等级
+	optional int32 reborns = 5;						//转生次数
+	optional int32 icon = 6;						//头像
+	optional int32 viplevel = 7;					//vip等级
+	optional double battlePower = 8;					 //推送时刻的战斗力
+	optional BaseBattleInfoProto battleInfo = 9;		 //人物战斗数值
+	repeated RetinueFormationProto retinueFormation = 10; //随从阵形信息
+	repeated HeroProto retinues = 11;				 //随从信息
+	repeated EquipmentProto weapons = 12;           		 //已装备列表--暂不用
+	optional int64 leaveTime = 13;					//离线时间~~~
+	optional UnionPrivateInfoProto unionInfo = 14;	//公会个人信息 
+	optional int32 realmLevel = 15;					//境界等级
+        optional string battlePowerBig = 16;					 //推送时刻的战斗力(大数据)
+        optional int32 peakArenaGrade = 17;             //巅峰竞技场段位
+}
+//------------------------------Union-------------------------------
+message UnionProto {
+	required int32 id = 1;						//公会id
+    optional string UnionName = 2;				//公会名称
+	optional int32 UnionLevel = 3;				//公会等级
+	optional int32 UnionIcon = 4;				//公会标志
+	optional string recruitment = 5;			//招人宣言
+	optional string notice = 6;					//内部公告
+    repeated UnionMemberProto members = 7;		//公会成员
+	optional double UnionExp = 8;				//公会经验
+    optional UnionDonateProto donateProto = 9;  //捐献信息
+	repeated GuildBossInfoProto bossInfo = 10; 	//公会boss详细信息
+	repeated UnionMessageInfoProto info = 11;	//公会当天日志信息
+	repeated UnionMemberProto requestIds = 12;	//会长的待审批人员列表
+    repeated GuildBossRewardProto rewardInfo = 13;    //boss奖励
+    repeated IntIntProto dbGuildShopNum = 14;          //商店物品购买数量
+}
+
+message UnionMemberProto {
+	required int32 id = 1;						//成员id
+	optional int32 type = 2;					//0 会长 1 副会长 2 普通成员
+	optional int64 lastOnlineTime = 3;			//上次在线时间
+	optional string name = 4;					//玩家名字
+	optional int32 lv = 5;						//玩家等级
+	optional int32 reborns = 6;					//转生次数
+	optional int32 icon = 7;					//图标
+	optional bool isMale = 8;					//性别
+	optional int64 lastDonateTime = 9;			//上次捐献时间
+    optional int32 peakArenaGrade = 10;             //巅峰竞技场段位
+}
+
+message UnionDonateProto {
+	optional int32 process = 1;					//当天进度值
+	repeated UnionDonateDetailProto detail = 2;
+	repeated int32 reachedReward = 3;			//可领捐献奖励id列表
+}
+
+message UnionDonateDetailProto {
+    optional int32 id = 1;						//公会成员
+	optional int32 process = 2;					//当天捐献进度贡献值
+	repeated int32 gottenReward = 3;			//已领捐献奖励id列表
+	optional int64 donateTime = 4;				//最后一次捐献时间
+	optional int32 totalProcess = 5;			//累计进度贡献值
+}
+
+message UnionMessageInfoProto {					//公会的捐献、成员变动和职位变动
+	required int32 type = 1;					//消息类型 1 成员变动 2 捐献信息 3 boss信息
+	optional string info = 2; 					//消息内容
+	optional int64 time = 3;					//发生时间
+}
+
+message UnionBossProto {
+	optional int32 reachedBossId = 1;			//公会已击杀的最高级boss
+	optional int32 tomorrowBossId = 2;			//公会明日攻打目标：默认当天的boss
+	optional UnionBossDetailProto currentBossDetail = 3;	//公会当天boss信息
+	optional UnionBossDetailProto previousBossDetail = 4;	//公会昨天boss信息
+}
+
+message UnionBossDetailProto {
+	required int32 bossId = 1;					//boss id
+	optional double hp = 2;						//boss血量
+	optional double sufferHp = 3;				//boss已受伤害值
+	repeated UnionBossAttackProto currentBossDetail = 4;	//boss攻击者信息
+	optional bool isDead = 5;					//boss是否已死亡
+        optional string hpBig = 6;						//boss血量(大数据)
+	optional string sufferHpBig = 7;				//boss已受伤害值(大数据)
+}
+
+message UnionBossAttackProto {
+	required int32 id = 1;						//玩家Id
+	optional double damage = 2;					//造成的总伤害值
+	optional bool gottenMyTreasure = 3;			//是否已领取自己宝藏
+    optional bool gottenTotalReward = 4;		//是否已领取全员奖励
+    optional string damageBig = 5;					//造成的总伤害值(大数据)
+}
+
+message UnionCreateRequestProto {
+	required string name = 1;					//公会名
+	optional int32 icon = 2;					//公会图标
+}
+
+message UnionCreateResponseProto {
+	required int32 result = 1;					
+	optional string name = 2;					//公会名
+	optional int32 icon = 3;					//公会图标
+	optional int32 id = 4;						//公会成功创建的id
+	optional int32 diamond = 5;					//公会创建花费的钻石
+}
+
+message UnionSearchResponseProto {
+	required int32 result = 1;					
+	optional UnionSummaryProto union = 2;
+}
+
+message UnionApplyRequestProto {
+	required UnionMemberProto member = 1;			//申请人信息		
+	required int32 action = 2;						//0表示同意，１表示拒绝
+}
+
+message UnionApplyResponseProto {
+	required int32 result = 1;					
+	optional int32 id = 2;						//公会的id
+	optional int32 action = 3;					//0表示同意，１表示拒绝
+}
+
+message UnionApplyProcessResponseProto {
+	required int32 result = 1;					
+	optional int32 id = 2;						//会员的id
+	optional int32 action = 3;					//0表示同意，１表示拒绝
+	optional int32 unionId = 4;					//公会id
+	 
+}
+
+message UnionKickMemberResponseProto {
+	required int32 result = 1;					
+	optional int32 id = 2;						//会员id
+}
+
+message UnionDonateRequestProto {
+	required int32 manner = 1;						//方式:１金币捐，２小钻石捐和３大钻石捐
+	optional double num = 2;						//捐献数量
+}
+
+message UnionPrivateInfoProto {
+	required int32 process = 1;					//今日贡献值
+	required int32 totalProcess = 2;			//累计贡献值
+}
+
+message UnionDonateResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 process = 2;					//最新进度值
+	repeated int32 reachedReward = 3;			//可领捐献奖励id列表
+	repeated int32 gottenReward = 4;			//已领捐献奖励id列表
+	optional int32 gottenProcess = 5;			//本次获得的进度值
+	optional double gottenExp = 6;				//本次获得的经验
+	optional bool isCrit = 7;					//是否暴击
+	optional int32 gottenGold = 8;				//获得会贡
+}
+
+message UnionDonateRewardResponseProto {
+	required int32 result = 1;					//结果码
+	repeated int32 gottenReward = 2;			//已领捐献奖励id列表
+	repeated RewardItemProto item = 3;			//奖励物品
+}
+
+message UnionDonateInfoResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 process = 2;					//当天捐献进度贡献值
+	repeated int32 reachedReward = 3;			//可领捐献奖励id列表
+	repeated int32 gottenReward = 4;			//已领捐献奖励id列表
+	optional bool hasDonated = 5;				//当天是否已捐献
+	optional int32 num = 6;						//当天已捐献人数	
+}
+
+message UnionBossSetResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 bossId = 2;					//bossId	
+}
+
+message UnionBossAttackRequestProto {
+	required int32 bossId = 1;						//bossId
+	required double damage = 2;						//本次的伤害值
+	optional string damageBig = 3;						//本次的伤害值(大数据)
+} 
+
+message UnionBossAttackResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 bossId = 2;					//bossId
+	optional double damage = 3;					//玩家自己造成的总伤害值
+	optional double sufferHp = 4;				//boss已受伤害值
+	optional int32 unionGold = 5;				//获得的公会代币数
+	optional bool isDead = 6;					//boss是否已死亡
+	optional RewardProto reward = 7;			//击杀奖励
+        optional string damageBig = 8;					//玩家自己造成的总伤害值(大数据)
+	optional string sufferHpBig = 9;				//boss已受伤害值(大数据)
+}
+
+message UnionBossInfoResponseProto {
+	required int32 result = 1;					//结果码
+	optional UnionBossProto bossInfo = 2;		//boss信息	
+}
+
+message UnionBossInfoChangeProto {
+	required int32 bossId = 1;					//boss id
+	optional double sufferHp = 3;				//boss已受伤害值
+	optional bool isDead = 5;					//boss是否已死亡	
+	optional string sufferHpBig = 6;				//boss已受伤害值(大数据)
+}
+
+message UnionBossGetRewardRequestProto {
+	required int32 manner = 1;					//0表示宝藏,1表示会贡	
+} 
+
+message UnionBossGetRewardResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 manner = 2;					//0表示宝藏,1表示会贡
+	optional RewardProto reward = 3;			//领取的奖励	
+} 
+
+message UnionMemberQuitResponseProto {
+	required int32 result = 1;					//结果码
+	optional int64 lastQuitTime = 2;			//上次退出公会时间
+}
+
+message UnionViceChairmenResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 id = 2;						//成员id
+	optional int32 action = 3;					//0:任命　1:取消	
+} 
+
+message UnionImpeachResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 chairman = 2;				//新会长的id	
+} 
+
+message UnionMemberRemoveResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 memberId = 2;				//移除成功的id	
+} 
+
+message UnionChairmanDemiseResponseProto {
+	required int32 result = 1;					//结果码
+	optional int32 memberId = 2;				//移除成功的id
+	optional int32 chairman = 3;				//新会长的id	
+} 
+
+message UnionInfoRequestProto {
+	required int32 manner = 1;					//0 内部公告，1 招人宣言，2 公会标志
+	required string content = 2;				//最新内容	
+} 
+
+message UnionInfoResponseProto {
+	required int32 result = 1;
+	optional int32 manner = 2;					//0 内部公告，1 招人宣言，2 公会标志
+	optional string content = 3;				//最新内容	
+} 
+
+message UnionListResponseProto {
+	required int32 result = 1;					//结果码
+	repeated UnionSummaryProto unionInfo = 2;	//公会列表信息
+}
+
+message UnionSummaryProto {
+	required int32 id = 1;						//公会id
+    required string UnionName = 2;				//公会名称
+	optional int32 UnionLevel = 3;				//公会等级
+	optional int32 UnionIcon = 4;				//公会标志
+	optional string recruitment = 5;			//招人宣言
+	optional double UnionExp = 6;				//公会经验
+	optional int32 num = 7;						//会员数量
+	optional string chairman = 8;				//会长名字
+}
+
+message UnionDetailResponseProto {
+	required int32 result = 1;					//结果码
+	optional UnionDetailProto detail = 2;		//公会详细信息
+}
+
+message UnionDetailProto {
+	required int32 id = 1;						//公会id
+    optional string UnionName = 2;				//公会名称
+	optional int32 UnionLevel = 3;				//公会等级
+	optional int32 UnionIcon = 4;				//公会标志
+	optional string recruitment = 5;			//招人宣言
+	optional string notice = 6;					//内部公告
+    repeated UnionMemberProto members = 7;		//公会成员
+	optional double UnionExp = 8;				//公会经验
+	repeated UnionMemberProto requestIds = 9;	//待审批人员列表
+}
+
+message UnionMessageResponseProto {
+	required int32 result = 1;					//结果码
+	repeated UnionMessageInfoProto info = 2;	//公会当天日志信息
+}
+
+message UnionMemberChangeProto {
+	required int32 id = 1;						//成员id
+	optional int32 type = 2;					//0 会长 1 副会长 2 普通成员
+	optional int32 action = 3;					//0 表示增加　1表示该会员被移除
+}
+
+message UnionExpChangeProto {
+    required int32 level = 1;
+    required double exp = 2;
+	optional double increaseExp = 3;
+}
+
+//----------PvP--------------------------
+
+//战斗过程信息
+message PVPResultProto {
+    repeated PVPRetinueProto retinues = 1;       //随从
+    repeated PVPRoundProto pvpRounds = 2;    	//战斗回合
+    required int32 winner = 3;  			//取胜方(阵营号)
+    required PVPHeroProto me = 4;			//我方主角属性
+    required PVPHeroProto enemy = 5;                    //对方主角属性
+    optional PVPStatisticProto statistic = 6;          //战斗统计
+}
+
+message PVPStatisticProto {
+    required int32 mvpIndex = 1;                //mvp下标
+    required string mvpReason = 2;              //mvp描述
+    optional int32 loseType = 3;                //失败原因
+}
+
+message PVPHeroProto {
+    required int64 AR = 1;      //贯穿等级
+    required int64 DR = 2;      //防御等级
+    required int64 HR = 3;      //命中等级
+    required int64 ER = 4;      //闪避等级
+    required int64 CR = 5;      //直击等级
+    required int64 WR = 6;      //意志等级
+    required int64 GP = 7;      //神威等级
+    required int64 SR = 8;      //速度等级
+    optional string name = 9;
+    optional int32 playerId = 10;
+    optional int32 sex = 11;    //性别(1男2女)
+    optional int32 level = 12;
+    optional int32 reborns = 13;
+    optional int32 grade = 14;      //段位
+}
+
+message PVPRetinueProto {
+    required int32 index = 1; 			//阵型index,0-5己方,6-11敌方
+    required int32 retinueId = 2; 		//随从id
+    required int64 maxHp = 3;                   //最大血量
+    optional int64 bp = 4;                      //战力
+    optional int32 retinueType = 5;            //随从类型(1随从 2怪物 3主角)
+}
+
+//战斗回合
+message PVPRoundProto {
+    required int32 round = 1;       			//回合号(从1开始)
+    repeated PVPActionProto pvpActions = 2;    	//随从的一次行动,或者由系统触发的一个技能
+}
+
+//战斗动作
+message PVPActionProto {
+    required int32 actorIndex = 1;			//动作发起者index,0-5己方,6-11敌方,-1系统
+    repeated PVPMessageProto pvpMessages = 2;  	//战斗过程消息
+    optional int32 actorId = 3;                     //动作发起者id
+}
+
+message PVPMessageProto {
+    required int32 type = 1;    // 消息类型: 0:StartSkillProto 1:BeEffectProto 2:BuffStateChange 3:SuitS
+    optional bytes data = 2;    // 消息数据
+}
+
+//施放技能
+message StartSkillProto {  
+    required int32 skillId = 1;
+    optional int32 targetIndex = 2;     //目标阵型index(0-11)
+    optional int32 hitTumeIndex = 3;    //打击时序index(0开始)
+}
+
+message BeEffectProto {
+    required int32 targetIndex = 1;           //作用角色阵型index
+    required int32 causeId = 2; 		//造成效果的技能或buff或套装id
+    required int32 type = 3;    		//作用类型 0：命中 1：暴击 2：躲闪 3: 格挡 4：治疗 5：护盾  6:不能行动 7：不能释放技能 8:混乱 9:套装 10.复活(女神
+    required int64 damage = 4;			//伤害
+    required bool die = 5;   			//check死亡
+    required int32 timing = 6; 			//0:释放技能前   1：技能中  2：技能后
+    optional int32 causeType = 7;              //造成效果的类型 0技能 1buff 2套装
+}
+
+message BuffChangeProto{
+    required int32 buffId = 1;		//bufferId
+    required int32 targetIndex = 2;   //所属随从阵型index
+    required int32 type = 3;		//0新增，1叠加，2移除, 3减少 4抵抗
+    required int32 level = 4;		//叠加层数
+    required int32 leftRound = 5;	//持续时间
+}
+
+//-----------------------------Peak------------------------------
+
+message BeliefTravelResultProto {
+    required int32 result = 1;
+    repeated BeliefGoResultProto goResult = 2;
+    repeated BeliefUpgradeSturctureResponseProto upgrade = 3;
+}
+
+message PeakFightResultProto {
+    required int32 result = 1;
+    optional PVPResultProto fightInfo = 2;
+    optional int32 increaseWarriorGold = 3; //巅峰竞技场：增加的勇士币数
+    optional int32 curWarriorGold = 4;      //巅峰竞技场：当前勇士币数
+    optional int32 increasePointsNum = 5;   //巅峰竞技场：玩家积分变化数
+    optional int32 curPoints = 6;           //巅峰竞技场：玩家当前积分
+    repeated ActivityItemProto rewards = 7; //奖励
+}
+
+//-------------一键开包---------------------------
+message OneKeyItemsChangeProto {
+    required int32 result = 1;
+    repeated IntIntProto idNum = 2;
+    repeated IntIntProto relicItems = 3;    //圣物类型：instanId
+}
+
+//-------------------SoulConvert-----------
+message SoulConvertRequestProto {
+    required int32 sourceSoulId = 1;    //源灵魂碎片id
+    optional int32 targetSoulId = 2;    //目标灵魂碎片id
+    optional int32 convertNum = 3;      //转化数量
+}
+
+message SoulConvertResponseProto {
+    required int32 result = 1;
+    optional int32 sourceSoulId = 2;    //源灵魂随从id
+    optional int32 sourceFregmentNum = 3;       //源灵魂碎片当前数量
+    optional int32 targetSoulId = 4;        //目标灵魂随从id
+    optional int32 targetFregmentNum = 5;       //目标灵魂碎片当前数量
+    optional int32 convertNum = 6;      //转化数量
+}
+
+//-------------------巅峰竞技场-------------------
+message PABattleRequestProto {
+    required int32 instanId = 1;
+}
+
+message PAShopBuyResponseProto {
+    required int32 result = 1;
+}
+
+message ReturnPARankProto {
+    required int32 serverId = 1;    //发送请求的服务器id
+    optional int32 playerId = 2;    //发送请求的玩家id
+    repeated PARankBaseProto rankList = 3;
+}
+
+message PARankBaseProto {
+    required int32 rank  = 1;   //排名
+    optional int32 cid = 2;     //玩家id
+    optional int32 serverId = 3;  
+    optional int32 points = 4;      //积分
+    optional string name = 5;
+    optional int32 level = 6;
+    optional bool isMale = 7;   //性别
+}
+
+message PVPHeroPAProto {
+    required PVPHeroProto heroProto = 1;
+    optional PVPHeroExtraProto extra = 2;
+}
+
+message PVPHeroExtraProto {
+    required int32 reborns = 1;                     //转生次数
+    optional int32 retinueTotalAttribute = 2;       //随从总资质
+    optional int32 retinueTotalAwake = 3;           //随从总觉醒
+    optional int32 retinueStarLevel = 4;            //随从星标
+    optional int32 retinueResonanceLevel = 5;       //随从共鸣
+    optional int32 retinueShineLevel = 6;           //随从辉映
+    optional int32 weaponStarLevel = 7;             //装备星标
+    optional int32 weaponResonanceLevel = 8;        //装备共鸣
+    optional int32 weaponShineLevel = 9;            //装备辉映
+}
+
+message PVPRetinueServerProto {
+    required int32 retinueId = 1;
+    optional int64 DA = 2;      //伤害
+    optional int64 HP = 3;      //生命
+    optional int32 attackId = 4; //普攻Id   
+    optional int32 skillId = 5;  //技能Id
+    optional int64 BP = 6;      //战力
+    repeated int64 extraInfo = 7;       //额外信息， 第0个：技能额外触发概率，第1个：。。。
+    optional int32 retinueRank = 8;
+    repeated RelicSuitProto relicSuits = 9;     //圣物套装
+    repeated IntIntProto relicXXType = 10;      //圣物自带属性
+}
+
+message RelicSuitProto {
+    required int32 suitId = 1;
+    repeated int32 suitTypes = 2;
+}
+
+message PeakArenaOpponentProto {
+    required PVPHeroPAProto playerInfo = 1;
+    repeated PVPRetinueServerProto retinueInfo = 2;
+    repeated PVPRetinueServerProto goddessList = 3;
+}
+
+message PAOpponentProto {
+    required int32 instanId = 1;        //序列号：0,1,2
+    required int32 serverId = 2;        //所属服务器id
+    optional string serverName = 3;     //服务器名字
+    optional PeakArenaOpponentProto opponent = 4;
+    optional int32 points = 5;          //积分
+    optional bool hasDefeated = 6;      //是否已击败
+    optional int32 grade = 7;          //段位
+}
+
+message PAServ2ManagerProto {
+    required int32 serverId = 1;
+    optional int32 points = 2;
+    optional int32 playerId = 3;
+    optional PeakArenaOpponentProto playerInfo = 4;     //玩家自身信息
+    optional int32 grade = 5;
+    optional bool isMale = 6;
+    optional int32 reborns = 7;
+    optional string pointsBig = 8;      //积分大数值
+    optional int32 vipLv = 9;
+    optional int32 oppServId = 10;      //巅峰天梯对手服务器id
+    optional int32 oppId = 11;          //巅峰天梯对手id
+}
+
+message ServerPAPlayersProto {
+    repeated PAOpponentProto playerInfoMap = 1;
+    optional int32 playerId = 2;        //发送给manager请求的玩家id
+    optional int32 serverId = 3;        //发送请求的服务器id
+    optional int32 rank = 4;            //发送请求的玩家当前排名
+}
+
+message PARefreshOpponentProto {
+    required int32 result = 1;
+    repeated PAOpponentProto opponents = 2;     //对手
+}
+
+message PARewardProto {
+    required int32 id = 1;
+    required int32 type = 2;            //奖励类型：1.获得胜利总次数  2.进行挑战总次数  3.积分总数
+    optional int32 reachNum = 3;        //已达成的数值
+    optional int32 totalNum = 4;      //该档次总共需要达成的次数
+    repeated ActivityItemProto reward = 5;      //奖励
+    optional bool hasGot = 6;       //是否领过
+}
+
+message ShopInfoProto {
+    required int32 id = 1;
+    repeated ActivityItemProto source = 2;      //需要物品
+    repeated ActivityItemProto target = 3;      //目标物品
+    optional int32 exchangeNum = 4;         //已兑换次数
+    optional int32 totalNum = 5;            //总共可兑换次数
+    optional int32 needGrade = 6;           //兑换阶级限制
+    optional bool refreshEverySeason = 7;   //是否每个赛季都更新
+}
+
+message PeakArenaRewardResponseProto {
+    required int32 result = 1;
+    repeated PARewardProto reward = 2;    //奖励
+}
+
+message PeakArenaInfoProto {
+    required int32 totalChallengeTimes = 1;     //总共挑战次数
+    optional int32 totalBuyTimes = 2;       //总共购买次数
+    optional PAPlayerInfoProto playerInfo = 3;
+    optional int64 curSeasonEndTime = 4;    //本赛季结束的时间点
+    optional int32 totalPlayerNum = 5;      //该段位所有玩家数量（包括机器人）
+    optional int32 upgradePercent = 6;         //升级百分比
+    optional int32 degradePercent = 7;         //降级百分比（玩家总数该百分比的最后几名会降级，-1表示不降级）
+}
+
+message PAPlayerInfoProto {
+    required int32 points = 1;      //积分
+    optional int32 rank = 2;        //排名
+    optional int32 challengeTimes = 3;      //已挑战次数
+    optional int32 buyTimes = 4;        //已购买次数
+    optional int32 remainRefreshTimes = 5;      //剩余免费刷新次数
+    repeated PAOpponentProto opponents = 6;     //对手
+    optional int32 warriorGold = 7;     //勇士币
+    repeated PARewardProto rewardList = 8;    //奖励列表
+    repeated ShopInfoProto shop = 9;        //兑换商店
+    optional int32 grade = 10;          //段位
+    optional int64 bossCDTime = 11;     //挑战boss失败的时间点
+    optional int64 curSeasonEndTime = 12;   //赛季结束时间点
+}
+
+message EnterPeakArenaProto {
+    required int32 result = 1;
+    optional PeakArenaInfoProto paInfo = 2;
+    optional PAChallengeBossProto bossProto = 3;
+}
+
+message PAChallengeBossProto {
+    required int32 grade = 1;       //段位
+    optional PeakArenaOpponentProto opponent = 2;   //boss信息
+    optional bool hasDefeated = 3;      //是否已击败
+    optional int32 killerId = 4;
+    optional string killerName = 5;
+    optional int64 cdTime = 6;      //挑战冷却时间
+    optional int32 serverId = 7;        //服务器id
+}
+
+//-------------------装备及随从觉醒-------------------
+//S2C weapon awake response
+message WeaponAwakeChangeProto {
+    required int32 weaponId = 1;
+    required int32 result = 2;  //结果码
+    optional int32 weaponAwakeLevel = 3; //武器最新awake等级
+    optional int32 weaponAwakeBranchId = 4; //武器觉醒分支号，暂时没用
+}
+
+//S2C retinue awake response
+message RetinueAwakeChangeProto {
+    required int32 retinueId = 1;
+    required int32 result = 2;  //结果码
+    optional int32 retinueAwakeLevel = 3; //随从最新awake等级
+    optional int32 retinueAwakeBranchId = 4; //随从觉醒分支号，暂时没用
+}
+
+//--------------------圣物系统-----------------------
+//圣物
+message RelicProto {
+    required int32 instId = 1;  //实例号
+    optional int32 type = 2;    //圣物类型
+    repeated RelicAttributeProto attributes = 3; //圣物属性列表
+    optional bool isLocked = 4; //上锁标志
+    optional int32 lv = 5;  //圣物等级
+    optional int32 exp = 6;  //圣物当前等级经验
+    optional int32 star = 7;  //圣物初始星级
+    optional int32 rank = 8;  //圣物初始品质            
+    optional int32 position = 9; //圣物位置
+}
+
+//圣物属性
+message RelicAttributeProto {
+    optional int32 type = 1;    //圣物属性类型
+    optional int32 value = 2;   //圣物属性值
+    optional int32 multiplier = 3; //强化倍率
+}
+
+//圣物变化协议
+message RelicChangeProto { 
+    required int32 type = 1; //变化类型：0表示增加或改变（根据instID是否存在过来判断）  1表示销毁
+    repeated RelicProto relics = 2;
+}
+
+//圣物镶嵌协议
+message RelicInlayProto {
+    required int32 instId = 1;    //圣物实例ID（如果实例号为-1则代表卸下操作）
+    optional int32 retinueId = 2; //镶嵌随从ID
+    optional int32 slotId = 3;    //镶嵌位置ID
+}
+
+//圣物镶嵌返回协议
+message RelicInlayResultProto {
+    required int32 result = 1;   //返回结果码
+    optional RelicInlayProto inlayProto = 2; //镶嵌操作内容
+}
+
+//圣物分解返回协议
+message RelicDecompositionResultProto {
+    required int32 result = 1;   //返回结果码
+    optional IntValuesProto relicIds = 2; //分解圣物的ID列表
+    optional int32 returnedRelicSpirit = 3; //分解获得的圣精
+}
+
+//圣殿信息
+message RelicPalaceInfoProto {
+    required int32 resetTimes = 1;
+    optional int32 beliefExchangeTimes = 2;
+    optional int32 diamondExchangeTimes = 3;
+    repeated RelicStatueProto relicStatueInfo = 4;
+}
+
+//圣像信息
+message RelicStatueProto {
+    required int32 id = 1;
+    optional string name = 2;
+    optional int32 quality = 3;     //品质
+    optional int32 level = 4;
+    optional double curExp = 5;         //当前圣像经验
+    optional double totalExp = 6;        //升级需要经验
+    optional int32 addNum = 7;          //增加的圣晶数量
+    optional bool isActive = 8;     //是否激活
+    optional bool alwaysEffective = 9;      //是否未激活也能起效
+    optional double increasePerLv = 10;     //每级提升
+}
+
+//圣像变化协议
+message RelicStatueChangeProto {
+    required RelicStatueProto curRelicStatueInfo = 1;
+}
+
+message ResetExchangeResponseProto {
+    required int32 result = 1;
+    required int32 resetTimes = 2;
+    optional int32 beliefExchangeTimes = 3;
+    optional int32 diamondExchangeTimes = 4;
+}
+
+message ExchangeResponseProto {
+    required int32 result = 1;
+    optional int32 exchangeType = 2;
+    optional int32 curExchangeTimes = 3;
+    optional double curConsume = 4;
+    optional string exchangeResult = 5;
+}
+
+message ChangeStatueResponseProto {
+    required int32 result = 1;
+    repeated RelicStatueProto relicStatueInfo = 2;
+}
+
+//挂机装备栏或巅峰装备栏装备穿戴返回协议
+message WeaponEquipExtraResponseProto {
+    required int32 slotId = 1;        //栏位ID 1:挂机装备栏 2:巅峰装备栏
+    required int32 weaponId = 2;     //武器ID
+    required int32 result = 3;       //结果码
+}
+
+extend RefreshItemProto {
+    optional int32 relicPos = 8;
+    optional int32 relicStar = 9;
+    optional int32 relicType = 10;
+    optional int32 relicPrice = 11;
+    optional int32 relicRank = 12;
+}
+
+extend StoreRefreshAlertProto {
+    optional bool refreshRelicShop = 5;         //圣晶商店
+    optional bool refreshGoddessShop = 6;       //女神商店
+}
+
+extend GambleStoneResponseProto {
+    optional int32 onekeyResultType = 5;        //一键(连续)赌石结束类型， 1. 产出了梦幻秘石 2.秘石包裹已满 3.秘石原石已耗尽
+}
+
+//-------------------------向manager查询coupon----------------------】
+message GetCouponFromManagerProto{
+    required int32 serverId = 1;
+    optional int32 playerId = 2;
+    optional string couponCode = 3;     //兑换码
+    repeated IntIntProto alreadyGot = 4;        //玩家已经取得的某类型兑换码次数
+    optional int32 giftId = 5;
+}
+
+message ReturnCouponInfoProto{
+    required int32 serverId = 1;
+    optional int32 result = 2;
+    optional int32 playerId = 3;
+    optional string rewardStr = 4;     //奖励，以;隔开
+    optional int32 couponType = 5;
+    optional string couponCode = 6;
+    optional int32 giftId = 7;
+}
+
+//--------------------------------女神系统---------------------------
+message GoddessProto {
+    repeated GoddessDetailProto details = 1;
+}
+
+message GoddessDetailProto {
+    required int32 id = 1;
+    optional int32 totalBlessedTimes = 2;      //女神被总祈愿次数
+    repeated BlessPlayerProto blessPlayerTimes = 3;      //祈愿玩家信息， 玩家id：今日祈愿次数
+    repeated ItemProto rewards = 4;     //祈愿池里的所有奖励
+    repeated IntStringProto luckyPlayer = 5;     //被选中的玩家
+}
+
+message BlessPlayerProto {
+    required int32 playerId = 1;
+    optional string name = 2;
+    optional int32 blessTimes = 3;
+    //optional bool freeBless = 4;
+}
+
+message OwnGoddessProto {
+    repeated OwnGoddessDetailProto details = 1;     //
+    repeated int32 formationList = 2;           //上阵顺序（女神id）
+    optional bool freeBless = 3;            //玩家当天是否有首次免费
+}
+
+message OwnGoddessDetailProto {
+    required int32 id = 1;
+    optional bool isSummon = 2;         //是否已召唤
+    optional bool active = 3;         //是否激活
+    optional int32 starLv = 4;          //女神星级
+    optional GoddessAbilityProto curStarLvAbility = 5;      //当前星级能力
+    optional GoddessAbilityProto nextStarLvAbility = 6;     //下一星级能力
+    optional string name = 7;       //女神名字
+    optional int32 skillId = 8;     //技能id
+}
+
+message TotalGoddessAbilityProto{
+    required int32 curTotalStarLv = 1;         //当前需要总星级
+    optional double curAttributeMulti = 2;         //当前属性加成
+    optional int32 nextTotalStarLv = 3;         //下一等级需要总星级
+    optional double nextAttributeMulti = 4;     //下一等级属性加成
+    optional OwnGoddessProto ownGoddessInfo = 5;        //拥有的女神信息
+}
+
+message GoddessAbilityProto {
+    required double attributeMulti = 1;     //普通战全属性加成百分比
+    optional int32 peakSkillId = 2;         //巅峰技能id
+}
+
+message BlessResponseProto {
+    required int32 result = 1;
+    optional int32 blessTime = 2;       //玩家今日祈愿次数
+    repeated ItemProto rewards = 3;     //祈愿获得的奖励
+    optional GoddessDetailProto newGoddessInfo = 4;     //被祈愿的女神的最新信息
+}
+
+message SummonResponseProto {
+    required int32 result = 1;
+    optional int32 goddessId = 2;       //召唤的女神id
+}
+
+message ActivateResponseProto {
+    required int32 result = 1;
+    optional int32 goddessId = 2;       //激活的女神id
+}
+
+message GoddessSetFormResponseProto {
+    required int32 result = 1;
+    optional OwnGoddessProto goddessInfos = 2;
+}
+
+message RaiseGoddessResponseProto {
+    required int32 result = 1;
+    optional OwnGoddessDetailProto goddess = 2;     //升星后详情
+}
+
+//--------------------------------星图-------------------------------------
+message StarAtlasProto {
+    repeated StarAtlasInfoProto atlases = 1;        //目前三个星系
+}
+
+message StarAtlasInfoProto {
+    required int32 id = 1;
+    optional int32 starType = 2;        //星系类型： 1. 南天  2.北天  3.黄道
+    repeated PosDetailInfoProto posDetails = 3;     //本图槽位详情
+    optional int32 fullFactor = 4;          //满图倍数
+    repeated GoddessPlusProto fullPlus = 5;            //满图女神加成，女神id：升星数
+}
+
+message GoddessPlusProto {
+    required int32 goddessId = 1;
+    optional int32 plusNum = 2;
+}
+
+message PosDetailInfoProto {
+    required int32 id = 1;          //秘石id，不是唯一id
+    optional bool inlay = 2;        //是否已镶嵌
+}
+
+message SAInlayRequestProto {
+    required int32 starId = 1;
+    optional int32 inlayId = 2;
+    optional int32 stoneInstId = 3;     //秘石唯一id
+}
+
+message SAInlayResponseProto {
+    required int32 result = 1;
+    optional int32 stoneId = 2;         //秘石id，不是唯一id
+    optional int32 originalStoneNum = 3;        //镶嵌高级秘石后返回的秘石原石数量
+    optional StarAtlasProto allStarAtlasInfo = 4;   //星图信息
+}
+
+//-------------改名--------------------
+message ChangeNameResponseProto {
+    required int32 result = 1;
+    optional string newName = 2;        //改完的新名字
+}
+
+message PAChangeNameProto {
+    required int32 serverId = 1;
+    optional int32 playerId = 2;
+    optional int32 grade = 3;
+    optional string newName = 4;
+}
+
+//-----------------------任务型活动------------------
+message ActivityMissionProto {
+    repeated ActivityMissionItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityMissionItemProto {
+    required int32 id = 1;				//转生id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已达的成就次数
+    required int32 maxNum = 4;			//奖励需要的最大次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+    optional string remark = 8;         //说明
+}
+
+message ActivityMissionGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+//***********************************************************************ProjectN*************************************************************
+message EquipPartsRankUpRequestProto {
+    required int32 weaponId = 1;        //装备id
+    required int32 partPos = 2;          //零件部位
+    required int32 times = 3;           //次数
+}
+
+message EquipPartsRankUpResponseProto {
+    required int32 weaponId = 1;
+    required int32 partsPos = 2;
+    required int32 rank = 3;        //最新零件阶次
+    required int32 result = 4;
+}
+
+//--------------------神谕----------------------
+message DBOracleProto {
+    optional OracleProto oracleInfo = 1;
+    repeated IntIntProto groupAndId = 2;        //同一组任务当前做到什么id
+    optional int64 nextNewTaskTime = 3;     //下一个任务时间点
+}
+//存储用
+message StageInfoProto {
+    required int32 curDifficulty = 1;
+    required int32 curBigStageId = 2;
+    required int32 curSmallStageId = 3;
+    required double progress = 4;   //当前关卡进度
+    repeated int32 firstPassSmallId = 5;
+    optional int64 beginTime = 6;
+    optional int64 lastDropItemTime = 7;
+    optional int64 lastSendToClientTime = 8;
+    optional int64 accumulateTime = 9;
+    optional int64 lastLegendItemDropTime = 10;
+    repeated ItemsProto dropItems = 11;
+    repeated ItemProto readyToGetItems = 12;
+    repeated int32 newDifficulty = 13;   //新解锁难度
+    repeated int32 newBigStageId = 14;
+    repeated int32 newSmallStageId = 15;
+	optional int32 monsterDiff = 16;		//怪物难度
+}
+//----------------------------战力评价---------------------
+
+message PowerLevelProto {
+    repeated PowerLevelInfoProto infos = 1;
+}
+
+message PowerLevelInfoProto {
+    required int32 lv = 1;
+    repeated int32 playerId = 2;
+}
+
+//----------配方-------------
+message DBFormulaProto {
+    repeated FormulaDetailProto treasureFormulas = 1;
+    repeated FormulaDetailProto elfFormulas = 2;
+}
+
+//-----------------法力---------------
+message DBManaAndCDProto {
+    required ManaAndCDProto baseInfo = 1;
+    repeated IntDoubleProto lastTreasureUseTime = 2;
+}
+
+message ManaAndCDProto {
+    required double mana = 1;					//法力
+    repeated IntDoubleProto cds = 2;			//宝具的 id -- cd 对应结构， id不是instanceID，因为所有类型宝具共享cd
+    required double serverTime = 3;				//服务器时间戳
+}

@@ -1,0 +1,133 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+message FairyProto {
+    required int32 instId = 1;
+    required int32 id = 2;
+    required int32 lv = 3;      //等级
+	required int32 rankLevel = 4;      //
+    required int32 starLevel = 5;      //星级
+    optional int32 equipedId = 6;          //-1 为主角 0 为未装备 
+    optional int32 intelligence = 7;     //灵力
+	repeated FairyStuntProto stunt = 8;//武器生成的附魔属性
+        optional int32 isVariation = 9; //是否变异过，0否，1是
+}
+
+
+message FairyLevelUpRequestProto {
+    required int32 instId = 1;
+    required int32 times = 2;   //升级次数，-1表示一键升级
+}
+
+message FairyLevelUpResponseProto {
+    required int32 result = 1;
+    optional int32 instId = 2;
+    optional int32 level = 3;
+}
+
+message FairyStarUpRequestProto {
+    required int32 instId = 1;
+    optional int32 times = 2;   //升级次数，-1表示一键升级
+}
+
+message FairyStarUpResponseProto {
+    required int32 result = 1;
+    optional int32 instId = 2;
+    optional int32 star = 3;     		//上升的star
+	required int32 finalStar = 4;		//最终star
+}
+
+message FairyRankUpRequestProto {
+    required int32 instId = 1;       	
+	required int32 times = 2;       	//times次数,-1表示一键升级
+}
+
+message FairyRankUpResponseProto {
+    required int32 instId = 1; 				
+	required int32 rank = 2;     		//最新rankLevel
+	required int32 result = 3;     		//结果 0表示成功 1表示升级书不足 2表示装备不存在 3表示json出错
+}
+
+//精炼
+message FairySwallowRequestProto {
+    required int32 instId = 1;
+    repeated int32 swallowId = 2;       //被吞噬的精灵唯一id
+}
+
+message FairySwallowResponseProto {
+    required int32 result = 1;
+    optional int32 instId = 2;
+    optional int32 intelligence = 3;      //当前总灵力
+    repeated int32 swallowId = 4;       //被吞噬的精灵唯一id
+}
+
+//精灵装备
+message FairySetFormationRequestProto {
+    required int32 insId = 1;      //精灵id
+    required int32 pos = 2;        //位置id，0开始
+    required int32 charactor = 3;       //镶嵌人物， -1为主角 其他为随从id
+}
+
+message FairySetFormationResponseProto {
+    required int32 result = 1;
+    required int32 instId = 2;
+	optional int32 charactor = 3;
+	optional int32 pos = 4;        //位置id，0开始
+	optional int32 lastInstId = 5;
+	optional int32 lastCharactor = 6;
+	optional int32 lastPos = 7;
+}
+
+message ElfHatchResponseProto {
+    required int32 result = 1;
+    optional int32 slotId = 2;          //slot id
+    optional double beginTime = 3;
+    optional double endTime = 4;
+}
+
+message ElfGetRequestProto {
+    required int32 slotId = 1;
+}
+
+message ElfGetResponseProto {
+    required int32 result = 1;
+    optional FairyProto fairy = 2;
+    optional int32 slotId = 3;
+}
+
+message ElfInfoDetailProto {
+    required int32 slotId = 1;
+    optional double beginTime = 2;
+    optional double endTime = 3;
+    optional int32 coreId = 4;
+}
+
+message FairyStuntProto {
+    required int32 slotId = 1;           	//配置id 
+	required int32 id = 2;
+    required float value = 3;		//生成的具体数值
+}
+
+message FairyStuntChangeProto{
+    optional int32 instId = 1;
+    repeated FairyStuntProto stunt = 2;
+}
+
+message ElfFuseRequestProto {
+    optional int32 mainFairyId = 1;     //主精灵id
+    optional int32 materialsFairyId = 2;//材料主精灵id
+    optional int32 fuseItemId = 3;      //融合果实
+}
+
+message ElfFuseResponseProto {
+    optional int32 result = 1;
+    optional FairyProto fairy = 2;     //融合后的精灵
+    optional int32 mainFairyId = 3;     //原主精灵id
+    optional int32 materialsFairyId = 4;//原材料主精灵id
+    optional int32 fuseItemId = 5;      //原融合果实
+    optional int32 fuseTypeId = 6;      //吞噬结果  1 为普通 2 为进化  3 为变异
+}

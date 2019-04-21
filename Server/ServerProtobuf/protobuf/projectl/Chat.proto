@@ -1,0 +1,23 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//-------------------------------------------聊天------------------------------------
+message ChatProto{
+    required int32 tabId = 1;       //发送对象，1.世界 2.公会
+    optional string playerName = 2;     //玩家名字
+    optional string content = 3;        //内容
+    optional int64 sendTime = 4;        //发送时间
+    optional int32 playerId = 5;        //玩家id
+}
+
+message EnterChatProto{
+    required int32 tabId = 1;       //发送对象，1.世界 2.公会
+    repeated ChatProto chatInfo = 2;
+}
+
+message SendChatResponseProto{
+    required int32 result = 1;
+}

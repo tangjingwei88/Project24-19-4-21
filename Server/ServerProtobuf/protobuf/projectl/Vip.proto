@@ -1,0 +1,29 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+import "ItemPackage.proto";
+message FirstRewardProto {
+    required int32 result = 1;
+    repeated ItemProto rewardItem = 2;	
+}
+
+//物品购买次数改变时发送
+message ItemBuyChangeResponseProto{
+    repeated ItemBuyCount buyItems = 1;
+}
+
+
+message BuyItemRequestProto{
+    optional int32 itemId = 1;
+    optional int32 num = 2;
+}
+
+message BuyItemResponseProto{
+    optional int32 result = 1;
+    optional int32 itemId = 2;
+    optional int32 num = 3;
+}

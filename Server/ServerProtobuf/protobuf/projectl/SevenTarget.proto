@@ -1,0 +1,75 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Activity.proto";
+import "RewardBase.proto";
+import "ItemPackage.proto";
+message SevenDaysInfoProto {
+    repeated SevenDaysItemProto item = 1;
+}
+
+message SevenDaysItemProto {
+    required int32 id = 1;				//任务id
+	required int32 day = 2;				//任务第几天
+	required int32 tab = 3;				//标签页
+    required string title = 4;			//标签
+    required string desc = 5;			//说明
+    required double currentNum = 6;		//当前值
+    required double maxNum = 7;			//配置值
+    required bool achieved = 8;			//已获得
+    required bool gotten = 9;			//已领取奖励
+	optional RewardProto reward = 10;   //奖励物品
+	optional int32 type = 11;			//成就类型
+}
+
+message SevenDaysReachProto {
+    repeated SevenDaysItemProto item = 1;
+}
+
+
+message SevenDaysStoreInfoProto {
+    repeated SevenDaysStoreItemProto item = 1;	//商店物品
+}
+
+message SevenDaysStoreItemProto {
+	required int32 id = 1;				   //id	
+	required int32 day = 2;			   	   //第几天
+	optional string title = 3;			   //标签
+	optional ActivityItemProto item = 4;   //兑换物品
+    required int32 currentNum = 5;		   //玩家已购买数
+    required int32 maxNum = 6;			   //可购买总数	
+	required int32 price = 7;			   //价格
+    required bool bought = 8;			   //是否已购买
+}
+
+message SevenDaysStoreBuyRequestProto {
+	required int32 day = 1;			   	   //第几天	
+	required int32 itemId = 2;			   //物品id	
+    optional int32 buyNum = 3;			   //购买数量
+}
+
+message SevenDaysStoreBuyResultProto {
+    required int32 result = 1;			//结果码
+	optional ItemProto item = 2;		//购买结果
+}	
+	
+message SevenDaysStoreNumChangeProto {
+	required int32 day = 1;			   	   //第几天	
+    required int32 itemId = 2;			   //物品id						   	
+    required int32 currentNum = 3;		   //玩家已购买数
+}
+
+message SevenDaysTargetDayProto {
+	required int32 day = 1;			   	   //第几天	
+    required int32 finishDay = 2;		   //完成时限
+	required int32 rewardDay = 3;		   //领取时限	
+}
+
+message SevenDaysGetRewardProto {
+    required int32 result = 1;
+	optional int32 id = 2;
+    optional RewardProto reward = 3; 
+}

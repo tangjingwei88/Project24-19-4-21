@@ -1,0 +1,142 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+//import "E:/projectN_proto/GameServer/src/protobuf/core/ExternalProtocol.proto";
+import "PLExternalProtocol.proto";
+import "Base.proto";
+import "Common.proto";
+import "RewardBase.proto";
+import "Equipment.proto";
+
+message VoidProto {
+}
+
+message GMItemsProto {
+    repeated GMItemProto items = 1;
+}
+
+message GMItemProto {
+    required int32 cid = 1;
+    required int32 itemId = 2;
+    required int32 itemNum = 3;
+}
+
+message GMCardProto {
+    required int32 cid = 1;
+    required CardProto card = 2;
+}
+
+message GMWeaponProto {
+    required int32 cid = 1;
+    required EquipmentProto weapon = 2;
+}
+
+message GMMailProto {
+    repeated int32 targetList = 1;
+    required string title = 2;
+    required string description = 3;
+    optional RewardProto reward = 4;
+    optional string subpackage = 5;      //子包号
+}
+
+message GMEventStatusProto {
+    required int32 eventId = 1;
+    optional string eventName = 2;
+    optional int32 eventType = 3;
+    optional int32 eventStatus = 4;
+    optional int64 eventStartTime = 5;
+    optional int64 eventEndTime = 6;
+    repeated GMEventRankStatusProto rankStatus = 7;
+    repeated GMEventRankStatusProto anotherRankStatus = 8;
+}
+
+message GMEventRankStatusProto {
+    required int32 rank = 1;
+    optional int32 playerId = 2;
+    optional string playerName = 3;
+    optional int64 score = 4;
+    optional bool rewardSent = 5;
+}
+
+message GMQueryGuildInfoProto{
+    required int32 guildId = 1;
+    optional int32 guildLevel = 2;
+    optional double guildExp = 3;
+    optional string chairmanName = 4;
+    optional int32 memberNum = 5;
+}
+
+message GMRemoveRankProto {
+    required int32 playerId = 1;
+    optional int32 rankType =2;
+    optional int32 paServerId = 3;
+}
+
+message GMAnnounceProto {
+    required int32 priority = 1;
+    required string content = 2;
+    optional string startTime = 3;
+    optional string endTime = 4;
+    optional int32 type = 5;        //发送类型，作用于 1.游戏内 2.manager 3.二者都要
+    optional int32 thirdpartyid = 6;        //渠道id，修改manager公告时需要
+}
+
+message GMQueryAnnounceProto {
+    repeated GMAnnounceProto curAnnounce = 1;
+}
+
+service ManagerControlService {
+    rpc shutdown(VoidProto) returns (BoolValueProto);
+    rpc reloadResource(VoidProto) returns (BoolValueProto);
+    rpc getOnlinePlayerCount(VoidProto) returns (IntValueProto);
+    rpc getOnlinePlayerIds(VoidProto) returns (IntValuesProto);
+    rpc kickPlayer(IntValueProto) returns(BoolValueProto);
+    rpc banPlayer(VariableValueProto) returns(BoolValueProto);
+    rpc addBroadcast(BroadcastProto) returns(BoolValueProto);
+    rpc removeBroadcast(IntValueProto) returns(BoolValueProto);
+    rpc getBroadcastList(VoidProto) returns(WorldBroadcastProto);
+    rpc setCrystal(VariableValueProto) returns(BoolValueProto);
+    rpc setGold(VariableValueProto) returns(BoolValueProto);
+    rpc setDiamond(VariableValueProto) returns(BoolValueProto);
+    rpc setStamina(VariableValueProto) returns(BoolValueProto);
+    rpc setEnergy(VariableValueProto) returns(BoolValueProto);
+    rpc addItem(GMItemProto) returns(BoolValueProto);
+    rpc removeItem(GMItemProto) returns(BoolValueProto);
+    rpc addCard(GMCardProto) returns(BoolValueProto);
+    rpc removeCard(VariableValueProto) returns(BoolValueProto);
+    rpc addWeapon(GMWeaponProto) returns(BoolValueProto);
+    rpc removeWeapon(VariableValueProto) returns(BoolValueProto);
+    rpc addMail(GMMailProto) returns(BoolValueProto);
+    rpc changePlayerName(IntStringProto) returns(BoolValueProto);
+    rpc changePlayerSex(IntIntProto) returns(BoolValueProto);
+    rpc changePlayerLevel(IntIntProto) returns(BoolValueProto);
+    rpc sendEventReward(IntValueProto) returns(BoolValueProto);
+    rpc getEventStatus(IntValueProto) returns(GMEventStatusProto);
+    rpc setEventStatus(IntIntProto) returns(BoolValueProto);
+    rpc sendSeasonReward(IntValueProto) returns(BoolValueProto);
+	rpc changePlayerReborns(IntIntProto) returns(BoolValueProto);
+	rpc copyPlayerInfo(IntIntProto) returns(BoolValueProto);
+	rpc addMonthCard(IntIntProto) returns(BoolValueProto);
+        rpc changePlayerVipExp(IntIntProto) returns(BoolValueProto);
+    rpc systemChat(StringValueProto) returns (BoolValueProto);
+    rpc guildInfo(StringValueProto) returns (GMQueryGuildInfoProto);
+    rpc increaseGuildExp(IntIntProto) returns (BoolValueProto);
+    rpc kickGuildPlayer(IntIntProto) returns (BoolValueProto);
+    rpc dismissGuild(IntValueProto) returns (BoolValueProto);
+    rpc increaseDonateProcess(IntIntProto) returns (BoolValueProto);
+    rpc setGuildBossTarget(IntIntProto) returns (BoolValueProto);
+    rpc clearGuildRank(IntValueProto) returns (BoolValueProto);
+    rpc removeRank(GMRemoveRankProto) returns (BoolValueProto);
+    rpc setFirstVip(IntIntProto) returns(BoolValueProto);
+    rpc setNewCubePoints(IntValuesProto) returns (BoolValueProto);
+    rpc addContractExp(IntIntProto) returns (BoolValueProto);
+    rpc changeAchievement(GMItemProto) returns (BoolValueProto);
+    rpc changePlayerItems(GMItemsProto) returns (BoolValueProto);
+    rpc addAllEquipOrRetinue(IntStringProto) returns(BoolValueProto);
+    rpc simulateRecharge(IntValuesProto) returns (BoolValueProto);
+    rpc sendAnnounce(GMAnnounceProto) returns (BoolValueProto);
+    rpc queryAnnounce(IntIntProto) returns (GMQueryAnnounceProto);
+}

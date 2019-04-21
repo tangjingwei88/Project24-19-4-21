@@ -1,0 +1,95 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "RewardBase.proto";
+
+message ContractInfoProto{
+    required int32 contractId = 1;      //玩家契约id
+    optional ContractPlayerInfoProto mainContract = 2;       //契主信息
+    repeated ContractPlayerInfoProto followContract = 3;     //契奴信息
+    optional int32 contractLevel = 4;       //我的契约等级
+    optional int32 contractExp = 5;         //我的契约经验
+    optional float returnValue = 6;     //返利比率
+    optional int64 cancelTime = 7;      //可解约倒计时
+    optional int32 mainId = 8;
+    optional string name = 9;       //玩家名字
+    optional int32 playerId = 10;   //玩家id
+    optional int32 totalContractExp = 11;       //当前档的总契约经验
+    optional float mainReturnValue = 12;        //契主的返利比率
+	optional int32 maxFollowerNum = 13;     //最大契奴数
+	optional int32 totalReturnNum = 14;     //累计充值返利
+    optional int32 totalContractReturnNum = 15;     //契约伙伴返利
+    optional float nextRebate = 16;     //下一级充值返利
+    optional int32 nextFollowNum = 17;      //下一级契约上限
+}
+
+message ContractApproveProto {
+    required int32 mainId = 1;
+    optional int32 contractId = 2;
+    optional int32 playerId = 3;    //契奴的玩家id
+    optional bool isAgree = 4;      //是否同意
+}
+
+message ContractCancelRequestProto {
+    required int32 mainId = 1;
+    optional bool isMain = 2;       //解约对象是否是契主
+    optional int32 playerId = 3;    //解约对象的玩家id
+}
+
+message ContractRelationProto {
+    required int32 result = 1;
+    optional ContractInfoProto contract = 2;
+}
+
+message ContractPlayerInfoProto {
+    required int32 playerId = 1;    //契主或契奴id
+    optional string playerName = 2;
+    optional int32 buildRank = 3;     //核心等级
+    optional int32 recharge = 4;    //该玩家充值数
+    optional int32 provideDiamond = 5;  //已为契主提供的钻石数
+    optional int32 contractLevel = 6;   //契约等级
+    optional bool isContract = 7;   //是否有契约关系
+    optional int64 cancelTime = 8;      //解约的时间
+    optional int64 offLineTime = 9;     //离线时间
+    optional bool isApproved = 10;       //是否已经审批
+    optional int32 contractId = 11;     //契约id
+    optional int64 signTime = 12;       //签约时间
+    optional bool inGame = 13;      //是否在线
+    optional int32 vipLevel = 14;   //vip等级
+	optional string playerIcon = 15;   //玩家头像
+	optional int32 playerLv = 16;		//玩家等级
+	optional bool recharged = 17;		//在签约期间是否充过值
+}
+
+message ContractTaskInfoProto {
+    repeated ContractTaskItemProto item = 1;
+}
+
+message ContractTaskItemProto {
+    required int32 id = 1;				//任务id
+    optional int32 type = 2;			//成就类型
+    required string desc = 3;			//说明
+    repeated ContractTaskValueProto val = 4;        //变量
+    required bool achieved = 5;			//已获得
+    required bool gotten = 6;			//已领取奖励
+    optional RewardProto reward = 7;   //奖励物品
+}
+
+message ContractTaskValueProto {
+    required int32 curNum = 1;
+    required int32 maxNum = 2;
+}
+
+message ContractReachProto {
+    repeated ContractTaskItemProto item = 1;
+}
+
+message ContractTaskGetRewardProto {
+    required int32 result = 1;
+    optional int32 id = 2;
+    optional RewardProto reward = 3; 
+}
+

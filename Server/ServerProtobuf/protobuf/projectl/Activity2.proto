@@ -1,0 +1,146 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+import "RewardBase.proto";
+import "Activity.proto";
+
+message ActivityAltarProto{
+    repeated ActivityAltarItemProto items = 1;
+}
+
+message ActivityAltarItemProto{
+    required int32 id = 1;
+    optional string beginTime = 2;
+    optional string endTime = 3;
+    optional bool rewardGotten = 4;		//是否已领取，每天重置
+}
+
+message ActivityAltarResponseProto{
+    required int32 result = 1;
+    optional int32 BossBattleTimes = 2;
+    optional RewardProto getRewards = 3;
+	optional bool rewardGotten = 4;		//是否已领取
+}
+
+message ActivityRankProto {
+    optional ActivityRankItemProto items = 1;
+    optional int32 mainId = 2;
+    repeated ActivityRankDetailProto rankDetail = 3;     //排名情况
+    repeated ActivityRankRewardsProto rewards = 4; //奖励清单
+    optional ActivityRankDetailProto playerRankInfo = 5;   //玩家当前排名和奖励
+}
+
+message ActivityRankRewardsProto {
+    required int32 rank = 1;
+    repeated ActivityItemProto reward = 2;
+}
+
+
+message ActivityRankItemProto {
+    required int32 id = 1;				//id
+    required string endTime = 2;			//结束时间
+    optional string startTime = 3;       //开始时间
+    optional string rankType = 4;       //具体排行榜类型
+}
+
+message ActivityRankDetailProto {
+    required int32 rank = 1;
+    optional int32 playerId = 2;
+    optional string playerName = 3;
+    optional double score = 4;
+    optional string scoreBig = 5; //(大数据)
+}
+
+
+//////////////////累计活动////////////////
+// message ActivityIntValueProto{
+//     required int32 mainId = 1;
+//     optional int32 singleId = 2;
+// }
+
+message ActivityLoginProto {
+    repeated ActivityLoginItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityLoginItemProto {
+    required int32 id = 1;				//登陆id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已登陆次数
+    required int32 maxNum = 4;			//奖励需要的登陆次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+    optional bool hasReward = 8;        //是否有新奖励可以领取
+}
+
+message ActivityLoginGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySpendGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityRechargeGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySpendProto {
+    repeated ActivitySpendItemProto items = 1;
+    optional int32 mainId = 2;
+}
+message ActivitySpendItemProto {
+    required int32 id = 1;				//花费id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已花费额度
+    required int32 maxNum = 4;			//奖励需要的额度
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityRechargeProto {
+    repeated ActivityRechargeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityRechargeItemProto {
+    required int32 id = 1;				//充值id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已冲值额度
+    required int32 maxNum = 4;			//奖励需要的额度
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required bool rewardGotten = 6;		//是否得到奖励
+    optional string startTime = 7;       //开始时间
+}
+
+message ActivityAnnounceItemProto {
+    required int32 id = 1;				//
+    required string endTime = 2;			//结束时间
+    optional string startTime = 3;       //开始时间
+    optional string activityRemark = 4;	//公告内容
+}
+
+message ActivityAnnounceProto {
+    required ActivityAnnounceItemProto announce = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityStatusProto {
+    repeated IntIntProto alertActivity = 1;
+	optional int32 alertNum = 2;
+}

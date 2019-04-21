@@ -1,0 +1,92 @@
+{"frames": {
+
+"0.png":
+{
+	"frame": {"x":123,"y":78,"w":44,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":60},
+	"sourceSize": {"w":44,"h":60}
+},
+"1.png":
+{
+	"frame": {"x":179,"y":78,"w":36,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":60},
+	"sourceSize": {"w":36,"h":60}
+},
+"2.png":
+{
+	"frame": {"x":67,"y":7,"w":44,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":60},
+	"sourceSize": {"w":44,"h":60}
+},
+"3.png":
+{
+	"frame": {"x":64,"y":151,"w":45,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":60},
+	"sourceSize": {"w":45,"h":60}
+},
+"4.png":
+{
+	"frame": {"x":7,"y":7,"w":48,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":60},
+	"sourceSize": {"w":48,"h":60}
+},
+"5.png":
+{
+	"frame": {"x":181,"y":7,"w":45,"h":59},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":59},
+	"sourceSize": {"w":45,"h":59}
+},
+"6.png":
+{
+	"frame": {"x":7,"y":151,"w":45,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":60},
+	"sourceSize": {"w":45,"h":60}
+},
+"7.png":
+{
+	"frame": {"x":123,"y":7,"w":46,"h":59},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":59},
+	"sourceSize": {"w":46,"h":59}
+},
+"8.png":
+{
+	"frame": {"x":7,"y":79,"w":46,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":60},
+	"sourceSize": {"w":46,"h":60}
+},
+"9.png":
+{
+	"frame": {"x":65,"y":79,"w":44,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":60},
+	"sourceSize": {"w":44,"h":60}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "BattleFontAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f288b226999b1661a8993c342eac13de$"
+}
+}

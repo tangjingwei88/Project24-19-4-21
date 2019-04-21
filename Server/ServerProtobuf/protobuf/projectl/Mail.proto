@@ -1,0 +1,93 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Activity.proto";
+import "RewardBase.proto";
+// //----------Card Proto-----------
+// message CardProto {
+//     required int32 id = 1;           //卡片静态信息id
+//     optional int32 instId = 2;      //卡片在该用户下的id
+//     optional int64 globalId = 3;    //卡片服务器唯一id
+//     optional int32 level = 4;        //卡片等级
+//     optional double experience = 5;  //卡片经验
+//     optional int32 awakeTime = 6;   //卡片觉醒次数
+//     optional int32 HPTrain = 7;     //生命加成
+//     optional int32 ATKTrain = 8;    //攻击加成
+//     optional int32 DEFTrain = 9;    //防御加成
+//     optional int32 MIGTrain = 10;   //魔力加成
+//     optional int32 AGITrain = 11;   //敏捷加成
+//     optional int64 lockEndTime = 12;   //交易加锁结束时间
+// }
+// message RewardProto {
+//     repeated RewardItemProto items = 1;  // 奖品
+// }
+// message RewardItemProto {
+//     required int32 type = 1;    //类型（0:卡片 1:物品 2:金币 3:水晶 4:经验 5:竞技币 6:伤害代币）
+//     optional int32 id = 2;      //id (类型为1时启用) 
+//     optional int32 num = 3;     //数量
+//     optional int32 level = 4;   //等级(仅当是卡片奖励时) 暂不启用
+//     optional CardProto cardFromMarket = 5;  //从市场交易获得的卡片 暂不启用
+//     optional int64 lockEndTime = 6; //暂不启用
+//     optional double dNum = 7;   //double格式的数量
+// }
+
+//-----------------------Mail--------------------------------------------------- 
+
+message MailListProto{
+    required int32 typeGroup = 1;                 //邮件组别(0系统 1用户)
+    repeated MailBriefProto mailBriefs = 2;       //邮件简略信息列表
+}
+
+message MailBriefProto{
+    required int64 mailId = 1;      //邮件号
+    required int32 type = 2;    	//邮件类型(0系统,1玩家,2公会,3市场)
+    optional int32 fromId = 3;      //发信人Id
+    required string title = 4;      //邮件标题
+    required int32 status = 5;      //邮件状态（0.未读 1.已读 2.已领取）
+    optional string senderName = 6; //发信人名字
+    optional string shortDesc = 7;  //内容缩略
+    optional int64 sendTime = 8;    //发信时间
+    optional bool hasReward = 9;    //是否有附件
+	optional RewardProto reward = 10;  //邮件物品
+}
+
+message MailNumProto{
+    required int32 totalNum = 1;    	// 邮件总数
+    required int32 unreadNum = 2;   	// 未读邮件数
+    required int32 unreadSystemNum = 3; //未读系统邮件数
+    required int32 unreadUserNum = 4;   //未读用户邮件数
+}
+
+message MailProto {
+    required int64 mailId = 1;         // 邮件id
+    required int32 type = 2;           //邮件类型(0系统,1玩家,2活动,3市场)
+    optional int64 FromId = 3;         //发信者Id
+    required string title = 4;         //邮件标题
+    required string description = 5;   //邮件内容
+    optional RewardProto reward = 6;   //邮件物品
+    required int32 status = 7;         //邮件状态
+    optional string senderName = 8;    //发信人名字
+    optional int64 sendTime = 9;       //发信时间
+}
+
+//玩家发送邮件
+message MailSendProto {
+    required int32 targetId = 1;        //目标玩家Id
+    required string title = 2;          //邮件标题
+    required string content = 3;        //邮件内容
+}
+
+message MailGottenProto {
+    required int32 typeGroup = 1;
+    required int64 mailId = 2;
+    optional RewardProto reward = 3;
+}
+
+//---------------一键开邮件----------------------
+message OneKeyOpenMaisProto {
+    required int32 result = 1;
+    repeated ActivityItemProto rewards = 2;
+}

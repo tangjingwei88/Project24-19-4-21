@@ -1,0 +1,121 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+import "ItemPackage.proto";
+message TreasureToolProto {
+    repeated TreasureToolDetailProto treasureTools = 1;
+    optional TreasureEnchantProto tempEnchant = 2;       //临时异能信息，防止生成异能后还未来得及选择替换或放弃却断网等情况
+}
+
+message TreasureToolDetailProto {
+    required int32 instId = 1;
+    required int32 id = 2;
+    required string name = 3;
+    required int32 lv = 4;      //等级
+    required double magic = 5;      //魔力
+    optional int32 rarity = 6;      //稀有度
+    optional int32 starLv = 7;      //星级
+    optional int32 elementType = 8;     //元素属性
+    optional int32 skillId = 9;         //技能，只有一个
+    optional bool equiped = 10;          //是否已装备
+    optional double battlePower = 11;   //战力评分
+    optional double curRefineValue = 12;     //精炼值
+    repeated IntDoubleProto enchants = 13; //异能第一个为异能表的id没有为-1 第二个为数值
+    optional double curMaxRefineValue = 14;     //精炼值
+    //repeated int32 enchantType = 8;     //随机附魔属性，比如攻击加10%，暂时没有
+                                    //铭文，暂时没有
+}
+
+//主角上阵宝具设置
+message TTSetFormationRequestProto {
+    required int32 id = 1;      //宝具id
+    required int32 pos = 2;     //位置id，0开始
+    required int32 charactor = 3;       //镶嵌人物， -1为主角 其他为随从id
+}
+
+message TTSetFormationResponseProto {
+    required int32 result = 1;
+    repeated int32 curFormationIds = 2;        //主角当前已装备的宝具信息
+    repeated TTRetinueFormationsProto retinueFormations = 3;        //随从宝具信息
+}
+
+message TTRetinueFormationsProto {
+    required int32 retinueId = 1;       //随从id
+    repeated int32 curRetinueFormationIds = 2;        //随从当前已装备的宝具信息
+}
+
+message TTLevelUpRequestProto {
+    required int32 id = 1;
+    required int32 upNum = 2;   //升级次数，-1表示一键升级
+}
+
+message TTLevelUpResponseProto {
+    required int32 result = 1;
+    optional int32 id = 2;
+    optional int32 curLv = 3;
+}
+
+message TTStarUpRequestProto {
+    required int32 id = 1;
+    optional int32 upNum = 2;   //升级次数，-1表示一键升级
+}
+
+message TTStarUpResponseProto {
+    required int32 result = 1;
+    optional int32 id = 2;
+    optional int32 curStarLv = 3;
+}
+
+//精炼
+message TTRefineRequestProto {
+    required int32 id = 1;
+    repeated int32 sacrificeTTId = 2;       //被吞噬的宝具唯一id
+}
+
+message TTRefineResponseProto {
+    required int32 result = 1;
+    optional int32 id = 2;
+    optional int64 curRefineValue = 3;      //当前总精炼值
+    repeated int32 sacrificeTTId = 4;       //被吞噬的宝具唯一id
+    repeated ItemProto returnConsume = 5;   //新增：返回升级升星等消耗的材料
+}
+
+message GenerateTreasureEnchantResponseProto {
+    required int32 result = 1;
+    optional TreasureEnchantProto enchant = 2;
+}
+
+message TreasureEnchantProto{
+    required int32 treasureId = 1;
+    required int32 slotId = 2;
+    required int32 id = 3;      //异能id
+    required float val = 4;     //异能值
+}
+
+message ArmAwakeResponseProto {
+    required int32 result = 1;
+    optional int32 slotId = 2;          //slot id
+    optional double beginTime = 3;
+    optional double endTime = 4;
+}
+
+message ArmGetRequestProto {
+    required int32 slotId = 1;
+}
+
+message ArmGetResponseProto {
+    required int32 result = 1;
+    optional TreasureToolDetailProto tt = 2;
+    optional int32 slotId = 3;
+}
+
+message ArmInfoDetailProto {
+    required int32 slotId = 1;
+    optional double beginTime = 2;
+    optional double endTime = 3;
+    optional int32 treasureToolId = 4;
+}

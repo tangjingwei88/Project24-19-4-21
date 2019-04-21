@@ -1,0 +1,66 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Hero.proto";
+import "RewardBase.proto";
+import "ItemPackage.proto";
+import "Activity.proto";
+
+message EventDamageEnterResponseProto {
+    required int32 result = 1;			//结果码
+    optional int32 rank = 2; 			//个人排名
+}
+
+message EventDamageStartResponseProto {
+    required int32 result = 1;
+    optional int32 battleTimes = 2;    //已挑战次数
+	optional int32 timeAllowed = 3;    //允许战斗时长
+	optional int64 seed = 4;		   //种子
+	optional double previousDamage = 5;
+}
+
+message EventDamageEndRequestProto{
+    required double currentDamage = 1;   			//当前总伤害
+	//optional BattleDetailInfoProto battleInfo = 2;	//战斗信息
+    optional string currentDamageBig = 3;   			//当前总伤害(大数据)
+}
+
+message EventDamageEndResponseProto {
+    required int32 result = 1;    		//结果码
+	optional double damage = 2;			//个人最新伤害记录
+	optional int32 rank = 3; 			//个人最新排名
+	optional string damageBig = 4;			//个人最新伤害记录(大数据)
+}
+
+message RankListRequestProto {
+    required int32 rankType = 1;			//类型 1 伤害天梯 2 pvp 3 悬赏
+}
+
+message RankListResponseProto { 			//类型 1 伤害天梯 2 pvp 3 悬赏 
+    required int32 rankType = 1;
+    repeated RankListResponseDetailProto detail = 2;
+    optional int32 totalNum = 3;
+}
+
+message RankListRewardRequestProto {
+    required int32 rankType = 1;			//类型 1 pvp 2 伤害天梯 3 悬赏任务
+}
+
+message RankListRewardResponseProto {
+    required int32 rankType = 1;
+	repeated RankListRewardDetailProto rewardProto = 3;
+}
+
+message RankListRewardDetailProto {
+    required int32 rank = 1;
+	optional RewardProto item = 2;
+}
+
+message EventDamageRewardResponseProto {
+    required int32 result = 1;
+	repeated int32 rewardIds = 2;
+	repeated ItemProto  rewards = 3;
+}

@@ -1,0 +1,52 @@
+{"frames": {
+
+"Bg.png":
+{
+	"frame": {"x":2,"y":3334,"w":420,"h":731},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":420,"h":731},
+	"sourceSize": {"w":420,"h":731}
+},
+"bg04.png":
+{
+	"frame": {"x":2,"y":2,"w":2048,"h":2048},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":2048,"h":2048},
+	"sourceSize": {"w":2048,"h":2048}
+},
+"bg2.png":
+{
+	"frame": {"x":2,"y":2052,"w":768,"h":1280},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":768,"h":1280},
+	"sourceSize": {"w":768,"h":1280}
+},
+"btn.png":
+{
+	"frame": {"x":424,"y":3334,"w":170,"h":77},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":170,"h":77},
+	"sourceSize": {"w":170,"h":77}
+},
+"inputfield.png":
+{
+	"frame": {"x":424,"y":3506,"w":140,"h":43},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":43},
+	"sourceSize": {"w":140,"h":43}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "LoginAtlasMask.png",
+	"format": "ALPHA",
+	"size": {"w":4096,"h":4096},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:72f0065ed93f6f3ebc833b5348908021$"
+}
+}

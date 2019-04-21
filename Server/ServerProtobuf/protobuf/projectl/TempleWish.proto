@@ -1,0 +1,39 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+import "ItemPackage.proto";
+message WishProto {
+    required int32 chargeTimes = 1;					//当天许愿的总收费次数
+    optional int32 freeTimes = 2;  //new 可以免费的次数
+    optional int32 saSurplus = 3;  //new 祭献剩余
+    optional int32 saMax = 4; //new 祭献最大值
+}
+
+message WishResponseProto {
+    required int32 result = 1;
+    optional int32 stone = 2;						//本次消耗的许愿石数量
+    optional int32 diamond = 3;						//本次消耗的钻石数量
+    repeated IntIntProto newItemRank = 4;			//变动的物品排名
+    optional int32 saSurplus = 5;			//new 祭献剩余
+    optional int32 freeTimes = 6;   // new 可以免费的次数
+    optional int32 chargeTimes = 7;					//当天玩家许愿的总收费次数
+    optional WishRankDetailProto item = 8;
+}
+
+message WishRankProto {
+    repeated WishRankDetailProto detail = 1;	//物品的排行明细
+    repeated WishRankDetailProto yesterday = 2;	//new 昨天的排行
+}
+
+message WishRankDetailProto {
+    required int32 rank = 1;	//名次，没有许愿数就返回０
+    required int32 itemId = 2;	//物品id
+    optional int32 itemNum = 3;	//当天服务器总许愿数
+    optional int32 myNum = 4;	//当天自己的许愿次数
+    optional string wishMaxName = 5; //new 许愿次数最多的人
+    optional int32 maxCount = 6; //new 许愿次数最多的人的许愿次数
+}

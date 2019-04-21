@@ -1,0 +1,87 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+import "Base.proto";
+import "ItemPackage.proto";
+import "Treasure.proto";
+import "Fairy.proto";
+//推送功能解锁信息
+message FunctionLockChangeProto {
+	repeated IntBoolProto functions = 1;
+}
+
+message BroadcastProto {
+    required int32 id = 1;
+    optional int64 startTime = 2;
+    optional int64 endTime = 3;
+    optional int32 playFrequent = 4;
+    optional int32 playNum = 5;
+    optional string content = 6;
+}
+
+
+
+message DrawInfoProto {		//登陆时发送, DrawInfoProto drawInfo = 24;
+    repeated int32 certainItemNeedDrawNums = 1;  //必出剩余次数 1.装备玄铁锻造 2.装备钻石锻造  3.随从玄铁 4.随从钻石
+}
+
+message DrawEquipRequestProto {
+    required int32 drawTimes = 1;       //抽次数，1为1次，10为10次
+    required int32 drawType = 2;        //抽类型，-1为玄铁，1为钻石
+}
+
+message DrawEquipResponseProto {
+    required int32 result = 1;
+    repeated ItemProto items = 2;       //ItemProto中的type 1 完整 2 就是碎片
+    optional int32 drawType = 3;         ////抽类型，-1为玄铁，1为钻石
+    optional int32 certainItemNeedDrawNum = 4;
+}
+
+message DrawRetinueRequestProto {
+    required int32 drawTimes = 1;       //抽次数，1为1次，10为10次
+    required int32 drawType = 2;        //抽类型，-1为卷轴，1为钻石
+}
+
+message DrawRetinueResponseProto {
+    required int32 result = 1;
+    repeated ItemProto items = 2;        //
+    optional int32 drawType = 3;         ////抽类型，-1为卷轴，1为钻石
+    optional int32 certainItemNeedDrawNum = 4;
+}
+
+//------------抽宝具----------------------
+message DrawTreasureRequestProto {
+    required int32 slotId = 1;      //slot id
+    required int32 drawType = 2;        //1.普通核心 2.高级核心
+    repeated IntIntProto consume = 3;
+    required int32 drawTimes = 4;    //1.抽1次 10.抽10次
+}
+
+message DrawTreasureResponseProto {
+    required int32 result = 1;
+    optional int32 slotId = 2;          //slot id
+    repeated TreasureToolDetailProto tt = 3;
+	required int32 drawType = 4;        //1.普通核心 2.高级核心
+}
+
+//------------抽精灵----------------------
+message DrawFairyRequestProto {
+    required int32 slotId = 1;      //slot id
+    required int32 drawType = 2;        //1.普通核心 2.高级核心
+    repeated IntIntProto consume = 3;
+    required int32 drawTimes = 4;    //1.抽1次 10.抽10次
+}
+
+message DrawFairyResponseProto {
+    required int32 result = 1;
+    optional int32 slotId = 2;          //slot id
+    repeated FairyProto fairys = 3;
+	required int32 drawType = 4;        //1.普通核心 2.高级核心
+}
+
+
+

@@ -1,0 +1,120 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+//C2S_StartNormalBattle = 5301 NormalBattleBeginProto
+//S2C_NormalBattleInfo = 5301 NormalBattleInfoProto
+
+//C2S_CompleteNormalBattle = 5302 NormalBattleOverProto
+//S2C_CompleteNormalBattle = 5302 NormalBattleOverConfirmProto
+
+//C2S_DefeatedNormalBattle = 5303 死亡或放弃关卡 DoubleValueProto
+
+//S2C_DropItemNormalBattle = 5305 NormalBattleDropItemProto
+
+//C2S_BeatBossNormalBattle = 5307 在击败boss的瞬间，请求boss掉落
+//S2C_BossDropNormalBattle = 5307 NormalBattleDropItemProto
+
+//S2C_RequstGainsNormalBattle = 5306
+//C2S_ReportGainsNormalBattle = 5304 NormalBattleReportGainsProto
+//S2C_ConfirmReportGainsNormalBattle = 5304 NormalBattleConfirmGainsProto
+
+//S2C_SyncManaAndCD = 5308 同步主角法力和宝具的cd信息 ManaAndCDProto
+
+//C2S_TreasureUse = 5309 发送客户端使用宝具，主要让服务器处理耗蓝，cd的事情，来校验能不能用 TreasureUseCProto
+//S2C_TreasureUse = 5309 返回结果 TreasureUseSProto
+
+//C2S_ManaRecover = 5310 发送宝具使用而带来的回复法力效果 ManaRecoverCProto
+//S2C_ManaRecover = 5310 返回结果 ManaRecoverSProto
+
+import "Base.proto";
+import "ItemPackage.proto";
+import "Stage.proto";
+//import "BattleRecordProto.proto";
+
+//普通战开始c2s
+message NormalBattleBeginProto {
+	required int32 difficulty = 1; 				 //难度
+	required int32 bigStageId = 2;				 //大关id
+	required int32 smallStageId = 3;			 //小关id
+}
+
+//普通战开始信息s2c
+message NormalBattleInfoProto {
+    required int32 result = 1;
+    required int32 difficulty = 2; 				 //难度
+    required int32 bigStageId = 3;				 //大关id
+    required int32 smallStageId = 4;			 //小关id
+    optional double progress = 5;				 //当前关卡的进度
+}
+
+message NormalBattleOverProto {
+	required int32 star = 1;                     //完成星级
+	required NormalBattleReportGainsProto gains = 2; //击杀boss后是所得，可能还会包含这段时间内击杀小怪的所得
+	//repeated BattleUnitProto recordUnits = 3;    //待校验的单位
+}
+
+message NormalBattleOverConfirmProto {
+	required int32 result = 1;                   //结果，0为正常
+	required LevelExpProto newLE = 2;            //通过后，需要发改变的等级和经验
+	optional NormalBattleInfoProto next = 3;     //下一关信息
+	optional NormalStageInfoProto newStageInfo = 4; //解锁的最新关卡
+}
+
+message NormalBattleDropItemProto {
+	repeated ItemProto items = 1;				 //刷掉落给客户端
+	optional int32 monsterType = 2;              //怪物类型，0蓝怪，1金怪
+}
+
+message NormalBattleReportGainsProto {
+	repeated ItemProto items = 1;
+	optional double gold = 2;					 //获得的金币
+	optional double exp = 3;					 //获得的经验
+	repeated NormalBattleUGEProto uges = 4;      //所有的单位，以及每个单位的经验，金币情况
+}
+
+message NormalBattleUGEProto {
+	required int32 unitId = 1;
+	required double goldNum = 2;
+	required double expNum = 3;					 
+}
+
+message NormalBattleConfirmGainsProto {
+	required int32 result = 1;                   //0通过 1异常
+	required LevelExpProto newLE = 2;            //通过后，需要发改变的等级和经验
+}
+
+message LevelExpProto {
+	required int32 newLV = 1;                    //新的等级
+	required double newExp = 2;                  //新的经验
+}
+
+message ManaAndCDProto {
+	required double mana = 1;					//法力
+	repeated IntDoubleProto cds = 2;			//宝具的 id -- cd 对应结构， id不是instanceID，因为所有类型宝具共享cd
+	required double serverTime = 3;				//服务器时间戳
+}
+
+message TreasureUseCProto {
+	required int32 instId = 1;					//宝具instanceID
+	required double costMana = 2;				//客户端计算出来的消耗，用以检验
+	required double cd = 3;						//客户端计算出来的冷却，用以校验
+	required double clientTime = 4;				//客户端时间戳
+}
+
+message TreasureUseSProto {
+	required int32 result = 1;					//结果，0通过，1法力不够，2cd未到，3其他
+}
+
+message ManaRecoverCProto {
+	required int32 instId = 1;					//宝具instanceID
+	required double recoverMana = 2;		    //客户端计算出来的回复量
+	required double clientTime = 3;				//客户端时间戳
+}
+
+message ManaRecoverSProto {
+	required int32 result = 1;					//结果，0通过，1不对
+}

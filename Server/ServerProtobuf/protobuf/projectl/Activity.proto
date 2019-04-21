@@ -1,0 +1,270 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "RewardBase.proto";
+import "Base.proto";
+import "ItemPackage.proto";
+import "Hero.proto";
+
+message ActivityItemProto {
+    required int32 type = 1;
+    optional int32 id = 2;
+    required int32 num = 3;
+    optional double dNum = 4;
+}
+
+message EnterActivityProto {
+    repeated EnterActivityDetailProto activityInfo = 1;
+}
+
+message EnterActivityDetailProto {
+    optional int32 mainId = 1;
+    optional string activityIcon = 2;
+    optional string activityTitle = 3;
+    optional int32 activityType = 4;
+    optional string activityRemark = 5;
+    optional string banner = 6;
+}
+
+message DailyGiftProto{
+    repeated DailyGiftItemProto item = 1;
+}
+
+message DailyGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 hasGot = 3;
+}
+
+message ActivityCouponRewardProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+}
+
+
+message OnceGiftProto{
+    repeated OnceGiftItemProto item = 1;
+}
+
+message OnceGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 hasGot = 3;
+}
+
+message DailyGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+message OnceGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+message WeeklyGiftProto{
+    repeated WeeklyGiftItemProto item = 1;
+}
+
+message WeeklyGiftItemProto{
+    required int32 level = 1;
+    repeated ActivityItemProto items = 2;
+    optional int32 oldPrice = 3;
+    optional int32 newPrice = 4;
+    optional int32 hasGot = 5;
+}
+
+message WeeklyGiftResponseProto{
+    required int32 result = 1;
+    optional int32 level = 2;       //购买的等级
+    repeated ActivityItemProto items = 3;
+}
+
+message ActivityIntValueProto{
+    required int32 mainId = 1;
+    optional int32 singleId = 2;
+}
+
+message ActivityOnceRechargeGetRewardResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivityOnceRechargeProto {
+    repeated ActivityOnceRechargeItemProto items = 1;
+    optional int32 mainId = 2;
+}
+
+message ActivityOnceRechargeItemProto {
+    required int32 id = 1;				//充值id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家当前可以领取次数
+    required int32 maxNum = 4;			//总共可以领取次数
+    repeated ActivityItemProto reward = 5; //奖励清单
+    required int32 rewardGotten = 6;		//玩家已领奖次数
+    optional string startTime = 7;       //开始时间
+    optional int32 needRchargeNum = 8;      //需要充值的档次额度
+}
+
+message TLLotteryInfoResponseProto {
+	required int32 result = 1;				
+	required int32 mainId = 2;				//活动tab id
+	optional int32 score = 3;				//最新积分
+	optional int32 freeDrawTimes = 4;		//当天免费抽剩余次数
+	repeated BlockItemProto blockItem = 5;	//已翻开的格子和物品id
+	optional int32 roundDrawTimes = 6;		//该轮已翻牌次数
+	optional int32 rank = 7;				//最新排名
+	repeated ItemProto items = 8;			//本轮所有剩余的物品
+	optional string startTime = 9;       	//开始时间
+	optional string endTime = 10;			//结束时间
+	optional ActivityRankInfoProto rankInfo = 11;//排行榜信息
+	optional int32 refreshCost = 12;		//刷新消耗
+	optional int32 getAllCost = 13;		//全部要
+	optional int32 drawCost = 14;		//抽一次消耗
+	optional string desc = 15;          //活动描述
+}
+
+message TLLotteryRefreshProto {
+	required int32 result = 1;
+	optional int32 diamond = 2;	//消耗的钻石
+	repeated ItemProto item = 3;//刷新的物品列表 服务器当前数量
+}
+
+message TLLotteryDrawRequestProto {
+	required int32 mainId = 1;
+	optional int32 block = 2;			//格子1-6，0表示全要 
+}
+
+message TLLotteryDrawResponseProto {
+	required int32 result = 1;
+	optional int32 diamond = 2;				//本次消耗的钻石
+	repeated BlockItemProto blockItem = 3; 	//已翻开的格子和物品
+	optional int32 freeDrawTimes = 4;		//当天免费抽剩余次数
+	optional int32 roundDrawTimes = 5;		//该轮已翻牌次数
+	optional int32 score = 6;				//最新积分
+	optional int32 rank = 7;				//最新排名
+	repeated ItemProto nextItems = 8;		//下一轮的物品
+}
+
+message BlockItemProto {
+	required int32 block = 1;	//格子号,1-6
+	optional ItemProto item = 2;
+}
+
+message ActivityRankInfoProto {
+	repeated ActivityRankDetailInfoProto detail = 1;
+}
+
+message ActivityRankDetailInfoProto {
+	required int32 rank = 1;
+	optional RewardProto item = 2;
+}
+
+message ActivityExchangeProto {
+    repeated ActivityExchangeItemProto items = 1;
+    optional int32 mainId = 2;
+    optional string endTime = 3;
+    optional string startTime = 4;
+}
+
+message ActivityExchangeItemProto {
+    required int32 id = 1;				//兑换id
+    required string endTime = 2;			//结束时间
+    required int32 currentNum = 3;		//玩家已兑换次数
+    required int32 maxNum = 4;			//可兑换总数
+    repeated ActivityItemProto target = 5;	//兑换目标
+    repeated ActivityItemProto provide = 6; //兑换材料
+    optional string startTime = 7;       //开始时间
+    optional int64 singleStartTime = 8;     //单项开始时间
+    optional int64 singleEndTime = 9;       //单项结束时间
+}
+
+message ActivityExchangeExchangeRequestProto {
+    required int32 activityId = 1;  //itemid 
+    optional int32 times = 2;				//兑换次数
+    optional int32 mainId = 3;
+}
+
+message ActivityExchangeExchangeResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySeckillBuyRequestProto {
+    required int32 activityId = 1;
+    optional int32 buyNum = 2;
+    optional int32 mainId = 3;
+}
+
+
+message ActivitySeckillProto {
+    repeated ActivitySeckillItemProto items = 1;
+    optional int32 mainId = 2;
+    optional string endTime = 3;
+    optional string startTime = 4;
+}
+
+message ActivitySeckillItemProto {
+    required int32 id = 1;				   //秒杀id
+    required string startTime = 2;		   //开始时间
+    required string endTime = 3;			   //结束时间	
+    required int32 currentNum = 4;		   //玩家已兑换次数
+    required int32 maxNum = 5;			   //可兑换总数
+    repeated ActivityItemProto target = 6; //兑换目标
+    repeated ActivityItemProto provide = 7;//兑换材料
+    required bool bought = 8;
+    optional int64 singleStartTime = 9;     //单项开始时间
+    optional int64 singleEndTime = 10;       //单项结束时间
+}
+
+message ActivitySeckillBuyResultProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2;
+    optional int32 mainId = 3;          //大id
+    optional int32 activityId = 4;      //单项id
+}
+
+message ActivitySeckillNumChangeProto {
+    required int32 id = 1;
+    required int32 currentNum = 2;
+    optional int32 mainId = 3;      //大id
+}
+message ActivitySpecialItemChangeProto {
+	required int32 mainId = 1;				//活动tab id
+	repeated ItemProto specialItems = 2; 	//限定物品及数量
+}
+
+message ActivityRankResponseProto {
+	required int32 result = 1;    					 //结果码
+	required int32 mainId = 2;						 //页签
+	repeated RankListResponseDetailProto detail = 3; //排行榜	
+}
+
+message RankListResponseDetailProto {
+    required int32 rank = 1;
+    optional int32 playerId = 2;
+    optional string playerName = 3;
+    optional int32 playerLevel = 4;
+    optional int32 playerIcon = 5;
+    optional int32 reborns = 6;
+    optional double damage = 7;
+    optional double battlePower = 8;			//以下PVP启用
+    repeated HeroProto retinueInfo = 9;
+    optional RewardProto item = 10;
+    optional bool isMale = 11;
+    optional int32 hitNum = 12;         //点击次数
+    optional string damageBig = 13;                           //大数据
+    optional string battlePowerBig = 14;			//大数据
+    optional int32 serverId = 15;
+    optional int32 peakArenaGrade = 16;             //巅峰竞技场段位
+}
+

@@ -1,0 +1,57 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+
+message ResonanceProto {
+    required int32 equipStarResonance = 1;      //装备星级共鸣
+    optional int32 equipRankResonance = 2;      //装备阶级
+    repeated IntIntProto equipSuitResonance = 3;      //装备套装
+    required int32 heroStarResonance = 4;      //随从星级共鸣
+    optional int32 heroRankResonance = 5;      //随从阶级
+    repeated IntIntProto heroSuitResonance = 6;      //随从套装 
+	optional TreasureResonanceProto treasureResonance = 7;
+	optional FairyResonanceProto fairyResonance = 8;
+}
+
+message ResonanceActiveRequestProto {
+    required int32 typeId= 1;      //1.装备星级 2.装备阶级 3.随从星级 4.随从阶级 5.装备套装 6.随从套装 7.宝具 8宝具异能 9 宝具收集
+    optional int32 id = 2;  //   id
+}
+
+message ResonanceActiveResponseProto {
+    required int32 result = 1;
+    optional int32 typeId = 2;      //1.装备星级 2.装备阶级 3.装备套装
+    optional int32 id = 3;  //   id
+}
+
+message ResonanceSuitRaiseRequestProto {
+    required int32 typeId = 1;    //5.装备套装 6.随从
+    optional int32 id = 2;
+}
+
+message ResonanceSuitRaiseResponseProto {
+    required int32 result = 1;
+    required int32 typeId = 2;    //5.装备套装 6.随从
+    optional int32 id = 3;      //套装id
+    optional int32 starLevel= 4;      //套装星级
+}
+
+message TreasureResonanceProto  {
+    repeated IntIntProto treasureResonance = 1;
+    repeated IntIntProto treasureEnchantResonance = 2;
+	optional int32 treasureResLv = 3;
+    optional int32 treasureEnchantLv = 4;
+    optional int32 treasureCollectLv = 5;
+}
+
+message FairyResonanceProto  {
+    repeated IntIntProto fairyResonance = 1;
+    repeated IntIntProto fairyStuntResonance = 2;
+	optional int32 fairyResLv = 3;
+    optional int32 fairyStuntLv = 4;
+    optional int32 fairyCollectLv = 5;
+}

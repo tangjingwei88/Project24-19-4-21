@@ -1,0 +1,144 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "RewardBase.proto";
+import "Base.proto";
+message AchievementProto {
+    repeated AchievementSeriesProto series = 1;
+}
+
+message AchievementSeriesProto {
+    required int32 type = 1;					//成就类型
+    repeated AchievementItemProto items = 2; 	//成就明细
+}
+
+message AchievementItemProto {
+    required int32 id = 1;				//成就id
+    required double currentNum = 2;		//当前值
+    required bool achieved = 3;			//已获得
+    required bool gotten = 4;			//已领取奖励
+    optional string currentNumBig = 5;		//当前值(大数据)
+}
+
+message AchievementReachProto {
+    repeated AchievementItemProto items = 1;
+}
+
+message AchievementGetRewardProto {
+    required int32 result = 1;
+    optional RewardProto reward = 2; 
+}
+
+message VitalityProto {
+	required int32 result = 1;
+    repeated VitalityItemProto items = 2;
+	required ActiveStatusProto activeStatus = 3;
+}
+
+message ActiveStatusProto {
+    required int32 curActiveNum = 1;        //当前活跃度
+    repeated ActiveItemProto items = 2;         //奖励
+}
+
+message ActiveItemProto {
+    required int32 id = 1;
+    optional int32 needActiveNum = 2;   //领取需要的活跃度
+    optional bool hasGotten = 3;        //是否已领取
+	optional RewardProto reward = 4; 
+}
+
+message VitalityItemProto {
+    required int32 id = 1;			 //任务id
+    required int32 currentNum = 2;   //当前完成次数
+	required bool achieved = 3;		 //已完成
+	required bool gotten = 4;		 //已领取奖励
+}
+
+message VitalityGetRewardProto {
+    required int32 result = 1;
+	required int32 id = 2;
+    optional RewardProto reward = 3; 
+	required int32 curActiveNum = 4; 
+}
+
+message ActiveGetRewardProto {
+    required int32 result = 1;
+	required int32 id = 2;
+    optional RewardProto reward = 3; 
+}
+
+message BountyProto {
+    required int32 completeTaskNum = 1;
+    optional int32 maxTaskNum = 2;
+    optional int32 extraTaskNum = 3;        //升级酒馆额外可完成任务数
+    repeated TaskDetailProto tasks = 4;
+    optional int32 freeTimes = 5;           //免费刷新次数 
+}
+
+message TaskDetailProto {
+    required int32 id = 1;			 //任务id
+    required int32 currentNum = 2;   //当前完成次数
+    optional int32 status = 3;      //当前状态， 1.未接受 2.已接受 3.已领取
+}
+
+message BountyOperationProto {
+    required int32 result = 1;
+    required int32 id = 2;
+    optional int32 status = 3;          //当前状态， 1.未接受 2.已接受 3.已领取 4 完成状态
+    required int32 currentNum = 4;   //当前完成次数
+    optional RewardProto reward = 5;
+}
+
+message BountyFreeRefreshChangeProto {
+    required int32 freeNum = 1;
+    required double nextFreeTime = 2;
+}
+
+message RefreshTaskResponseProto {
+    repeated TaskDetailProto tasks = 1;
+}
+
+//神谕
+message OracleProto {
+    required int32 completeTaskNum = 1;
+    optional int32 maxTaskNum = 2;
+    optional int32 extraTaskNum = 3;        //升级酒馆额外可完成任务数
+    repeated OracleTaskDetailProto tasks = 4;
+}
+
+
+message OracleTaskDetailProto {
+    required int32 id = 1;			 //任务id
+    required double endTime = 2;   // 完成时间戳 如果为开始则 传 0 
+    optional int32 status = 3;      //当前状态， 1.未接受 2.已接受 
+	repeated IntIntProto  missions = 4; //派遣列表 v1 类型 v2 id （有instId为instId）
+	repeated IntIntProto  missionRequires = 5; //派遣列表 v1 能力id v2 能力等级
+	optional double believeNum = 6;     //信仰点奖励
+}
+
+message OracleOperationProto {
+    required int32 result = 1;
+    required int32 id = 2;
+    optional int32 status = 3;          //当前状态， 1.未接受 2.已接受 3.已领取
+    required int32 currentNum = 4;   // 当前完成次数（只有领取状态时变化）
+    optional RewardProto reward = 5;
+	optional OracleTaskDetailProto newTask = 6;
+}
+
+message OracleNextTaskChangeProto {
+    required double nextTime = 1;  //（没有了传 0 ）
+	optional OracleTaskDetailProto addTask = 2;// 若无新任务增加则 传nil
+}
+
+message OracleMissionStartRequestProto{
+   required int32 id = 1;			 //任务id
+   repeated IntIntProto  missions = 2; //派遣列表 v1 类型 v2 id （有instId为instId）
+}
+
+
+
+
+

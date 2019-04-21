@@ -1,0 +1,127 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+
+message EquipmentProto{   //装备 信息
+	required int32 id = 1;
+	required int32 lv = 2;
+	required int32 rankLevel = 3;
+	required int32 starLevel = 4;
+    repeated int32 partsInfo = 5;
+    optional bool equipped = 6;     //是否装备于通用装备栏
+	repeated int32 fairys = 7;       //精灵唯一id
+    repeated EquipmentEnchantProto enchant = 8;//武器生成的附魔属性
+}
+
+message EquipmentLevelUpRequestProto {
+    required int32 id = 1;       		//装备id
+	required int32 times = 2;       	//times次数,-1表示一键升级
+}
+
+message EquipmentLevelUpResponseProto {
+    required int32 id = 1; 				//装备id
+	required int32 level = 2;     		//最新level
+	required int32 result = 3;     		//结果 0表示成功 1表示升级书不足 2表示装备不存在 3表示json出错
+}
+
+message EquipmentStarUpRequestProto {
+    required int32 id = 1;       		//装备id
+	required int32 times = 2;       	//starup次数,-1表示一键升星
+}
+
+message EquipmentStarUpResponseProto {
+    required int32 id = 1; 				//装备id
+	required int32 star = 2;     		//上升的star
+	required int32 result = 3;     		//结果 0表示成功 1表示升华石或装备碎片不足 2表示装备不存在 3表示json出错
+	required int32 finalStar = 4;		//装备star
+}
+
+message EquipmentRankUpRequestProto {
+    required int32 id = 1;       		//装备id
+	required int32 times = 2;       	//times次数,-1表示一键升级
+}
+
+message EquipmentRankUpResponseProto {
+    required int32 id = 1; 				//装备id
+	required int32 rank = 2;     		//最新rankLevel
+	required int32 result = 3;     		//结果 0表示成功 1表示升级书不足 2表示装备不存在 3表示json出错
+	repeated int32 partsInfo = 4;
+	optional EquipmentEnchantProto enchant = 5;
+	optional EquipmentEnchantProto oldEnchant = 6;
+}
+
+message EquipmentComposeRequestProto {
+	required int32 id = 1;       		//英雄id
+}
+
+message EquipmentComposeResponseProto {
+	required int32 id = 1;     			//英雄id
+	required int32 result = 2;     		//结果 0表示成功 1表示碎片不足 2表示随从已存在 3表示json出错
+}
+
+message EquipmentPartRankUpRequestProto {
+    required int32 id = 1;       		//装备id
+	required int32 position = 2;
+	required int32 times = 3;       	//times次数,-1表示一键升级
+}
+
+message EquipmentPartRankUpResponseProto {
+    required int32 id = 1; 				//装备id
+    required int32 position = 2;     	//装备配件部位 
+	required int32 rank = 3;     		//最新rankLevel
+	required int32 result = 4;     		//结果 0表示成功 1表示升级书不足 2表示装备不存在 3表示json出错
+}
+
+message EquipmentEquipRequestProto {
+	required int32 id = 1;          //神器id
+}
+
+message EquipmentEquipResponseProto {
+    required int32 result = 1; 
+	required int32 position = 2;     //主角部位
+	required int32 id = 3;          //神器id
+	required int32 lastId = 4;   // 原来装备的神器 无则给-1
+}
+
+message EquipmentEnchantProto {
+    required int32 slotId = 1;           	//配置id
+    required int32 rank = 2;   		//阶级
+    required float value = 3;		//生成的具体数值
+    optional bool isLock = 4;
+    optional int32 id = 5;
+}
+
+message EquipmentEnchantAllRefreshProto{
+    required int32 result = 1;
+    optional int32 equipmentId = 2;
+    repeated EquipmentEnchantProto enchant = 3;
+}
+
+message EquipmentEnchantLockProto{
+    required int32 result = 1;
+    required int32 equipmentId = 2;
+    required int32 slotId = 3;
+    optional bool isLock = 4;
+}
+
+message EquipmentEnchantChangeProto{
+    optional int32 equipmentId = 1;
+    repeated EquipmentEnchantProto enchant = 2;
+}
+
+message  EquipmentInsertFairyRequestProto{
+    optional int32 fairyInstId = 1;//拿来镶嵌的精灵InstId
+    optional int32 equipmentId = 2;//目标装备id
+    optional int32 pos = 3;//装备位置,0,1
+}
+
+message  EquipmentInsertFairyResponseProto{
+    optional int32 result = 1;//
+    optional int32 fairyInstId = 2;//拿来镶嵌的精灵唯一id
+    optional int32 equipmentId = 3;//目标装备id
+    optional int32 pos = 4;//装备位置,0,1
+}

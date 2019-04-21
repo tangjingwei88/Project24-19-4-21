@@ -1,0 +1,136 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+//C2S_CheckBattleRecord = 5311 战斗校验 AllRecordProto
+//S2C_CheckBattleRecord = 5311 返回结果 IntValueProto
+
+message DamagePackageProto {
+	required double damageNum = 1; //基础伤害值
+	required double skillDamageMultiper = 2; //基础伤害倍率
+	required double skillDamageAdd = 3; //额外伤害值
+	required double skillDamagePlusPCT = 4; //法术伤害倍率
+	required int32 attackType = 5; //攻击类型 None = 0 Melee = 1 Ranged = 2 RangedBullet = 3
+	required int32 damageType = 6; //伤害类型 Physics = 0 Maigc = 1 Real = 100
+	repeated double damageAttMultiper = 7; //属性伤害克制
+	required double dexterity = 8; //灵巧
+	required double criticalRate = 9; //额外暴击率
+	required double maxCriticalRate = 10; //总暴击率上限
+	required double criticalMultiper = 11; //暴击倍率
+	required double directHitRate = 12; //直击率
+	required double damagePlusPCT = 13; //总伤害加成
+	required bool dodge = 14;	//是否被闪避
+	required bool ignoreDodge = 15;	//是否无视闪避
+	required int32 source = 16; //伤害源单位id
+}
+
+message DefensePackageProto {
+	required double DEF = 1; //防御值
+	required int32 property = 2; //属性 地水火风光暗1-6
+	required double dexterity = 3; //灵巧
+	required double resistCritical = 4; //抗暴率
+	required double damageMinusPCT = 5; //总伤害减少	
+	repeated bool dtImmunes = 6; //伤害类型免疫
+	required bool wudi = 7; //无敌
+	required int32 source = 8; //防御源单位id
+}
+
+message RecoverPackageProto {
+	required double ATk = 1; //治疗值
+	required double cureMultiple = 2; //治疗倍率
+	required double skillDamagePlusPCT = 3; //法术治疗倍率
+	required double targetRecoverMultiper = 4; //目标回复倍率
+	required int32 source = 5; //治疗源单位id
+}
+
+message BattleUnitDataProto {
+	required double HP = 1; //血量
+	required double Shield = 2; //护盾
+	required double Recovery = 3; //恢复
+	required double ATK = 4; //攻击
+	required double MagicPower = 5; //魔力
+	required double Dexterity = 6; //灵巧
+	required double DEF = 7; //防御
+	required double ResistCritical = 8; //抗暴
+	required double CriticalRate = 9; //额外暴击率
+	required double MaxCriticalRate = 10; //暴击率上限
+	required double CriticalMultiper = 11; //暴击倍率
+	required double DirectHitRate = 12; //直击率
+	required double MaxDHRate = 13; //最大直击率
+	required double DamagePlusPCT = 14; //伤害加成
+	required double DamageMinusPCT = 15; //伤害减少
+	required double CureMultiper = 16; //治疗加成
+	required double RecoverMultiper = 17; //被治疗加成
+	required double SkillDamagePlusPCT = 18; //技能加成
+	required double AttackFrontSwing = 19; //攻击前摇
+	required double AttackTime = 20; //攻击间隔
+	required double MoveSpeed = 21; //移动速度
+	required double CDReduce = 22; //冷却缩减
+	repeated double DamageAttsMultiper = 23; //属性伤害加成
+	repeated bool dtImmune = 24; //伤害类型免疫
+	required bool wudi = 25; //无敌
+	required double bodyRadius = 26; //单位半径
+	required double AttackRange = 27; //攻击距离
+	required int32 AttackType = 28; //攻击类型
+}
+
+message BattleUnitProto {
+	required int32 id = 1;//-4:右精灵 -3:左精灵 -2:主角 -1:城墙 0:战斗代理 >0:正常id
+	required bool isMyCamp = 2;
+	required BattleUnitDataProto baseData = 3; //基础数值
+}
+
+message RecordDamageProto {
+	required BattleUnitProto source = 1; //源
+	required BattleUnitProto target = 2; //目标
+	required bool hpRemove = 3; //如果是hpremove，那么就没有下面的两个package
+	optional DamagePackageProto damagePackage = 4; //伤害包
+	optional DefensePackageProto defensePackage = 5; //防御包
+	required double resultValue = 6; //结果值
+	required double hpShield1 = 7; //受伤之前
+	required double hpShield2 = 8; //受伤之后
+	required bool causingDeath = 9; //致死
+}
+
+message RecordRecoverProto {
+	required BattleUnitProto source = 1; //源
+	required BattleUnitProto target = 2; //目标
+	required RecoverPackageProto recoverPackage = 3; //治疗包
+	required double resultValue = 4; //结果值
+	required double hpShield1 = 5; //受伤之前
+	required double hpShield2 = 6; //受伤之后
+}
+
+message RecordKillProto {
+	required BattleUnitProto source = 1; //源
+	required BattleUnitProto target = 2; //目标
+}
+
+message AllRecordProto {
+	repeated RecordDamageProto damageList = 1; //伤害列表
+	repeated RecordRecoverProto recoverList = 2; //治疗列表
+	repeated RecordKillProto killList = 3; //击杀列表
+}
+
+
+
+//-------------------------以下是技能校验
+message SkillUseSkillProto {
+	required int32 skillId = 1;
+	repeated double battleTimes = 2;
+}
+
+message SkillUseUnitProto {
+	required int32 id = 1;
+	required bool isMyCamp = 2;
+	repeated SkillUseSkillProto skills = 3;
+}
+
+message SkillUseCProto {
+	repeated SkillUseUnitProto units = 1;
+}
+
+message SkillUseSProto {
+	required int32 result = 1;
+}

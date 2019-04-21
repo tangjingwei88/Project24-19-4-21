@@ -1,0 +1,76 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+
+message Float3 {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message DoubleValueProto {
+    required double value = 1;
+}
+
+message IntValueProto {
+    required int32 value = 1;
+}
+
+message LongValueProto {
+    required int64 value = 1;
+}
+
+message BoolValueProto {
+    required bool value = 1;
+}
+
+message StringValueProto {
+    required string value = 1;
+}
+
+message IntStringProto {
+    required int32 intValue = 1;
+    required string stringValue = 2;
+}
+
+message IntIntProto {
+    required int32 intValue1 = 1;
+    required int32 intValue2 = 2;
+}
+
+message IntLongProto {
+    required int32 intValue1 = 1;
+    required int64 intValue2 = 2;
+}
+
+message IntDoubleProto {
+    required int32 intValue = 1;
+    required double doubleValue = 2;
+}
+
+message StringStringProto {
+    required string stringValue1 = 1;
+    required string stringValue2 = 2;
+}
+
+message IntBoolProto {
+    required int32 intValue = 1;
+    required bool boolValue = 2;
+}
+
+message IntValuesProto {
+    repeated int32 values = 1;
+}
+
+message VariableValueProto {
+    required int32 id = 1;   // 变量id
+    required int64 value = 2;   // 变量值
+}
+
+message VariableValuesProto {
+    repeated VariableValueProto values = 1;
+}

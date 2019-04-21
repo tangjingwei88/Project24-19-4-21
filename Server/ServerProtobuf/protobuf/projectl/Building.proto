@@ -1,0 +1,54 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "Base.proto";
+message BuildingProto {
+    required int32 id = 1;				//建筑id
+    required int32 level = 2;
+    repeated IntIntProto garrison = 3;         //派驻
+    repeated IntIntProto equips = 4;         //镶嵌装备
+}
+
+message BuildingLevelUpRequestProto {
+    required int32 id = 1;       		//建筑id
+	required int32 times = 2;       	//times次数,-1表示一键升级
+}
+
+message BuildingLevelUpResponseProto {
+    required int32 result = 1; 				
+	required int32 id = 2;     		//建筑id
+	required int32 level = 3;     	//最新level
+}
+
+message BuildingUnlockProto {
+      repeated BuildingProto buildings = 1; // 新解锁的建筑信息
+}
+
+message GarrisonRequestProto {
+    required int32 buildingId = 1;
+    required int32 retinueId = 2;
+    required int32 pos = 3;         //目标位置
+}
+
+message GarrisonResponseProto {
+    required int32 result = 1;
+    optional int32 buildingId = 2;
+    required int32 retinueId = 3;
+    required int32 pos = 4;         //目标位置
+}
+
+message BuildingInsertEquipRequestProto {
+    optional int32 buildingId = 1;
+    optional int32 equipId = 2;
+    optional int32 pos = 3;         //目标位置,0开始
+}
+
+message BuildingInsertEquipResponseProto {
+    optional int32 result = 1;
+    optional int32 buildingId = 2;
+    optional int32 equipId = 3;
+    optional int32 pos = 4;         //目标位置,0开始
+}

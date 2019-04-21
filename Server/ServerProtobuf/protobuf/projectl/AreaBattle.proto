@@ -1,0 +1,134 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+import "RewardBase.proto";
+import "Hero.proto";
+import "ItemPackage.proto";
+import "Activity.proto";
+message OpponentProto {
+	required int32 id = 1;              			//对手id
+	repeated HeroProto retinueInfo = 2;		//推送时刻对手的随从信息
+	optional int32 rank = 4;        				//推送时刻的排名
+	optional double battlePower = 5;				//推送时刻的战斗力
+	optional double hp = 6;
+	optional double clickDamage = 7;
+	optional double reduceDamage = 8;
+	optional double secondDamage = 9;
+	optional double recoverHp = 10;
+	optional double CriX = 11;
+	optional double CriDamage = 12;
+	optional double blockX = 13;
+	optional double blockDamage = 14;
+	optional string name = 15;
+	optional int32 reborns = 16;
+	optional bool isReal = 17;
+	optional int32 lv = 18;
+	optional bool isMale = 19;
+    optional string battlePowerBig = 20;				//推送时刻的战斗力(大数据)
+    optional int32 peakArenaGrade = 21;         //巅峰竞技场段位
+        repeated int32 formationInfo = 22;      //随从阵容
+}
+
+message CurrentOpponentResponseProto{
+    required int32 result = 1;
+    repeated OpponentProto opponentProto = 2;   //对手列表
+}
+
+
+message RankListResponseProto { 			//类型 1 伤害天梯 2 pvp 3 悬赏 
+    required int32 rankType = 1;
+    repeated RankListResponseDetailProto detail = 2;
+    extensions 3 to 50;
+}
+
+// message RankListResponseDetailProto {
+//     required int32 rank = 1;
+//     optional int32 playerId = 2;
+//     optional string playerName = 3;
+//     optional int32 playerLevel = 4;
+//     optional int32 playerIcon = 5;
+//     optional int32 reborns = 6;
+// 	optional double damage = 7;
+// 	optional double battlePower = 8;			//以下PVP启用
+// 	repeated HeroProto retinueInfo = 9;
+// 	optional RewardProto item = 10;
+// 	optional bool isMale = 11;
+//     optional int32 hitNum = 12;         //点击次数
+//     optional string damageBig = 13;                           //大数据
+// 	optional string battlePowerBig = 14;			//大数据
+//     extensions 15 to 100;
+// }
+
+message RankListRequestProto {
+    required int32 rankType = 1;			//类型 1 伤害天梯 2 pvp 3 悬赏
+}
+
+message RefreshOpponentResponseProto{
+    required int32 result = 1;
+    repeated OpponentProto opponentProto = 2;   //对手列表
+    optional int32 alreadyFreshTimes = 3;   //已刷新对手的次数
+    optional int32 totalFreshTimes = 4;     //总的可以刷新的次数
+}
+
+message ArenaProto {
+	optional int32 rank = 1;            	//竞技场排名
+	optional int32 refreshTimes = 2;    	//刷新的次数
+	optional int32 buyTimes = 3;        	//已购买的刷新次数
+	repeated OpponentProto opponents = 4;	//对手列表
+	optional int32 winBattles = 5;        	//总获胜场次
+	optional int32 historyRank = 7;			//历史最高排名
+	optional bool isBattleFirst = 8;		//是否首次竞技场战斗
+}
+
+message RetinueFormationProto {
+	required int32 formationId = 1;       //阵形id 1-10
+	required int32 retinueId = 2;     	  //随从id
+}
+message StartArenaRequestProto{
+	required int32 opponentId = 1;			//对手id
+	optional int32 consumeId = 2;         //消耗物品id
+}
+
+
+message StartArenaResponseProto{
+	required int32 result = 1;
+	optional int32 opponentId = 2;      	//对手id
+	optional int32 battleTimes = 3;    		//已挑战次数
+	repeated OpponentProto opponentList = 4;        //如果对手信息变更则强制重新刷新对手
+        optional OpponentProto myData = 5;              //自己的数据
+        
+	//	optional bool isWin = 4;         		//战斗结果
+//	optional int32 opponentRank = 5;       				//对手最新排名
+//	optional int32 rank = 6;        					//玩家最新排名
+//	repeated OpponentProto opponentList = 7;     		//胜利后刷新对手列表
+//	optional ArenaBattleInfoProto battleInfo = 8;  //竞技场战斗信息
+//	optional int64 gold = 9;				//获得的金币
+//	optional int64 arenatoken = 10;			//获得的竞技场代币
+//	optional OpponentProto enemyOpponent = 11; //对手的信息
+}
+
+message EndArenaRequestProto{
+	required int32 fightResult = 1;     //战斗结果
+	required int32 opponentId = 2;      //对手id
+}
+
+message EndArenaResponseProto{
+	required int32 result = 1;
+	optional int32 opponentId = 2;
+	optional int32 opponentRank = 3;       				//对手最新排名
+	optional int32 rank = 4;        					//玩家最新排名
+	repeated OpponentProto opponentList= 5;     		//胜利后刷新对手列表
+	repeated ItemProto items = 6; //新加 的获得的道具
+	optional int32 historyRankUp = 7;//新加 和历史最高排名相差多少
+	optional int32 challengeTimes = 8;  //当前挑战次数
+}
+
+message RankPersonProto{
+	required int32 type = 1;								//排行榜类型 1 伤害 2 PVP
+	optional int32 rank = 2;								//名次
+	optional double value = 3;								//伤害值,战斗力
+	optional string valueBig = 4;								//伤害值,战斗力(大数据)
+}

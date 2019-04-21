@@ -1,0 +1,11 @@
+package chanyu;
+
+option java_package = "com.chanyu.core.protobuf";
+
+option optimize_for = SPEED;
+
+message DBDownCacheProto{
+    required int32 type = 1;    // 类型
+    required bytes data = 2;    // 消息数据
+    required int64 time = 3;    // 时间
+}

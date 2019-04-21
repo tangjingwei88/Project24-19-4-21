@@ -1,0 +1,92 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+
+////生成天赋
+//C2S_GODHOOD_CREATE = 902;	nil
+//S2C_GODHOOD_CREATE = 902;	TalentCreateResponseProto
+//
+////升级天赋
+//C2S_GODHOOD_LEVELUP = 903;	id
+//S2C_GODHOOD_LEVELUP = 903;	TalentLevelupResponseProto
+//
+////重生
+//C2SGODHOOD_REMOVE = 904;
+//S2C_GODHOOD_REMOVE = 904;	GodHoodRemoveResponseProto
+//
+////锁定天赋
+//C2S_GODEHOOD_LOCK = 911;	IntIntProto		目标id，锁定状态（0.解锁 1.锁定）
+//S2C_GODEHOOD_LOCK = 911;	TalentLockResponseProto
+//
+////转换激活天赋页
+//C2S_CHANGE_GODHOOD_TAB = 912;
+//S2C_CHANGE_GODHOOD_TAB = 912;
+//
+////天赋增加条目
+//C2S_GODHOOD_ADD_ATTR = 914;     IntProto  目标id
+//S2C_GODHOOD_ADD_ATTR = 914;	GodHoodNewSkillResponseProto
+//
+////天赋点数量改变
+//S2C_GODHOOD_POINTS_CHANGE = 913;	TalentChangeProto
+
+import "Base.proto";
+message TalentSystemProto {
+    required int32 tabId = 1;       //天赋页签id
+    optional bool isEnabled = 2;       //是否启用
+    optional double remainTalent = 3;        //当前页签剩余天赋点数
+    repeated TalentSkillProto talentSkills = 4;     //当前页签的天赋信息
+    optional double totalTalent = 5;     //总天赋数
+    optional int32 rebornCount = 6; //new 今天重生的次数
+}
+
+message TalentSkillProto {
+    required int32 id = 1;             	//天赋Id
+    optional int32 level = 2;          	//天赋等级
+    optional bool locked = 3;			//锁定标记
+    repeated IntIntProto attributes = 4;   //new 属性id 品级
+    optional int32 createOrder = 5;
+}
+
+
+message TalentCreateResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+	optional double talent = 3;						//当前的天赋点数
+    optional int32 tabId = 4;           //天赋页签
+}
+
+
+message TalentLevelupResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+    optional int32 level = 3;       				//天赋的最新等级
+	optional double talent = 4;						//最新的天赋点数
+    optional int32 tabId = 5;           //天赋页签
+}
+
+
+message TalentLockResponseProto{
+    required int32 result = 1;
+	optional int32 id = 2;        					//天赋id
+	optional int32 locked = 3;						//锁定标记 0未锁 1锁定
+    optional int32 tabId = 4;           //天赋页签
+}
+
+message TalentChangeProto {
+    optional double firstTabRemain = 1;      //第一个页签剩余天赋点数
+    optional double sencondTabRemain = 2;    //第二个页签剩余天赋点数
+    required double humanTalent = 3;    //玩家身上总天赋点数
+}
+
+message GodHoodNewSkillResponseProto{
+    required int32 result = 1;
+    optional TalentSkillProto newSkill = 2;
+}
+
+message GodHoodRemoveResponseProto {
+    required int32 result = 1;
+    optional TalentSystemProto curInfo = 2;
+}

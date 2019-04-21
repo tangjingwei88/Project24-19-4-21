@@ -1,0 +1,17 @@
+package chanyu;
+
+option java_package = "com.chanyu.projectl.protobuf";
+
+option optimize_for = SPEED;
+
+message PowerRateProto {
+    required PowerRateItemProto after = 1; //之后一个等级
+    repeated PowerRateItemProto items = 2;//当前达到过的等级
+    optional double historyPower = 3;//历史最高战力
+}
+
+message PowerRateItemProto {
+    required int32 id = 1;      //评估表上的id
+    required int32 totalNum = 2; //本段位总人数
+    required float percent = 3;//本段位百分比
+}
