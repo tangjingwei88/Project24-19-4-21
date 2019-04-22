@@ -288,7 +288,7 @@ public class GamePanel : MonoBehaviour {
     /// <param name="gameLv"></param>
     private void ShowInputNumRoot(int gameLv)
     {
-        StageConfigManager.StageConfig stageConfig = StageConfigManager.GetStageConfig(GameData.Instance.GameStage);
+      /*  StageConfigManager.StageConfig stageConfig = StageConfigManager.GetStageConfig(GameData.Instance.GameStage);
         Dictionary<int, string> numIconPoolDic = stageConfig.numIconPoolDic;
         for (int i = 1; i <= gameLv; i++)
         {
@@ -304,6 +304,7 @@ public class GamePanel : MonoBehaviour {
         dragInputItemWidget.transform.GetComponent<UIGrid>().maxPerLine = GameData.Instance.resultColumn;
         dragInputItemWidget.transform.GetComponent<UIGrid>().Reposition();
         dragInputItemWidget.transform.GetComponent<UIGrid>().repositionNow = true;
+        */
     }
 
 
