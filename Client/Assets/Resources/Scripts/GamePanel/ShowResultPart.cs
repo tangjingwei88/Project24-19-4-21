@@ -31,7 +31,7 @@ public class ShowResultPart : MonoBehaviour {
 
 
 
-    public void Apply(Dictionary<LIGHT_TYPE, int> dictionary)
+    public void Apply(Dictionary<LIGHT_TYPE, int> dictionary,GameObject go)
     {
         if (lightItemList != null) Clear();
         //游戏胜利
@@ -49,30 +49,46 @@ public class ShowResultPart : MonoBehaviour {
         }
         else
         {
-            StartCoroutine(ShowLight(dictionary));
+            GameObject stageObj = go.transform.Find("StagePanel/stage_" + GameData.Instance.GameStage + "/ResultPanel/").gameObject;
+            for (int i = 0; i < stageObj.transform.childCount;i++)
+            {
+                stageObj.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            StartCoroutine(ShowLight(dictionary,go));
         }
 
         ShowResultEffect();
     }
 
 
-    public IEnumerator ShowLight(Dictionary<LIGHT_TYPE, int> dictionary)
+    public IEnumerator ShowLight(Dictionary<LIGHT_TYPE, int> dictionary,GameObject go)
     {
+        GameObject stageObj = go.transform.Find("StagePanel/stage_" + GameData.Instance.GameStage + "/ResultPanel/").gameObject;
+        int index = 1;
         foreach (var item in dictionary)
         {
             for (int i = 0; i < item.Value; i++)
             {
-                GameObject go = Instantiate(LightTemplate);
-                go.SetActive(true);
-                go.transform.parent = LightWidget.transform;
-                go.transform.localPosition = Vector3.zero;
-                go.transform.localScale = Vector3.one;
 
-                LightItemTemplate sc = go.GetComponent<LightItemTemplate>();
+                Debug.LogError("item.Value " + item.Value);
+                Debug.LogError("i " + index);
+                GameObject obj = stageObj.transform.Find("ResultItem_" + index).gameObject;
+                obj.SetActive(true);
+                LightItemTemplate sc = obj.GetComponent<LightItemTemplate>();
                 sc.Apply(item);
-                LightWidget.GetComponent<UIGrid>().repositionNow = true;
-                LightWidget.GetComponent<UIGrid>().maxPerLine = GameData.Instance.resultColumn;
-                lightItemList.Add(go);
+                index++;
+                /*  GameObject go = Instantiate(LightTemplate);
+                  go.SetActive(true);
+                  go.transform.parent = LightWidget.transform;
+                  go.transform.localPosition = Vector3.zero;
+                  go.transform.localScale = Vector3.one;
+
+                  LightItemTemplate sc = go.GetComponent<LightItemTemplate>();
+                  sc.Apply(item);
+                  LightWidget.GetComponent<UIGrid>().repositionNow = true;
+                  LightWidget.GetComponent<UIGrid>().maxPerLine = GameData.Instance.resultColumn;
+                  lightItemList.Add(go);
+                  */
                 NGUITools.PlaySound(showLightMusic,0.1f);
                 NGUITools.soundVolume = 1;
                 yield return new WaitForSeconds(0.1f);
@@ -94,6 +110,7 @@ public class ShowResultPart : MonoBehaviour {
 
         Destroy(showEffectGO,1.0f);
     }
+
 
 
 

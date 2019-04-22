@@ -225,7 +225,7 @@ public class GamePanel : MonoBehaviour {
     /// <param name="dic"></param>
     private void RefreshLighterShow(Dictionary<LIGHT_TYPE, int> dic)
     {
-        theShowResultPart.Apply(dic);
+        theShowResultPart.Apply(dic,this.gameObject);
     }
 
 
@@ -378,10 +378,11 @@ public class GamePanel : MonoBehaviour {
     {
         string inputStr = "";
         Dictionary<int, int> dic = new Dictionary<int, int>();
+        GameObject stageObj = transform.Find("StagePanel/stage_" + GameData.Instance.GameStage + "/InputPanel/").gameObject;
 
         for (int i = 1; i <= gameLv; i++)
         {
-            GameObject obj = transform.Find("CenterPart/DragInputWidget/DragInputItem_" + i + "/Label").gameObject;
+            GameObject obj = stageObj.transform.Find("InputItem_" + i + "/Label").gameObject;
             string inputValue = obj.GetComponent<UILabel>().text;
             inputStr += inputValue;
             //输入为“0”说明是绿“+”状态，不加入字典
