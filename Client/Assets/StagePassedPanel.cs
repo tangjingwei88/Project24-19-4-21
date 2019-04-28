@@ -42,7 +42,7 @@ public class StagePassedPanel : MonoBehaviour {
             StageConfigManager.StageConfig cfg = StageConfigManager.GetStageConfig(i);
             if (cfg != null)
             {
-                GameObject go = Instantiate(StageInfoTemplate);
+              /*  GameObject go = Instantiate(StageInfoTemplate);
                 go.SetActive(true);
                 go.transform.parent = ItemListWidget.transform;
                 go.transform.localScale = Vector3.one;
@@ -52,7 +52,7 @@ public class StagePassedPanel : MonoBehaviour {
                 st.Apply(cfg.ID,cfg.Icon);
 
                 ItemListWidget.GetComponent<UIGrid>().repositionNow = true;
-                itemList.Add(go);
+                itemList.Add(go);*/
             }
             else {
                 return;

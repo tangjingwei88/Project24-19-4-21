@@ -173,8 +173,8 @@ public class GamePanel : MonoBehaviour {
         Debug.LogError("游戏结束");
         theShowLogPart.Clear();
 //        GamePanel.Instance.timer = 0;
-        theGameOverPanel.gameObject.SetActive(true);
-        theGameOverPanel.Apply();
+        UIMain.Instance.theGameOverPanel.gameObject.SetActive(true);
+        UIMain.Instance.theGameOverPanel.Apply();
     }
 
     public void StopTimer()
@@ -553,7 +553,7 @@ public class GamePanel : MonoBehaviour {
     /// </summary>
     public void RefreshDragItemState()
     {
-        Debug.LogError("###RefreshDragItemState");
+       // Debug.LogError("###RefreshDragItemState");
         for (int i = 0; i < dragItemList.Count;i++)
         {
             GameObject dragGo = dragItemList[i];

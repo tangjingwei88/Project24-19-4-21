@@ -70,8 +70,8 @@ public class ShowResultPart : MonoBehaviour {
             for (int i = 0; i < item.Value; i++)
             {
 
-                Debug.LogError("item.Value " + item.Value);
-                Debug.LogError("i " + index);
+               // Debug.LogError("item.Value " + item.Value);
+               // Debug.LogError("i " + index);
                 GameObject obj = stageObj.transform.Find("ResultItem_" + index).gameObject;
                 obj.SetActive(true);
                 LightItemTemplate sc = obj.GetComponent<LightItemTemplate>();

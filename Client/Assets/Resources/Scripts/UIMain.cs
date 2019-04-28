@@ -8,7 +8,7 @@ public class UIMain : MonoBehaviour {
 
     public GamePanel theGamePanel;
     public StagePassedPanel theStagePassedPanel;
-    public GameOverPanel theGameOverPanel;
+    public GameOverPanel theGameOverPanel = new GameOverPanel();
 
     #endregion
 
